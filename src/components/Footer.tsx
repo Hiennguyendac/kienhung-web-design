@@ -9,11 +9,11 @@ const footerLinks = {
     { label: "Tuyển dụng", href: "/tin-tuc#news" },
   ],
   services: [
-    { label: "Thương mại & Phân phối", href: "/linh-vuc-hoat-dong#services" },
-    { label: "Công nghệ thông tin", href: "/linh-vuc-hoat-dong#services" },
-    { label: "Quảng cáo & Marketing", href: "/linh-vuc-hoat-dong#services" },
-    { label: "Vận tải & Logistics", href: "/linh-vuc-hoat-dong#services" },
-    { label: "Giáo dục & Đào tạo", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Thương mại & Phân phối", href: "/dich-vu/thuong-mai-phan-phoi" },
+    { label: "Công nghệ thông tin", href: "/dich-vu/cong-nghe-thong-tin" },
+    { label: "Quảng cáo & Marketing", href: "/dich-vu/quang-cao-marketing" },
+    { label: "Vận tải & Logistics", href: "/dich-vu/logistics-cho-thue-xe" },
+    { label: "Giáo dục & Đào tạo", href: "/dich-vu/giao-duc-dao-tao" },
   ],
   legal: [
     { label: "Điều khoản sử dụng", href: "/gioi-thieu#legal" },
