@@ -13,6 +13,7 @@ const footerLinks = {
     { label: "Công nghệ thông tin", href: "/linh-vuc-hoat-dong#services" },
     { label: "Quảng cáo & Marketing", href: "/linh-vuc-hoat-dong#services" },
     { label: "Vận tải & Logistics", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Giáo dục & Đào tạo", href: "/linh-vuc-hoat-dong#services" },
   ],
   legal: [
     { label: "Điều khoản sử dụng", href: "/gioi-thieu#legal" },
