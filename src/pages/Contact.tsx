@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { ContactSection } from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { MapPin, PhoneCall, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const quickContacts = [
   {
@@ -45,11 +46,11 @@ const ContactPage = () => {
                   đội ngũ Kiến Hưng luôn sẵn sàng hỗ trợ.
                 </p>
                 <div className="mt-6 flex gap-4">
-                  <Button variant="default" size="lg">
-                    Gọi ngay
+                  <Button asChild variant="default" size="lg">
+                    <a href="tel:0903103198">Gọi ngay</a>
                   </Button>
-                  <Button variant="outline" size="lg">
-                    Đặt lịch hẹn
+                  <Button asChild variant="outline" size="lg">
+                    <Link to="/yeu-cau-bao-gia">Đặt lịch hẹn</Link>
                   </Button>
                 </div>
               </div>
