@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 
 const navItems = [
   { label: "Trang chủ", href: "#" },
@@ -20,9 +21,9 @@ export const Header = () => {
       <div className="bg-navy text-primary-foreground py-2 hidden md:block">
         <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:0123456789" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href="tel:0903103198" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Phone className="w-4 h-4" />
-              <span>Hotline: 0123 456 789</span>
+              <span>Hotline: 0903 103 198</span>
             </a>
             <a href="mailto:contact@kienhunginvest.vn" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-4 h-4" />
@@ -41,9 +42,11 @@ export const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-navy rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-xl">KH</span>
-              </div>
+              <img 
+                src={kienHungLogo} 
+                alt="Kiến Hưng Investment Logo" 
+                className="w-14 h-14 object-contain"
+              />
               <div className="hidden sm:block">
                 <div className="font-heading text-lg font-bold text-navy leading-tight">
                   KIẾN HƯNG

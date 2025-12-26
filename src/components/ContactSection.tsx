@@ -6,7 +6,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Điện thoại",
-    content: "0123 456 789",
+    content: "0903 103 198",
     subContent: "Hotline 24/7",
   },
   {
@@ -17,15 +17,15 @@ const contactInfo = [
   },
   {
     icon: MapPin,
-    title: "Địa chỉ",
-    content: "Số XX, Đường XX",
-    subContent: "Quận XX, TP. Hồ Chí Minh",
+    title: "Trụ sở chính",
+    content: "35/29/11 Cao Lỗ, P. Chánh Hưng",
+    subContent: "TP. Hồ Chí Minh",
   },
   {
-    icon: Clock,
-    title: "Giờ làm việc",
-    content: "Thứ 2 - Thứ 6",
-    subContent: "8:00 - 17:30",
+    icon: MapPin,
+    title: "Văn phòng",
+    content: "MP2-3.11 Mizuki Park, Bình Hưng",
+    subContent: "TP. Hồ Chí Minh",
   },
 ];
 

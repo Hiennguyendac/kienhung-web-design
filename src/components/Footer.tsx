@@ -1,4 +1,5 @@
 import { Facebook, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 
 const footerLinks = {
   company: [
@@ -34,9 +35,11 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center">
-                <span className="text-navy-dark font-heading font-bold text-xl">KH</span>
-              </div>
+              <img 
+                src={kienHungLogo} 
+                alt="Kiến Hưng Investment Logo" 
+                className="w-14 h-14 object-contain"
+              />
               <div>
                 <div className="font-heading text-lg font-bold leading-tight">
                   KIẾN HƯNG
@@ -51,9 +54,9 @@ export const Footer = () => {
               của doanh nghiệp Việt Nam.
             </p>
             <div className="space-y-3">
-              <a href="tel:0123456789" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-gold transition-colors">
+              <a href="tel:0903103198" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-gold transition-colors">
                 <Phone className="w-4 h-4" />
-                0123 456 789
+                0903 103 198
               </a>
               <a href="mailto:contact@kienhunginvest.vn" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-gold transition-colors">
                 <Mail className="w-4 h-4" />
@@ -61,7 +64,7 @@ export const Footer = () => {
               </a>
               <div className="flex items-start gap-3 text-sm text-primary-foreground/70">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Số XX, Đường XX, Quận XX, TP. Hồ Chí Minh</span>
+                <span>35/29/11 Cao Lỗ, P. Chánh Hưng, TP. HCM</span>
               </div>
             </div>
           </div>
@@ -148,7 +151,7 @@ export const Footer = () => {
               © {new Date().getFullYear()} CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ ĐẦU TƯ KIẾN HƯNG. Bản quyền đã được bảo hộ.
             </p>
             <p className="font-body text-xs text-primary-foreground/50">
-              MST: XXXXXXXXXX | Giấy phép ĐKKD do Sở KH&ĐT cấp
+              MST: 0317197517 | Giấy phép ĐKKD do Sở KH&ĐT TP.HCM cấp
             </p>
           </div>
         </div>

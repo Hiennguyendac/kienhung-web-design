@@ -10,17 +10,22 @@ const legalInfo = [
   {
     icon: FileText,
     label: "Mã số thuế",
-    value: "XXXXXXXXXX",
+    value: "0317197517",
   },
   {
     icon: MapPin,
-    label: "Địa chỉ trụ sở",
-    value: "Số XX, Đường XX, Quận XX, TP. Hồ Chí Minh",
+    label: "Trụ sở chính",
+    value: "35/29/11 Cao Lỗ, P. Chánh Hưng, TP. Hồ Chí Minh",
+  },
+  {
+    icon: MapPin,
+    label: "Văn phòng",
+    value: "MP2-3.11 Mizuki Park, Bình Hưng, TP. Hồ Chí Minh",
   },
   {
     icon: Phone,
     label: "Điện thoại",
-    value: "0123 456 789",
+    value: "0903 103 198",
   },
   {
     icon: Mail,
