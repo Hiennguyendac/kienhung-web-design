@@ -35,11 +35,13 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center gap-3 mb-6">
-              <img 
-                src={kienHungLogo} 
-                alt="Kiến Hưng Investment Logo" 
-                className="w-14 h-14 object-contain"
-              />
+              <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
+                <img 
+                  src={kienHungLogo} 
+                  alt="Kiến Hưng Investment Logo" 
+                  className="w-full h-full object-cover object-top scale-125"
+                />
+              </div>
               <div>
                 <div className="font-heading text-lg font-bold leading-tight">
                   KIẾN HƯNG
