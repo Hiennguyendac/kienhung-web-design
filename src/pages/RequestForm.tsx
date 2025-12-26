@@ -20,18 +20,59 @@ const RequestForm = () => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const formsEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Yêu cầu tư vấn từ ${form.name || "khách hàng"}`;
-    const body = [
-      `Họ tên: ${form.name}`,
-      `Điện thoại: ${form.phone}`,
-      `Email: ${form.email}`,
-      `Công ty: ${form.company}`,
-      `Dịch vụ quan tâm: ${form.service}`,
-      `Nhu cầu chi tiết: ${form.detail}`,
-    ].join("%0D%0A");
-    window.location.href = `mailto:nguyen.dac.hien@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    setStatus("loading");
+
+    if (!formsEndpoint) {
+      // Fallback: open mail client nếu chưa cấu hình endpoint
+      const subject = `Yêu cầu tư vấn từ ${form.name || "khách hàng"}`;
+      const body = [
+        `Họ tên: ${form.name}`,
+        `Điện thoại: ${form.phone}`,
+        `Email: ${form.email}`,
+        `Công ty: ${form.company}`,
+        `Dịch vụ quan tâm: ${form.service}`,
+        `Nhu cầu chi tiết: ${form.detail}`,
+      ].join("%0D%0A");
+      window.location.href = `mailto:nguyen.dac.hien@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      setStatus("idle");
+      return;
+    }
+
+    try {
+      const res = await fetch(formsEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          company: form.company,
+          service: form.service,
+          detail: form.detail,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Submit failed");
+
+      setStatus("success");
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        company: "",
+        service: "Thương mại & Phân phối",
+        detail: "",
+      });
+    } catch (err) {
+      setStatus("error");
+    }
   };
 
   return (
@@ -47,12 +88,12 @@ const RequestForm = () => {
             Điền thông tin dưới đây, chúng tôi sẽ phản hồi trong 24 giờ. Thông tin sẽ được gửi về email nguyen.dac.hien@gmail.com.
           </p>
 
-          <form onSubmit={onSubmit} className="bg-card border border-border rounded-2xl shadow-elevated p-6 lg:p-8 space-y-6">
-            <div className="grid md:grid-cols-2 gap-5">
-              <div>
-                <label className="block font-body text-sm font-medium text-foreground mb-2">Họ và tên *</label>
-                <Input required value={form.name} onChange={onChange("name")} placeholder="Nguyễn Văn A" />
-              </div>
+            <form onSubmit={onSubmit} className="bg-card border border-border rounded-2xl shadow-elevated p-6 lg:p-8 space-y-6">
+              <div className="grid md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block font-body text-sm font-medium text-foreground mb-2">Họ và tên *</label>
+                  <Input required value={form.name} onChange={onChange("name")} placeholder="Nguyễn Văn A" />
+                </div>
               <div>
                 <label className="block font-body text-sm font-medium text-foreground mb-2">Số điện thoại *</label>
                 <Input required type="tel" value={form.phone} onChange={onChange("phone")} placeholder="0123 456 789" />
@@ -97,11 +138,21 @@ const RequestForm = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <Button type="submit" variant="default" size="lg" className="sm:w-auto w-full">
-                Gửi yêu cầu
+              <Button type="submit" variant="default" size="lg" className="sm:w-auto w-full" disabled={status === "loading"}>
+                {status === "loading" ? "Đang gửi..." : "Gửi yêu cầu"}
               </Button>
               <span className="text-sm text-muted-foreground">Chúng tôi sẽ phản hồi trong 24h qua email/điện thoại.</span>
             </div>
+            {status === "success" && (
+              <div className="text-sm text-green-600 font-medium">
+                Đã gửi yêu cầu. Chúng tôi sẽ liên hệ sớm nhất qua email/điện thoại bạn cung cấp.
+              </div>
+            )}
+            {status === "error" && (
+              <div className="text-sm text-red-600 font-medium">
+                Gửi thất bại. Vui lòng thử lại hoặc gửi email tới nguyen.dac.hien@gmail.com.
+              </div>
+            )}
           </form>
         </div>
       </main>
