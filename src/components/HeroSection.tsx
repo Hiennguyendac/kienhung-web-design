@@ -1,53 +1,76 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
-import heroImage from "@/assets/hero-building.jpg";
+import { ArrowRight, Building2, Shield, Award } from "lucide-react";
+import heroImage from "@/assets/kien-hung-hero.jpg";
+
+const highlights = [
+  { icon: Building2, text: "Doanh nghiệp uy tín" },
+  { icon: Shield, text: "Hoạt động minh bạch" },
+  { icon: Award, text: "Đối tác tin cậy" },
+];
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Modern glass office building reflecting golden sunset over city skyline"
+          alt="Trụ sở Công ty Kiến Hưng Investment"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-hero opacity-80" />
+        <div className="absolute inset-0 bg-hero opacity-85" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20">
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 py-20">
         <div className="max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gold font-body text-sm tracking-widest uppercase mb-6"
+            className="text-gold font-body text-sm tracking-widest uppercase mb-4"
           >
-            Global Investment Solutions
+            Công ty TNHH Thương mại Dịch vụ Đầu tư
           </motion.p>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-heading text-4xl md:text-5xl lg:text-7xl text-primary-foreground leading-tight mb-8"
+            className="font-heading text-4xl md:text-5xl lg:text-6xl text-primary-foreground font-bold leading-tight mb-6"
           >
-            Investing with purpose.{" "}
-            <span className="italic text-gold-light">Outcomes</span> that matter.
+            KIẾN HƯNG
+            <span className="block text-gold">INVESTMENT</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="font-body text-lg md:text-xl text-primary-foreground/80 max-w-2xl mb-10 leading-relaxed"
+            className="font-body text-lg md:text-xl text-primary-foreground/85 max-w-2xl mb-8 leading-relaxed"
           >
-            For over 85 years, we've helped institutions and individuals achieve their 
-            financial goals through innovative investment strategies and unwavering commitment 
-            to fiduciary excellence.
+            Đối tác đáng tin cậy trong lĩnh vực thương mại, công nghệ thông tin, 
+            quảng cáo và dịch vụ logistics. Chúng tôi cam kết mang đến giá trị 
+            bền vững cho khách hàng và đối tác.
           </motion.p>
+
+          {/* Highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-wrap gap-6 mb-10"
+          >
+            {highlights.map((item, index) => (
+              <div key={index} className="flex items-center gap-2 text-primary-foreground/80">
+                <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+                  <item.icon className="w-4 h-4 text-gold" />
+                </div>
+                <span className="font-body text-sm">{item.text}</span>
+              </div>
+            ))}
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -56,35 +79,15 @@ export const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <Button variant="heroSolid" size="xl" className="group">
-              Explore Solutions
+              Tìm hiểu thêm
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button variant="hero" size="xl" className="group">
-              <Play className="w-5 h-5" />
-              Watch Our Story
+            <Button variant="hero" size="xl">
+              Liên hệ hợp tác
             </Button>
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-primary-foreground/60 text-xs tracking-widest uppercase font-body">
-          Scroll to explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex justify-center pt-2"
-        >
-          <div className="w-1.5 h-1.5 bg-gold rounded-full" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
