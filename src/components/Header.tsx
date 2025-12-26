@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 
 const navItems = [
-  { label: "Trang chủ", href: "#" },
-  { label: "Giới thiệu", href: "#about" },
-  { label: "Lĩnh vực hoạt động", href: "#services" },
-  { label: "Tin tức", href: "#news" },
-  { label: "Liên hệ", href: "#contact" },
+  { label: "Trang chủ", to: "/" },
+  { label: "Giới thiệu", to: "/gioi-thieu" },
+  { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
+  { label: "Tin tức", to: "/tin-tuc" },
+  { label: "Liên hệ", to: "/lien-he" },
 ];
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <>
@@ -41,7 +43,7 @@ export const Header = () => {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                 <img 
                   src={kienHungLogo} 
@@ -57,26 +59,30 @@ export const Header = () => {
                   INVESTMENT
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
-                  className="text-foreground hover:text-navy transition-colors font-body text-sm font-medium"
+                  to={item.to}
+                  className={`text-foreground hover:text-navy transition-colors font-body text-sm font-medium ${
+                    location.pathname === item.to ? "text-navy" : ""
+                  }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-4">
-              <Button variant="default" size="sm">
-                Liên hệ tư vấn
-              </Button>
+              <Link to="/lien-he">
+                <Button variant="default" size="sm">
+                  Liên hệ tư vấn
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -101,19 +107,21 @@ export const Header = () => {
             >
               <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.label}
-                    href={item.href}
+                    to={item.to}
                     className="py-3 text-foreground font-body border-b border-border last:border-0"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
-                  <Button variant="default" className="w-full">
-                    Liên hệ tư vấn
-                  </Button>
+                  <Link to="/lien-he" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="default" className="w-full">
+                      Liên hệ tư vấn
+                    </Button>
+                  </Link>
                 </div>
               </nav>
             </motion.div>

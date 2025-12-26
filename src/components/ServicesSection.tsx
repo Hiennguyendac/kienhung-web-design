@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Monitor, Megaphone, Truck, GraduationCap, ArrowRight } from "lucide-react";
 
@@ -73,13 +74,13 @@ export const ServicesSection = () => {
               <p className="font-body text-muted-foreground text-sm leading-relaxed mb-4">
                 {service.description}
               </p>
-              <a
-                href="#"
+              <Link
+                to="/linh-vuc-hoat-dong"
                 className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold transition-colors group/link"
               >
                 Tìm hiểu thêm
                 <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>

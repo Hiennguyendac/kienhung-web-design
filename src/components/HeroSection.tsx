@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Shield, Award } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
@@ -78,12 +79,14 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <Button variant="heroSolid" size="xl" className="group">
-              Tìm hiểu thêm
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <Button variant="heroSolid" size="xl" className="group" asChild>
+              <Link to="/gioi-thieu">
+                Tìm hiểu thêm
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
-            <Button variant="hero" size="xl">
-              Liên hệ hợp tác
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/lien-he">Liên hệ hợp tác</Link>
             </Button>
           </motion.div>
         </div>

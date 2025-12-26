@@ -1,23 +1,24 @@
+import { Link } from "react-router-dom";
 import { Facebook, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 
 const footerLinks = {
   company: [
-    { label: "Giới thiệu", href: "#about" },
-    { label: "Lĩnh vực hoạt động", href: "#services" },
-    { label: "Tin tức", href: "#news" },
-    { label: "Tuyển dụng", href: "#" },
+    { label: "Giới thiệu", to: "/gioi-thieu" },
+    { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
+    { label: "Tin tức", to: "/tin-tuc" },
+    { label: "Tuyển dụng", to: "/tin-tuc" },
   ],
   services: [
-    { label: "Thương mại & Phân phối", href: "#" },
-    { label: "Công nghệ thông tin", href: "#" },
-    { label: "Quảng cáo & Marketing", href: "#" },
-    { label: "Vận tải & Logistics", href: "#" },
+    { label: "Thương mại & Phân phối", to: "/linh-vuc-hoat-dong" },
+    { label: "Công nghệ thông tin", to: "/linh-vuc-hoat-dong" },
+    { label: "Quảng cáo & Marketing", to: "/linh-vuc-hoat-dong" },
+    { label: "Vận tải & Logistics", to: "/linh-vuc-hoat-dong" },
   ],
   legal: [
-    { label: "Điều khoản sử dụng", href: "#" },
-    { label: "Chính sách bảo mật", href: "#" },
-    { label: "Quy định chung", href: "#" },
+    { label: "Điều khoản sử dụng", to: "/gioi-thieu" },
+    { label: "Chính sách bảo mật", to: "/gioi-thieu" },
+    { label: "Quy định chung", to: "/gioi-thieu" },
   ],
 };
 
@@ -34,7 +35,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-3 mb-6">
+            <Link to="/" className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
                 <img 
                   src={kienHungLogo} 
@@ -50,7 +51,7 @@ export const Footer = () => {
                   INVESTMENT
                 </div>
               </div>
-            </a>
+            </Link>
             <p className="font-body text-sm text-primary-foreground/70 mb-6 leading-relaxed">
               Công ty TNHH Thương mại Dịch vụ Đầu tư Kiến Hưng - Đối tác đáng tin cậy 
               của doanh nghiệp Việt Nam.
@@ -79,12 +80,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -98,12 +99,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -117,12 +118,12 @@ export const Footer = () => {
             <ul className="space-y-3 mb-8">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
