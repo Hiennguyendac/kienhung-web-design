@@ -23,8 +23,8 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Facebook, href: "https://www.facebook.com/AIforbusinessvietnam/", label: "Facebook" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/ai-business-vn/?viewAsMember=true", label: "LinkedIn" },
 ];
 
 export const Footer = () => {
