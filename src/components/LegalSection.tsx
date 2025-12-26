@@ -32,11 +32,6 @@ const legalInfo = [
     label: "Email",
     value: "contact@kienhunginvest.vn",
   },
-  {
-    icon: Globe,
-    label: "Website",
-    value: "www.kienhunginvest.vn",
-  },
 ];
 
 export const LegalSection = () => {
