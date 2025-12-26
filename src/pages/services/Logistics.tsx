@@ -45,7 +45,10 @@ const LogisticsPage = () => {
                 { label: "Tỷ lệ đúng hẹn", value: "98%" },
                 { label: "Khách hàng doanh nghiệp", value: "50+" },
               ].map((item) => (
-                <div key={item.label} className="p-4 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20">
+                <div
+                  key={item.label}
+                  className="p-4 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 backdrop-blur-sm shadow-lg shadow-black/10"
+                >
                   <p className="font-heading text-2xl font-semibold">{item.value}</p>
                   <p className="font-body text-sm text-primary-foreground/70">{item.label}</p>
                 </div>
@@ -64,7 +67,10 @@ const LogisticsPage = () => {
               </p>
               <div className="space-y-4">
                 {offerings.map((item) => (
-                  <div key={item} className="p-4 rounded-lg border border-border bg-card shadow-soft">
+                  <div
+                    key={item}
+                    className="p-4 rounded-lg border border-border bg-card shadow-soft hover:-translate-y-1 hover:border-gold/40 hover:shadow-elevated transition-all"
+                  >
                     <div className="flex items-start gap-3">
                       <Navigation className="w-5 h-5 text-navy mt-0.5" />
                       <p className="font-body text-foreground leading-relaxed">{item}</p>
@@ -73,7 +79,7 @@ const LogisticsPage = () => {
                 ))}
               </div>
             </div>
-            <div className="p-6 rounded-2xl bg-secondary/50 border border-border shadow-elevated">
+            <div className="p-6 rounded-2xl bg-card/90 border border-border shadow-elevated">
               <div className="flex items-center gap-3 mb-4">
                 <Warehouse className="w-6 h-6 text-navy" />
                 <h3 className="font-heading text-lg font-semibold">Điểm mạnh vận hành</h3>
@@ -95,7 +101,7 @@ const LogisticsPage = () => {
           </div>
         </section>
 
-        <section className="py-14 lg:py-18 bg-secondary/60 border-y border-border">
+        <section className="py-14 lg:py-18 bg-gradient-to-r from-secondary/80 via-secondary/40 to-gold/10 border-y border-border">
           <div className="container mx-auto px-6 lg:px-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Đặt lịch vận chuyển</h3>
