@@ -41,7 +41,7 @@ const legalInfo = [
 
 export const LegalSection = () => {
   return (
-    <section className="py-20 lg:py-28 bg-navy">
+    <section id="legal" className="py-20 lg:py-28 bg-navy">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div

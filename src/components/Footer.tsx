@@ -1,24 +1,23 @@
-import { Link } from "react-router-dom";
 import { Facebook, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 
 const footerLinks = {
   company: [
-    { label: "Giới thiệu", to: "/gioi-thieu" },
-    { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
-    { label: "Tin tức", to: "/tin-tuc" },
-    { label: "Tuyển dụng", to: "/tin-tuc" },
+    { label: "Giới thiệu", href: "/gioi-thieu#about" },
+    { label: "Lĩnh vực hoạt động", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Tin tức", href: "/tin-tuc#news" },
+    { label: "Tuyển dụng", href: "/tin-tuc#news" },
   ],
   services: [
-    { label: "Thương mại & Phân phối", to: "/linh-vuc-hoat-dong" },
-    { label: "Công nghệ thông tin", to: "/linh-vuc-hoat-dong" },
-    { label: "Quảng cáo & Marketing", to: "/linh-vuc-hoat-dong" },
-    { label: "Vận tải & Logistics", to: "/linh-vuc-hoat-dong" },
+    { label: "Thương mại & Phân phối", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Công nghệ thông tin", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Quảng cáo & Marketing", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Vận tải & Logistics", href: "/linh-vuc-hoat-dong#services" },
   ],
   legal: [
-    { label: "Điều khoản sử dụng", to: "/gioi-thieu" },
-    { label: "Chính sách bảo mật", to: "/gioi-thieu" },
-    { label: "Quy định chung", to: "/gioi-thieu" },
+    { label: "Điều khoản sử dụng", href: "/gioi-thieu#legal" },
+    { label: "Chính sách bảo mật", href: "/gioi-thieu#legal" },
+    { label: "Quy định chung", href: "/gioi-thieu#legal" },
   ],
 };
 
@@ -35,7 +34,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-6">
+            <a href="/" className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
                 <img 
                   src={kienHungLogo} 
@@ -51,7 +50,7 @@ export const Footer = () => {
                   INVESTMENT
                 </div>
               </div>
-            </Link>
+            </a>
             <p className="font-body text-sm text-primary-foreground/70 mb-6 leading-relaxed">
               Công ty TNHH Thương mại Dịch vụ Đầu tư Kiến Hưng - Đối tác đáng tin cậy 
               của doanh nghiệp Việt Nam.
@@ -80,12 +79,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.to}
+                  <a
+                    href={link.href}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -99,12 +98,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.to}
+                  <a
+                    href={link.href}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -118,12 +117,12 @@ export const Footer = () => {
             <ul className="space-y-3 mb-8">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.to}
+                  <a
+                    href={link.href}
                     className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
