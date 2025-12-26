@@ -8,6 +8,11 @@ import AboutPage from "./pages/About";
 import ServicesPage from "./pages/Services";
 import NewsPage from "./pages/News";
 import ContactPage from "./pages/Contact";
+import CommercePage from "./pages/services/Commerce";
+import ITPage from "./pages/services/IT";
+import MarketingPage from "./pages/services/Marketing";
+import LogisticsPage from "./pages/services/Logistics";
+import EducationPage from "./pages/services/Education";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +27,11 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/gioi-thieu" element={<AboutPage />} />
           <Route path="/linh-vuc-hoat-dong" element={<ServicesPage />} />
+          <Route path="/dich-vu/thuong-mai-phan-phoi" element={<CommercePage />} />
+          <Route path="/dich-vu/cong-nghe-thong-tin" element={<ITPage />} />
+          <Route path="/dich-vu/quang-cao-marketing" element={<MarketingPage />} />
+          <Route path="/dich-vu/logistics-cho-thue-xe" element={<LogisticsPage />} />
+          <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/lien-he" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -7,26 +7,31 @@ const services = [
     icon: ShoppingCart,
     title: "Thương mại & Phân phối",
     description: "Phân phối hàng hóa, thương mại xuất nhập khẩu, cung ứng sản phẩm cho doanh nghiệp.",
+    to: "/dich-vu/thuong-mai-phan-phoi",
   },
   {
     icon: Monitor,
     title: "Công nghệ thông tin & Phần mềm",
     description: "Cung cấp giải pháp CNTT, phát triển phần mềm, tư vấn chuyển đổi số cho doanh nghiệp.",
+    to: "/dich-vu/cong-nghe-thong-tin",
   },
   {
     icon: Megaphone,
     title: "Quảng cáo & Nghiên cứu thị trường",
     description: "Dịch vụ quảng cáo, marketing, nghiên cứu và phân tích thị trường chuyên sâu.",
+    to: "/dich-vu/quang-cao-marketing",
   },
   {
     icon: Truck,
     title: "Vận tải - Logistics - Cho thuê xe",
     description: "Dịch vụ vận chuyển, logistics, cho thuê xe doanh nghiệp với đội xe hiện đại.",
+    to: "/dich-vu/logistics-cho-thue-xe",
   },
   {
     icon: GraduationCap,
     title: "Giáo dục & Đào tạo",
     description: "Đào tạo kỹ năng, phát triển nguồn nhân lực cho doanh nghiệp và tổ chức.",
+    to: "/dich-vu/giao-duc-dao-tao",
   },
 ];
 
@@ -75,7 +80,7 @@ export const ServicesSection = () => {
                 {service.description}
               </p>
               <Link
-                to="/linh-vuc-hoat-dong"
+                to={service.to}
                 className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold transition-colors group/link"
               >
                 Tìm hiểu thêm
