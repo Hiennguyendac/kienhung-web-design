@@ -62,16 +62,22 @@ export const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
                   to={item.to}
-                  className={`text-foreground hover:text-navy transition-colors font-body text-sm font-medium ${
-                    location.pathname === item.to ? "text-navy" : ""
+                  className={`relative px-3 py-2 rounded-full text-foreground transition-all font-body text-sm font-medium hover:bg-navy/5 hover:text-navy ${
+                    location.pathname === item.to ? "text-navy bg-navy/5 shadow-inner" : ""
                   }`}
                 >
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
+                  {location.pathname === item.to && (
+                    <span
+                      className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-gold shadow-[0_0_0_4px_rgba(255,193,7,0.2)]"
+                      aria-hidden
+                    />
+                  )}
                 </Link>
               ))}
             </nav>
