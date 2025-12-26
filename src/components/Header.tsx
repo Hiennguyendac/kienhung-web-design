@@ -42,11 +42,13 @@ export const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href="/" className="flex items-center gap-3">
-              <img 
-                src={kienHungLogo} 
-                alt="Kiến Hưng Investment Logo" 
-                className="w-14 h-14 object-contain"
-              />
+              <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                <img 
+                  src={kienHungLogo} 
+                  alt="Kiến Hưng Investment Logo" 
+                  className="w-full h-full object-cover object-top scale-125"
+                />
+              </div>
               <div className="hidden sm:block">
                 <div className="font-heading text-lg font-bold text-navy leading-tight">
                   KIẾN HƯNG
