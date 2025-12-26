@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -33,8 +34,8 @@ const CommercePage = () => {
               <h1 className="font-heading text-3xl md:text-4xl font-bold leading-tight">
                 Thương mại & Phân phối
               </h1>
-              <Button variant="heroSolid" size="lg">
-                Liên hệ hợp tác
+              <Button variant="heroSolid" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Liên hệ hợp tác</Link>
               </Button>
             </div>
             <p className="font-body text-lg text-primary-foreground/80 max-w-3xl mt-4 leading-relaxed">
@@ -110,8 +111,12 @@ const CommercePage = () => {
               </p>
             </div>
             <div className="flex gap-3">
-              <Button variant="default" size="lg">Nhận tư vấn</Button>
-              <Button variant="outline" size="lg">Tải profile dịch vụ</Button>
+              <Button variant="default" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Nhận tư vấn</Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Tải profile dịch vụ</Link>
+              </Button>
             </div>
           </div>
         </section>

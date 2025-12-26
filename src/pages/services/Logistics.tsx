@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,9 @@ const LogisticsPage = () => {
             <p className="text-gold font-body text-sm tracking-widest uppercase mb-3">Lĩnh vực</p>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <h1 className="font-heading text-3xl md:text-4xl font-bold leading-tight">Vận tải - Logistics - Cho thuê xe</h1>
-              <Button variant="heroSolid" size="lg">Nhận bảng giá</Button>
+              <Button variant="heroSolid" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Nhận bảng giá</Link>
+              </Button>
             </div>
             <p className="font-body text-lg text-primary-foreground/80 max-w-3xl mt-4 leading-relaxed">
               Giải pháp logistics và vận tải tin cậy, đáp ứng yêu cầu tốc độ, an toàn và tối ưu chi phí cho doanh nghiệp.
@@ -101,8 +104,12 @@ const LogisticsPage = () => {
               </p>
             </div>
             <div className="flex gap-3">
-              <Button variant="default" size="lg">Liên hệ ngay</Button>
-              <Button variant="outline" size="lg">Nhận báo giá</Button>
+              <Button variant="default" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Liên hệ ngay</Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Nhận báo giá</Link>
+              </Button>
             </div>
           </div>
         </section>

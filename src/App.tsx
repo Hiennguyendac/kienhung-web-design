@@ -8,6 +8,7 @@ import AboutPage from "./pages/About";
 import ServicesPage from "./pages/Services";
 import NewsPage from "./pages/News";
 import ContactPage from "./pages/Contact";
+import RequestForm from "./pages/RequestForm";
 import CommercePage from "./pages/services/Commerce";
 import ITPage from "./pages/services/IT";
 import MarketingPage from "./pages/services/Marketing";
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/lien-he" element={<ContactPage />} />
+          <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

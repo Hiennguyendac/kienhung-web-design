@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,9 @@ const MarketingPage = () => {
             <p className="text-gold font-body text-sm tracking-widest uppercase mb-3">Lĩnh vực</p>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <h1 className="font-heading text-3xl md:text-4xl font-bold leading-tight">Quảng cáo & Nghiên cứu thị trường</h1>
-              <Button variant="heroSolid" size="lg">Yêu cầu báo giá</Button>
+              <Button variant="heroSolid" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Yêu cầu báo giá</Link>
+              </Button>
             </div>
             <p className="font-body text-lg text-primary-foreground/80 max-w-3xl mt-4 leading-relaxed">
               Thiết kế chiến lược truyền thông, thực thi chiến dịch và tối ưu hiệu suất để tăng trưởng khách hàng.
@@ -101,8 +104,12 @@ const MarketingPage = () => {
               </p>
             </div>
             <div className="flex gap-3">
-              <Button variant="default" size="lg">Đặt lịch tư vấn</Button>
-              <Button variant="outline" size="lg">Tải media kit</Button>
+              <Button variant="default" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Đặt lịch tư vấn</Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Tải media kit</Link>
+              </Button>
             </div>
           </div>
         </section>

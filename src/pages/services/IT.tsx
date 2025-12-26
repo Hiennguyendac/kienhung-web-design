@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,9 @@ const ITPage = () => {
             <p className="text-gold font-body text-sm tracking-widest uppercase mb-3">Lĩnh vực</p>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <h1 className="font-heading text-3xl md:text-4xl font-bold leading-tight">Công nghệ thông tin & Phần mềm</h1>
-              <Button variant="heroSolid" size="lg">Đặt lịch tư vấn</Button>
+              <Button variant="heroSolid" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Đặt lịch tư vấn</Link>
+              </Button>
             </div>
             <p className="font-body text-lg text-primary-foreground/80 max-w-3xl mt-4 leading-relaxed">
               Giải pháp phần mềm và hạ tầng giúp doanh nghiệp vận hành linh hoạt, an toàn và tăng trưởng bền vững.
@@ -102,8 +105,12 @@ const ITPage = () => {
               </p>
             </div>
             <div className="flex gap-3">
-              <Button variant="default" size="lg">Nhận tư vấn</Button>
-              <Button variant="outline" size="lg">Xem case study</Button>
+              <Button variant="default" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Nhận tư vấn</Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/yeu-cau-bao-gia">Xem case study</Link>
+              </Button>
             </div>
           </div>
         </section>
