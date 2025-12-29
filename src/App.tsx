@@ -15,6 +15,7 @@ import MarketingPage from "./pages/services/Marketing";
 import LogisticsPage from "./pages/services/Logistics";
 import EducationPage from "./pages/services/Education";
 import NotFound from "./pages/NotFound";
+import { AIChatWidget } from "./components/AIChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <AIChatWidget />
     </TooltipProvider>
   </QueryClientProvider>
 );
