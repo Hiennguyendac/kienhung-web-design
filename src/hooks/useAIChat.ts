@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 type ChatRole = "user" | "assistant" | "system";
 
@@ -12,26 +12,7 @@ export const useAIChat = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-  const supabase = useMemo(() => {
-    if (!supabaseUrl || !supabaseAnonKey) return null;
-    return createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`,
-        },
-      },
-    });
-  }, [supabaseUrl, supabaseAnonKey]);
-
   const chat = async (messages: ChatMessage[]) => {
-    if (!supabase) {
-      throw new Error("Thiếu cấu hình Supabase (VITE_SUPABASE_URL hoặc VITE_SUPABASE_ANON_KEY).");
-    }
-
     setLoading(true);
     setError(null);
     try {
