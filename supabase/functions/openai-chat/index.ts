@@ -1,102 +1,85 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
-const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL") || "gpt-4o-mini";
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
 
 serve(async (req: Request) => {
+  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response("ok", {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "authorization, apikey, content-type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-      },
-    });
+    return new Response(null, { headers: corsHeaders });
   }
 
   if (req.method !== "POST") {
     return new Response("Method not allowed", {
       status: 405,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: corsHeaders,
     });
   }
-
-  const auth = req.headers.get("authorization") || req.headers.get("Authorization");
-  if (!auth) {
-    return new Response("Missing Authorization", {
-      status: 401,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
-  }
-  const anonKey = auth.replace("Bearer", "").trim();
 
   if (!OPENAI_API_KEY) {
-    return new Response("Missing OPENAI_API_KEY", {
+    console.error("Missing OPENAI_API_KEY");
+    return new Response(JSON.stringify({ error: "Missing OPENAI_API_KEY" }), {
       status: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 
   try {
     const { messages } = await req.json();
+    
     if (!messages || !Array.isArray(messages)) {
-      return new Response("Invalid payload", {
+      return new Response(JSON.stringify({ error: "Invalid payload" }), {
         status: 400,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+    console.log("Calling OpenAI with messages:", JSON.stringify(messages));
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: OPENAI_MODEL,
+        model: "gpt-4o-mini",
         messages,
-        metadata: {
-          anonKeyPrefix: anonKey.slice(0, 12),
-        },
+        max_tokens: 500,
       }),
     });
 
-    const data = await upstream.json();
-    if (!upstream.ok) {
+    const data = await response.json();
+    
+    if (!response.ok) {
+      console.error("OpenAI error:", JSON.stringify(data));
       return new Response(
-        JSON.stringify({ error: data.error || "Upstream error" }),
+        JSON.stringify({ error: data.error?.message || "OpenAI API error" }),
         {
-          status: upstream.status,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        },
+          status: response.status,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
       );
     }
 
+    const content = data.choices?.[0]?.message?.content || "";
+    console.log("OpenAI response:", content);
+
     return new Response(
-      JSON.stringify({ content: data.choices?.[0]?.message?.content || "", raw: data }),
-      { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
+      JSON.stringify({ content }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Server error";
-    console.error("openai-chat error", msg);
+    console.error("openai-chat error:", msg);
     return new Response(JSON.stringify({ error: msg }), {
       status: 500,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
