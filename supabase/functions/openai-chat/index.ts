@@ -1,15 +1,95 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+const WEBSITE_KNOWLEDGE = `
+# THÔNG TIN CÔNG TY KIẾN HƯNG INVESTMENT
+
+## Thông tin pháp lý
+- Tên công ty: CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ ĐẦU TƯ KIẾN HƯNG
+- Tên giao dịch: KIẾN HƯNG INVESTMENT
+- Mã số thuế: 0317197517
+- Trụ sở chính: 35/29/11 Cao Lỗ, Phường Chánh Hưng, Thành phố Hồ Chí Minh
+- Văn phòng: MP2-3.11 Mizuki Park, Bình Hưng, Thành phố Hồ Chí Minh
+- Điện thoại: 0903103198
+- Website: kienhunginvest.vn
+
+## Lĩnh vực hoạt động chính
+
+### 1. Thương mại & Phân phối (/services/commerce)
+- Mua bán, phân phối hàng hóa đa ngành
+- Xuất nhập khẩu
+- Cung ứng vật tư, thiết bị
+- Làm đại lý và môi giới thương mại
+
+### 2. Công nghệ thông tin & Phần mềm (/services/it)
+- Phát triển phần mềm theo yêu cầu
+- Giải pháp chuyển đổi số cho doanh nghiệp
+- Tư vấn hạ tầng CNTT
+- Dịch vụ bảo trì, hỗ trợ kỹ thuật
+
+### 3. Quảng cáo & Nghiên cứu thị trường (/services/marketing)
+- Dịch vụ quảng cáo đa nền tảng
+- Nghiên cứu thị trường
+- Tư vấn thương hiệu
+- Digital marketing
+
+### 4. Vận tải – Logistics – Cho thuê xe (/services/logistics)
+- Vận chuyển hàng hóa nội địa
+- Dịch vụ logistics trọn gói
+- Cho thuê xe du lịch, xe công ty
+- Quản lý đội xe doanh nghiệp
+
+### 5. Giáo dục & Đào tạo (/services/education)
+- Đào tạo kỹ năng mềm
+- Khóa học chuyên môn ngắn hạn
+- Tư vấn phát triển nguồn nhân lực
+- Hợp tác đào tạo doanh nghiệp
+
+## Tầm nhìn
+Trở thành tập đoàn đa ngành hàng đầu tại Việt Nam, tạo giá trị bền vững cho khách hàng, đối tác và cộng đồng.
+
+## Sứ mệnh
+Cung cấp giải pháp toàn diện, chất lượng cao trong các lĩnh vực thương mại, công nghệ, logistics và đào tạo.
+
+## Giá trị cốt lõi
+- Uy tín: Cam kết thực hiện đúng lời hứa
+- Chất lượng: Nỗ lực hoàn thiện trong từng dịch vụ
+- Sáng tạo: Luôn tìm kiếm giải pháp mới
+- Hợp tác: Xây dựng quan hệ đối tác bền vững
+
+## Các trang trên website
+- Trang chủ: / - Tổng quan về công ty
+- Giới thiệu: /about - Thông tin chi tiết về công ty, lịch sử, đội ngũ
+- Dịch vụ: /services - Danh sách các lĩnh vực hoạt động
+- Tin tức: /news - Tin tức và bài viết mới nhất
+- Liên hệ: /contact - Form liên hệ và thông tin liên lạc
+- Gửi yêu cầu: /request-form - Form gửi yêu cầu báo giá/tư vấn
+
+## Hướng dẫn trả lời
+- Luôn trả lời bằng tiếng Việt, lịch sự và chuyên nghiệp
+- Khi khách hỏi về dịch vụ, giới thiệu ngắn gọn và đề xuất trang liên quan
+- Khi khách cần liên hệ, cung cấp số điện thoại 0903103198 hoặc hướng dẫn đến trang /contact
+- Khi khách muốn báo giá/tư vấn, hướng dẫn đến trang /request-form
+- Đề xuất các trang phù hợp để khách tự tìm hiểu thêm
+`;
+
+const systemPrompt = `Bạn là trợ lý AI chính thức của KIẾN HƯNG INVESTMENT. Nhiệm vụ của bạn là:
+1. Trả lời các câu hỏi về công ty dựa trên thông tin chính xác bên dưới
+2. Hỗ trợ khách hàng tìm hiểu về dịch vụ
+3. Đề xuất các trang web phù hợp để khách tự tìm hiểu thêm (luôn gợi ý link trang)
+4. Hướng dẫn khách liên hệ hoặc gửi yêu cầu khi cần
+
+Trả lời ngắn gọn, chuyên nghiệp, thân thiện. Luôn đề xuất trang liên quan ở cuối câu trả lời.
+
+${WEBSITE_KNOWLEDGE}`;
+
 serve(async (req: Request) => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -21,9 +101,9 @@ serve(async (req: Request) => {
     });
   }
 
-  if (!OPENAI_API_KEY) {
-    console.error("Missing OPENAI_API_KEY");
-    return new Response(JSON.stringify({ error: "Missing OPENAI_API_KEY" }), {
+  if (!LOVABLE_API_KEY) {
+    console.error("Missing LOVABLE_API_KEY");
+    return new Response(JSON.stringify({ error: "AI chưa được cấu hình" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
@@ -39,36 +119,53 @@ serve(async (req: Request) => {
       });
     }
 
-    console.log("Calling OpenAI with messages:", JSON.stringify(messages));
+    // Filter out any existing system prompts and add our own
+    const userMessages = messages.filter((m: any) => m.role !== "system");
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    console.log("Calling Lovable AI with", userMessages.length, "messages");
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages,
-        max_tokens: 500,
+        model: "google/gemini-2.5-flash",
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...userMessages,
+        ],
       }),
     });
 
-    const data = await response.json();
-    
     if (!response.ok) {
-      console.error("OpenAI error:", JSON.stringify(data));
+      if (response.status === 429) {
+        return new Response(JSON.stringify({ error: "Hệ thống đang bận, vui lòng thử lại sau." }), {
+          status: 429,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (response.status === 402) {
+        return new Response(JSON.stringify({ error: "Dịch vụ AI tạm ngưng, vui lòng liên hệ quản trị viên." }), {
+          status: 402,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const errorText = await response.text();
+      console.error("AI gateway error:", response.status, errorText);
       return new Response(
-        JSON.stringify({ error: data.error?.message || "OpenAI API error" }),
+        JSON.stringify({ error: "Lỗi kết nối AI" }),
         {
-          status: response.status,
+          status: 500,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
 
+    const data = await response.json();
     const content = data.choices?.[0]?.message?.content || "";
-    console.log("OpenAI response:", content);
+    console.log("AI response received, length:", content.length);
 
     return new Response(
       JSON.stringify({ content }),

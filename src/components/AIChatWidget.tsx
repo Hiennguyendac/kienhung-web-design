@@ -1,13 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { MessageCircle, Send, X, Bot, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Send, X, Bot, Loader2 } from "lucide-react";
 import { useAIChat, ChatMessage } from "@/hooks/useAIChat";
 import { Button } from "@/components/ui/button";
-
-const systemPrompt: ChatMessage = {
-  role: "system",
-  content:
-    "Bạn là trợ lý AI cho website Kiến Hưng. Trả lời ngắn gọn, chuyên nghiệp, tập trung vào thông tin doanh nghiệp và hỗ trợ khách.",
-};
 
 export const AIChatWidget = () => {
   const { chat, loading, error } = useAIChat();
@@ -16,16 +10,10 @@ export const AIChatWidget = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "Chào bạn! Tôi có thể hỗ trợ gì về Kiến Hưng Investment?",
+      content: "Xin chào! Tôi là trợ lý AI của Kiến Hưng Investment. Tôi có thể giúp bạn tìm hiểu về công ty, các dịch vụ, hoặc hướng dẫn bạn đến trang thông tin phù hợp. Bạn cần hỗ trợ gì?",
     },
   ]);
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const safeMessages = useMemo<ChatMessage[]>(() => {
-    // Đảm bảo luôn có system prompt khi gọi API
-    const history = messages.map((m) => ({ role: m.role, content: m.content }));
-    return [systemPrompt, ...history];
-  }, [messages]);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -39,10 +27,44 @@ export const AIChatWidget = () => {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    const reply = await chat([...safeMessages, userMsg]);
+    // Send only user/assistant messages, system prompt is handled on backend
+    const reply = await chat([...messages, userMsg]);
     if (reply) {
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  // Parse and render links in message content
+  const renderContent = (content: string) => {
+    // Convert markdown-style links and plain paths to clickable links
+    const linkRegex = /(\/([\w-]+)?)/g;
+    const parts = content.split(linkRegex);
+    
+    return content.split(/(\s)/).map((word, idx) => {
+      if (word.match(/^\/[\w-]*$/)) {
+        return (
+          <a
+            key={idx}
+            href={word}
+            className="text-navy underline hover:text-navy/80 font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = word;
+            }}
+          >
+            {word}
+          </a>
+        );
+      }
+      return word;
+    });
   };
 
   if (!open) {
@@ -65,7 +87,7 @@ export const AIChatWidget = () => {
           <Bot className="w-5 h-5" />
           <div>
             <p className="text-sm font-semibold">AI Trợ lý Kiến Hưng</p>
-            <p className="text-xs text-primary-foreground/80">Chat & gợi ý nội dung</p>
+            <p className="text-xs text-primary-foreground/80">Hỏi đáp & hướng dẫn</p>
           </div>
         </div>
         <button
@@ -87,13 +109,13 @@ export const AIChatWidget = () => {
             className={`w-full flex ${msg.role === "assistant" ? "justify-start" : "justify-end"}`}
           >
             <div
-              className={`max-w-[85%] rounded-xl px-3 py-2 text-sm leading-relaxed ${
+              className={`max-w-[85%] rounded-xl px-3 py-2 text-sm leading-relaxed whitespace-pre-wrap ${
                 msg.role === "assistant"
                   ? "bg-primary-foreground/10 text-foreground"
                   : "bg-navy text-primary-foreground"
               }`}
             >
-              {msg.content}
+              {msg.role === "assistant" ? renderContent(msg.content) : msg.content}
             </div>
           </div>
         ))}
@@ -111,8 +133,9 @@ export const AIChatWidget = () => {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             rows={2}
-            placeholder="Nhập câu hỏi hoặc yêu cầu gợi ý..."
+            placeholder="Nhập câu hỏi về Kiến Hưng..."
             className="flex-1 resize-none rounded-xl border border-border bg-secondary/30 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30"
           />
           <Button
