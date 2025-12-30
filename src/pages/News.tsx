@@ -35,6 +35,14 @@ const articles = [
     tag: "AI & Data",
     link: "/tin-tuc/active-learning",
   },
+  {
+    title: "Attention Models: Mô hình đang chú ý vào đâu?",
+    summary:
+      "Giải thích trực quan self-attention, Q-K-V, heatmap và multi-head attention; cách mô hình gán trọng số để hiểu ngữ cảnh sâu hơn.",
+    date: "29/12/2025",
+    tag: "Deep Learning",
+    link: "/tin-tuc/attention-models",
+  },
 ];
 
 const NewsPage = () => {
