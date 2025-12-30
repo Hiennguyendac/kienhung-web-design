@@ -1,8 +1,9 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { BookOpen, GraduationCap, Lightbulb, Presentation } from "lucide-react";
+import { BookOpen, Clock3, FileText, GraduationCap, Lightbulb, Presentation } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 
 const offerings = [
@@ -18,7 +19,20 @@ const strengths = [
   { icon: GraduationCap, title: "Lộ trình rõ ràng", desc: "Thiết kế theo mục tiêu doanh nghiệp, đánh giá kết quả sau khóa học." },
 ];
 
+const aiOfficeModules = [
+  { code: "MĐ 01", name: "SMART AI OFFICE TOOLS", time: "21", theory: "8", practice: "12", exam: "1" },
+  { code: "MĐ 02", name: "AI FOR COMMUNICATION & COLLABORATION", time: "21", theory: "8.2", practice: "11.8", exam: "1" },
+  { code: "MĐ 03", name: "AI FOR REPORTING & DATA VISUALIZATION", time: "21", theory: "8", practice: "12", exam: "1" },
+  { code: "MĐ 04", name: "AI WORKFLOW & AUTOMATION", time: "21", theory: "7.8", practice: "12.2", exam: "1" },
+  { code: "MĐ 05", name: "AI FOR OFFICE MANAGEMENT & LEADERSHIP", time: "21", theory: "7.8", practice: "12.2", exam: "1" },
+];
+
 const EducationPage = () => {
+  const subscribeHref = useMemo(
+    () => "mailto:contact@kienhunginvest.vn?subject=Tu%20van%20chuong%20trinh%20AI%20Office",
+    [],
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -101,28 +115,108 @@ const EducationPage = () => {
           </div>
         </section>
 
-        <section className="py-14 lg:py-18 bg-gradient-to-r from-secondary/80 via-secondary/40 to-gold/10 border-y border-border">
-          <div className="container mx-auto px-6 lg:px-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Nâng cao năng lực đội ngũ</h3>
-              <p className="font-body text-muted-foreground leading-relaxed max-w-2xl">
-                Liên hệ để nhận kế hoạch đào tạo phù hợp mục tiêu doanh nghiệp, đo lường được kết quả.
-              </p>
+        <section className="py-16 lg:py-20 bg-secondary/40 border-y border-border">
+          <div className="container mx-auto px-6 lg:px-12 space-y-8">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-gold font-body text-sm tracking-widest uppercase mb-2">Chương trình mô đun</p>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground">AI Office</h3>
+                <p className="font-body text-muted-foreground max-w-3xl">
+                  Đào tạo thường xuyên, 5 mô đun, chứng chỉ sau khi hoàn thành. Đối tượng: tốt nghiệp 9/12, đủ sức khỏe học tập & làm việc.
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <Button asChild variant="default">
+                  <a href={subscribeHref}>Đăng ký tư vấn</a>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link to="/yeu-cau-bao-gia">Nhận báo giá</Link>
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-3">
-              <Button variant="default" size="lg" asChild>
-                <Link to="/yeu-cau-bao-gia">Nhận tư vấn</Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/yeu-cau-bao-gia">Xem chương trình mẫu</Link>
-              </Button>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="p-4 rounded-xl bg-card border border-border shadow-soft flex items-start gap-3">
+                <Lightbulb className="w-5 h-5 text-navy mt-1" />
+                <div>
+                  <p className="font-heading font-semibold text-foreground">Mục tiêu</p>
+                  <p className="font-body text-sm text-muted-foreground">
+                    Hiểu & ứng dụng công cụ AI văn phòng (ChatGPT, Copilot, Notion AI...), thiết kế workflow, phân tích báo cáo, vận hành AI-Driven Office.
+                  </p>
+                </div>
+              </div>
+              <div className="p-4 rounded-xl bg-card border border-border shadow-soft flex items-start gap-3">
+                <FileText className="w-5 h-5 text-navy mt-1" />
+                <div>
+                  <p className="font-heading font-semibold text-foreground">Chứng chỉ</p>
+                  <p className="font-body text-sm text-muted-foreground">Hoàn thành 5 mô đun, kiểm tra kết thúc, nhận chứng chỉ Đào tạo thường xuyên.</p>
+                </div>
+              </div>
+              <div className="p-4 rounded-xl bg-card border border-border shadow-soft flex items-start gap-3">
+                <Clock3 className="w-5 h-5 text-navy mt-1" />
+                <div>
+                  <p className="font-heading font-semibold text-foreground">Thời lượng</p>
+                  <p className="font-body text-sm text-muted-foreground">
+                    50 buổi (≥100 giờ thực học), lý thuyết 39,8 giờ, thực hành 60,2 giờ, kiểm tra 5 giờ.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-xl border border-border bg-card shadow-soft">
+              <table className="min-w-full text-left">
+                <thead>
+                  <tr className="bg-secondary/60 text-sm text-foreground">
+                    <th className="px-4 py-3">Mã</th>
+                    <th className="px-4 py-3">Mô đun</th>
+                    <th className="px-4 py-3">Tổng giờ</th>
+                    <th className="px-4 py-3">LT</th>
+                    <th className="px-4 py-3">TH</th>
+                    <th className="px-4 py-3">KT</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {aiOfficeModules.map((item) => (
+                    <tr key={item.code} className="text-sm">
+                      <td className="px-4 py-3 font-semibold text-foreground">{item.code}</td>
+                      <td className="px-4 py-3 text-foreground">{item.name}</td>
+                      <td className="px-4 py-3">{item.time}</td>
+                      <td className="px-4 py-3">{item.theory}</td>
+                      <td className="px-4 py-3">{item.practice}</td>
+                      <td className="px-4 py-3">{item.exam}</td>
+                    </tr>
+                  ))}
+                  <tr className="text-sm font-semibold">
+                    <td className="px-4 py-3">Tổng</td>
+                    <td className="px-4 py-3 text-muted-foreground">5 mô đun</td>
+                    <td className="px-4 py-3">105</td>
+                    <td className="px-4 py-3">39,8</td>
+                    <td className="px-4 py-3">60,2</td>
+                    <td className="px-4 py-3">5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="p-5 rounded-xl bg-card border border-border shadow-soft space-y-2">
+                <h4 className="font-heading text-lg font-semibold text-foreground">Đối tượng & đầu vào</h4>
+                <p className="font-body text-sm text-muted-foreground">
+                  Trình độ văn hóa 9/12, đủ sức khỏe, quan tâm ứng dụng AI trong hành chính – văn phòng.
+                </p>
+                <p className="font-body text-sm text-muted-foreground">
+                  Phương pháp: Demo 40% – Thực hành 60% – PBL/Role-play; chấm theo rubric, đảm bảo chuẩn kiến thức – kỹ năng – thái độ.
+                </p>
+              </div>
+              <div className="p-5 rounded-xl bg-card border border-border shadow-soft space-y-2">
+                <h4 className="font-heading text-lg font-semibold text-foreground">Đánh giá & chứng chỉ</h4>
+                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                  <li>Đánh giá quá trình 50%: tham gia, thái độ, sản phẩm thực hành.</li>
+                  <li>Đánh giá cuối mô đun 50%: Communication Handbook + thuyết trình nhóm.</li>
+                  <li>Tiêu chí: chuẩn mực thông điệp (40%), áp dụng công cụ AI (40%), trình bày & phối hợp nhóm (20%).</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
-    </div>
-  );
-};
 
-export default EducationPage;
