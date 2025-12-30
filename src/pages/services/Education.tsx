@@ -219,4 +219,10 @@ const EducationPage = () => {
             </div>
           </div>
         </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
 
+export default EducationPage;
