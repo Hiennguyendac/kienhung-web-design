@@ -16,9 +16,9 @@ const footerLinks = {
     { label: "Giáo dục & Đào tạo", href: "/dich-vu/giao-duc-dao-tao" },
   ],
   legal: [
-    { label: "Điều khoản sử dụng", href: "/gioi-thieu#legal" },
-    { label: "Chính sách bảo mật", href: "/gioi-thieu#legal" },
-    { label: "Quy định chung", href: "/gioi-thieu#legal" },
+    { label: "Điều khoản sử dụng", href: "/chinh-sach/dieu-khoan-su-dung" },
+    { label: "Chính sách bảo mật", href: "/chinh-sach/chinh-sach-bao-mat" },
+    { label: "Quy định chung", href: "/chinh-sach/quy-dinh-chung" },
   ],
 };
 

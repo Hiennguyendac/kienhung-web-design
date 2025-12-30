@@ -14,6 +14,9 @@ import ITPage from "./pages/services/IT";
 import MarketingPage from "./pages/services/Marketing";
 import LogisticsPage from "./pages/services/Logistics";
 import EducationPage from "./pages/services/Education";
+import TermsPage from "./pages/policies/Terms";
+import PrivacyPage from "./pages/policies/Privacy";
+import GeneralRulesPage from "./pages/policies/GeneralRules";
 import NotFound from "./pages/NotFound";
 import { AIChatWidget } from "./components/AIChatWidget";
 
@@ -34,6 +37,9 @@ const App = () => (
           <Route path="/dich-vu/quang-cao-marketing" element={<MarketingPage />} />
           <Route path="/dich-vu/logistics-cho-thue-xe" element={<LogisticsPage />} />
           <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
+          <Route path="/chinh-sach/dieu-khoan-su-dung" element={<TermsPage />} />
+          <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
+          <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
