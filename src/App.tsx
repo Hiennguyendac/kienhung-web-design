@@ -38,11 +38,11 @@ const App = () => (
           <Route path="/dich-vu/quang-cao-marketing" element={<MarketingPage />} />
           <Route path="/dich-vu/logistics-cho-thue-xe" element={<LogisticsPage />} />
           <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
-          <Route path="/tin-tuc/active-learning" element={<ActiveLearningPage />} />
           <Route path="/chinh-sach/dieu-khoan-su-dung" element={<TermsPage />} />
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
+          <Route path="/tin-tuc/active-learning" element={<ActiveLearningPage />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

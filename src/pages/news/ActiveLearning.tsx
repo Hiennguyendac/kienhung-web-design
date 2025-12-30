@@ -10,164 +10,216 @@ const highlightBlocks = [
   {
     icon: Target,
     title: "Tiết kiệm 30–70% chi phí gán nhãn",
-    desc: "Chọn đúng mẫu quan trọng nhất để gán nhãn, giảm số lượng nhãn cần thiết.",
+    description: "Chỉ gán nhãn những mẫu khó, loại bỏ công việc thừa.",
   },
   {
     icon: Brain,
-    title: "Học nhanh hơn với ít dữ liệu hơn",
-    desc: "Mô hình chủ động hỏi người gán nhãn ở các mẫu mơ hồ nhất.",
+    title: "Nâng cao độ chính xác mô hình",
+    description: "Học từ mẫu biên, tăng khả năng phân biệt.",
   },
   {
     icon: Layers,
-    title: "Tăng tốc trong môi trường dữ liệu hạn chế",
-    desc: "Phù hợp bài toán ảnh y tế, NLP, giọng nói, sản phẩm doanh nghiệp.",
-  },
-];
-
-const strategies = [
-  {
-    title: "Uncertainty Sampling",
-    desc: "Ưu tiên mẫu mô hình kém tự tin (ví dụ xác suất 51% mèo/chó).",
+    title: "Ứng dụng đa lĩnh vực",
+    description: "NLP, Computer Vision, Speech Recognition, Medical AI.",
   },
   {
-    title: "Query by Committee",
-    desc: "Nhiều mô hình cùng dự đoán và chọn mẫu có mức bất đồng cao.",
+    icon: Shield,
+    title: "Giảm thiểu thiên lệch dữ liệu",
+    description: "Chọn mẫu đa dạng, tránh overfitting.",
   },
-  {
-    title: "Expected Model Change",
-    desc: "Chọn mẫu dự kiến ảnh hưởng lớn nhất tới mô hình nếu biết nhãn.",
-  },
-];
-
-const useCases = [
-  "NLP: gán nhãn cảm xúc, nhận dạng thực thể.",
-  "Computer Vision: ảnh y tế, phân loại ảnh công nghiệp.",
-  "Speech: tối ưu hóa giọng nói từng người dùng.",
-  "Information Retrieval: cải thiện hệ thống đề xuất và tìm kiếm.",
-];
-
-const challenges = [
-  "Chiến lược truy vấn phải đủ hiệu quả.",
-  "Chuyên gia gán nhãn cần chính xác, nhất quán.",
-  "Mẫu được chọn có thể thiếu tính đại diện, cần kiểm soát bias.",
-  "Khó xác định thời điểm dừng tối ưu.",
 ];
 
 const ActiveLearningPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="bg-background">
-        <article className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
-          <div className="mb-6 flex items-center gap-3 text-sm text-muted-foreground">
-            <Badge variant="outline" className="border-gold text-gold">AI</Badge>
-            <span className="inline-flex items-center gap-1">
-              <CalendarDays className="w-4 h-4" /> 29/12/2025
-            </span>
-          </div>
-          <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground leading-tight">
-            Active Learning: Tối ưu chi phí gán nhãn dữ liệu nhưng vẫn tăng độ chính xác mô hình
-          </h1>
-          <p className="mt-4 font-body text-lg text-muted-foreground max-w-4xl">
-            Trong kỷ nguyên AI bùng nổ, chi phí gán nhãn dữ liệu là thách thức lớn. Active Learning cho phép mô hình chủ động chọn
-            dữ liệu khó và “hỏi” chuyên gia, nhờ đó giảm 30–70% chi phí gán nhãn và tăng tốc huấn luyện trong điều kiện dữ liệu hạn chế.
-          </p>
+      <main>
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-navy/5 via-background to-gold/5 border-b border-border">
+          <div className="container mx-auto px-6 lg:px-12 py-14 lg:py-20">
+            <Link
+              to="/tin-tuc"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Quay lại Tin tức
+            </Link>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {highlightBlocks.map((item) => (
-              <div key={item.title} className="p-4 rounded-xl border border-border bg-card shadow-soft flex gap-3">
-                <div className="w-10 h-10 rounded-lg bg-navy/10 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-navy" />
-                </div>
-                <div>
-                  <h3 className="font-heading font-semibold text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <Badge variant="secondary" className="bg-navy/10 text-navy border-0">
+                AI & Data
+              </Badge>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CalendarDays className="w-4 h-4" />
+                <span>29/12/2024</span>
               </div>
-            ))}
-          </div>
+            </div>
 
-          <section className="mt-10 space-y-4">
-            <h2 className="font-heading text-2xl font-semibold text-foreground">Active Learning hoạt động thế nào?</h2>
-            <p className="font-body text-muted-foreground">
-              Khác với passive learning, mô hình chủ động chọn mẫu khó/quan trọng để hỏi chuyên gia, rồi học lại qua vòng lặp 5 bước: huấn luyện nhỏ → dự đoán →
-              chọn mẫu mơ hồ → gán nhãn → học lại. Giả định: “Được chọn dữ liệu mình muốn học, mô hình học nhanh và tốt hơn”.
+            <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 max-w-4xl">
+              Active Learning: Giảm chi phí gán nhãn, tăng tốc huấn luyện mô hình AI
+            </h1>
+            <p className="font-body text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
+              Phương pháp học chủ động giúp mô hình thông minh hơn trong việc chọn mẫu cần gán nhãn,
+              tiết kiệm tài nguyên và nâng cao hiệu suất.
             </p>
-            <ul className="list-decimal list-inside space-y-1 text-muted-foreground">
-              <li>Huấn luyện mô hình với tập nhỏ.</li>
-              <li>Dự đoán trên dữ liệu chưa gán nhãn.</li>
-              <li>Chọn mẫu mơ hồ nhất / quan trọng nhất.</li>
-              <li>Chuyên gia gán nhãn.</li>
-              <li>Mô hình học lại và lặp chu kỳ.</li>
-            </ul>
-          </section>
+          </div>
+        </section>
 
-          <section className="mt-8 space-y-3">
-            <h3 className="font-heading text-xl font-semibold text-foreground">Ba chiến lược phổ biến</h3>
-            <div className="grid gap-3 md:grid-cols-3">
-              {strategies.map((s) => (
-                <div key={s.title} className="p-4 rounded-lg border border-border bg-card shadow-soft">
-                  <h4 className="font-heading text-base font-semibold text-foreground">{s.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+        {/* Highlight Blocks */}
+        <section className="py-12 lg:py-16 bg-secondary/30">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {highlightBlocks.map((block) => (
+                <div
+                  key={block.title}
+                  className="p-6 rounded-xl bg-card border border-border shadow-soft"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-navy/10 flex items-center justify-center mb-4">
+                    <block.icon className="w-6 h-6 text-navy" />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+                    {block.title}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground">
+                    {block.description}
+                  </p>
                 </div>
               ))}
             </div>
-          </section>
-
-          <section className="mt-10 grid md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <h3 className="font-heading text-xl font-semibold text-foreground">Ứng dụng thực tế</h3>
-              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                {useCases.map((u) => (
-                  <li key={u}>{u}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="space-y-3">
-              <h3 className="font-heading text-xl font-semibold text-foreground">Thách thức cần lưu ý</h3>
-              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                {challenges.map((c) => (
-                  <li key={c}>{c}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-
-          <section className="mt-10 space-y-3">
-            <h3 className="font-heading text-xl font-semibold text-foreground">Tóm tắt lợi ích</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg border border-border bg-card flex items-start gap-3">
-                <ListChecks className="w-5 h-5 text-navy mt-1" />
-                <div>
-                  <p className="font-heading font-semibold text-foreground">Doanh nghiệp</p>
-                  <p className="text-sm text-muted-foreground">
-                    Giảm chi phí gán nhãn, tăng tốc đưa sản phẩm AI ra thị trường, ra quyết định dựa trên dữ liệu, tối ưu quy trình.
-                  </p>
-                </div>
-              </div>
-              <div className="p-4 rounded-lg border border-border bg-card flex items-start gap-3">
-                <BarChart4 className="w-5 h-5 text-navy mt-1" />
-                <div>
-                  <p className="font-heading font-semibold text-foreground">Nhà nghiên cứu</p>
-                  <p className="text-sm text-muted-foreground">
-                    Tăng độ chính xác mô hình khi dữ liệu hạn chế; tập trung gán nhãn vào mẫu giá trị cao; đánh giá chiến lược truy vấn hiệu quả.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <Separator className="my-10" />
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <Button asChild variant="default" size="lg" className="justify-center">
-              <a href="mailto:contact@kienhunginvest.vn?subject=Tu%20van%20Active%20Learning">Liên hệ tư vấn Active Learning</a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="justify-center">
-              <Link to="/yeu-cau-bao-gia">Nhận báo giá giải pháp AI</Link>
-            </Button>
           </div>
-        </article>
+        </section>
+
+        {/* Main Content */}
+        <section className="py-14 lg:py-20">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="max-w-4xl mx-auto">
+              <article className="prose prose-lg max-w-none">
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
+                  <Sparkles className="w-6 h-6 text-gold" />
+                  Active Learning là gì?
+                </h2>
+                <p className="font-body text-muted-foreground leading-relaxed mb-6">
+                  Active Learning (Học chủ động) là một nhánh của Machine Learning, trong đó mô hình
+                  có khả năng <strong className="text-foreground">chủ động lựa chọn</strong> những mẫu dữ liệu
+                  nào cần được gán nhãn tiếp theo, thay vì nhận dữ liệu một cách thụ động.
+                </p>
+                <p className="font-body text-muted-foreground leading-relaxed mb-8">
+                  Điều này đặc biệt hữu ích khi chi phí gán nhãn cao (như trong y tế, pháp lý) hoặc
+                  khi dữ liệu có nhãn khan hiếm.
+                </p>
+
+                <Separator className="my-8" />
+
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
+                  <BarChart4 className="w-6 h-6 text-gold" />
+                  Các chiến lược lấy mẫu phổ biến
+                </h2>
+
+                <div className="space-y-4 mb-8">
+                  <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                      1. Uncertainty Sampling
+                    </h4>
+                    <p className="font-body text-sm text-muted-foreground">
+                      Chọn mẫu mà mô hình <em>ít chắc chắn nhất</em> — thường là những mẫu có xác suất
+                      dự đoán gần ngưỡng quyết định (ví dụ: 50% cho bài toán nhị phân).
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                      2. Query-by-Committee (QBC)
+                    </h4>
+                    <p className="font-body text-sm text-muted-foreground">
+                      Sử dụng nhiều mô hình (committee) cùng dự đoán. Mẫu được chọn là mẫu có
+                      <em> sự bất đồng lớn nhất</em> giữa các mô hình.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                      3. Expected Model Change
+                    </h4>
+                    <p className="font-body text-sm text-muted-foreground">
+                      Chọn mẫu mà nếu được gán nhãn, sẽ tạo ra <em>thay đổi lớn nhất</em> cho mô hình
+                      (ví dụ: gradient lớn nhất).
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                      4. Diversity Sampling
+                    </h4>
+                    <p className="font-body text-sm text-muted-foreground">
+                      Kết hợp với uncertainty để chọn mẫu vừa khó vừa <em>đa dạng</em>, tránh chọn
+                      các mẫu tương tự nhau.
+                    </p>
+                  </div>
+                </div>
+
+                <Separator className="my-8" />
+
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                  Ứng dụng thực tế
+                </h2>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gold mt-2 flex-shrink-0" />
+                    <span className="font-body text-muted-foreground">
+                      <strong className="text-foreground">NLP:</strong> Phân loại văn bản, NER, sentiment analysis với ít dữ liệu có nhãn.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gold mt-2 flex-shrink-0" />
+                    <span className="font-body text-muted-foreground">
+                      <strong className="text-foreground">Computer Vision:</strong> Phát hiện đối tượng, phân đoạn ảnh y tế.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gold mt-2 flex-shrink-0" />
+                    <span className="font-body text-muted-foreground">
+                      <strong className="text-foreground">Speech:</strong> Nhận dạng giọng nói với các accent hiếm.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gold mt-2 flex-shrink-0" />
+                    <span className="font-body text-muted-foreground">
+                      <strong className="text-foreground">Medical AI:</strong> Chẩn đoán hình ảnh với dữ liệu bệnh hiếm.
+                    </span>
+                  </li>
+                </ul>
+
+                <Separator className="my-8" />
+
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                  Kết luận
+                </h2>
+                <p className="font-body text-muted-foreground leading-relaxed mb-6">
+                  Active Learning là một phương pháp mạnh mẽ giúp tối ưu hóa quy trình gán nhãn dữ liệu,
+                  đặc biệt phù hợp với các dự án AI có ngân sách hạn chế hoặc dữ liệu có nhãn khan hiếm.
+                </p>
+                <p className="font-body text-muted-foreground leading-relaxed">
+                  Kiến Hưng Investment cung cấp dịch vụ tư vấn và triển khai các giải pháp AI/ML,
+                  bao gồm Active Learning pipeline cho doanh nghiệp.
+                </p>
+              </article>
+
+              {/* CTA */}
+              <div className="mt-12 p-6 rounded-xl bg-navy text-primary-foreground">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div>
+                    <p className="font-heading text-lg font-semibold mb-1">
+                      Cần tư vấn về AI & Data?
+                    </p>
+                    <p className="font-body text-sm text-primary-foreground/70">
+                      Liên hệ với chúng tôi để được hỗ trợ triển khai giải pháp phù hợp.
+                    </p>
+                  </div>
+                  <Button asChild variant="hero" size="lg">
+                    <Link to="/lien-he">Liên hệ ngay</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
