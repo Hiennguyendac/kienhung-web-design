@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Newspaper } from "lucide-react";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 const articles = [
   {
