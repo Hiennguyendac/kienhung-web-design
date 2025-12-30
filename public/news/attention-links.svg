@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380" fill="none">
+  <style>
+    .text{font-family:'Inter', system-ui, -apple-system, sans-serif;font-size:13px;fill:#0f172a;}
+    .muted{fill:#475569;}
+  </style>
+  <rect width="720" height="380" rx="14" fill="#f8fafc"/>
+  <text x="28" y="34" class="text" font-weight="700">Bản đồ chú ý: mỗi token nhìn các token khác (Self-Attention)</text>
+  <text x="28" y="54" class="text muted">Câu: "The animal didn’t cross the street because it was too tired"</text>
+
+  <g transform="translate(60,100)">
+    <rect x="0" y="0" width="150" height="220" rx="12" fill="#e2e8f0"/>
+    <text x="12" y="26" class="text">The</text>
+    <text x="12" y="52" class="text">animal</text>
+    <text x="12" y="78" class="text">didn’t</text>
+    <text x="12" y="104" class="text">cross</text>
+    <text x="12" y="130" class="text">the</text>
+    <text x="12" y="156" class="text">street</text>
+    <text x="12" y="182" class="text">because</text>
+    <text x="12" y="208" class="text" font-weight="700">it</text>
+  </g>
+
+  <g transform="translate(520,100)">
+    <rect x="0" y="0" width="150" height="220" rx="12" fill="#e2e8f0"/>
+    <text x="12" y="26" class="text">The</text>
+    <text x="12" y="52" class="text">animal</text>
+    <text x="12" y="78" class="text">didn’t</text>
+    <text x="12" y="104" class="text">cross</text>
+    <text x="12" y="130" class="text">the</text>
+    <text x="12" y="156" class="text">street</text>
+    <text x="12" y="182" class="text">because</text>
+    <text x="12" y="208" class="text" font-weight="700">it</text>
+  </g>
+
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- connections from "it" on left to right tokens -->
+  <g stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M210 308 C 340 260, 380 40, 520 108" stroke="url(#g1)"/>
+    <path d="M210 308 C 330 270, 380 170, 520 182" stroke="url(#g2)"/>
+    <path d="M210 308 C 330 300, 400 320, 520 308" stroke="url(#g3)"/>
+    <path d="M210 308 C 330 245, 400 140, 520 130" stroke="#0ea5e9" opacity="0.5"/>
+    <path d="M210 308 C 330 230, 400 110, 520 104" stroke="#ef4444" opacity="0.4"/>
+  </g>
+
+  <text x="360" y="340" text-anchor="middle" class="text muted">Độ đậm đường = trọng số attention từ token "it" tới các token còn lại</text>
+</svg>

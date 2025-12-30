@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CalendarDays, Brain, Sparkles, Eye, Telescope, LayoutGrid } from "lucide-react";
+import { CalendarDays, Brain, Sparkles, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -30,7 +30,9 @@ const AttentionModelsPage = () => {
       <Header />
       <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
         <div className="mb-6 flex items-center gap-3 text-sm text-muted-foreground">
-          <Badge variant="outline" className="border-gold text-gold">Deep Learning</Badge>
+          <Badge variant="outline" className="border-gold text-gold">
+            Deep Learning
+          </Badge>
           <span className="inline-flex items-center gap-1">
             <CalendarDays className="w-4 h-4" /> 29/12/2025
           </span>
@@ -63,6 +65,16 @@ const AttentionModelsPage = () => {
             Với câu “The cat sat on the mat”, khi tập trung vào “cat”, mô hình sẽ gán trọng số cao cho “cat” và “mat”, thấp cho “the”, “on”.
             Đây là cơ chế attention: tự động phân bổ mức chú ý cho từng token. (Hình minh họa: độ đậm/nhạt cho thấy trọng số attention).
           </p>
+          <figure className="mt-4 rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/attention-conversation.svg"
+              alt="Các head attention với sắc độ khác nhau trên hội thoại"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Mỗi head (màu) tập trung vào phần khác nhau của hội thoại; độ dày thanh màu = trọng số mạnh/yếu.
+            </figcaption>
+          </figure>
         </section>
 
         <section className="mt-8 space-y-4">
@@ -71,6 +83,16 @@ const AttentionModelsPage = () => {
             Query (Q) = “tìm bạn Bảo đội nón đỏ”; Key (K) = mô tả từng người; Value (V) = thông tin cần lấy. Mô hình so sánh Q với từng K để
             tìm ai có “nón đỏ” và chỉ tập trung vào Value tương ứng. Đây chính là attention: không nhìn tất cả như nhau.
           </p>
+          <figure className="mt-4 rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/attention-architecture.svg"
+              alt="Sơ đồ luồng Q-K-V, tính điểm, softmax và tạo vector ngữ cảnh"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Q-K-V được chiếu từ hidden state → tính điểm tương đồng → softmax → nhân với V để tạo context vector chuyển sang Decoder.
+            </figcaption>
+          </figure>
         </section>
 
         <section className="mt-8 space-y-3">
@@ -79,6 +101,16 @@ const AttentionModelsPage = () => {
             Heatmap thể hiện mức chú ý: ô sáng = tập trung cao, ô tối = bỏ qua. Trong câu dài, mỗi từ có pattern chú ý riêng; từ quan trọng
             thu hút nhiều attention head. (Hình minh họa: heatmap attention).
           </p>
+          <figure className="mt-4 rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/attention-links.svg"
+              alt="Các đường nối thể hiện attention của token 'it' tới phần còn lại câu"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Độ đậm/độ dày đường nối cho biết token “it” chú ý mạnh nhất đến những token nào trong chuỗi.
+            </figcaption>
+          </figure>
         </section>
 
         <section className="mt-8 space-y-3">
@@ -95,6 +127,16 @@ const AttentionModelsPage = () => {
             Hình dung xem phim với nhiều góc nhìn: head1 nhìn ánh sáng, head2 nhìn biểu cảm, head3 nhìn chuyển động, head4 nhìn phông cảnh.
             Ghép các “góc nhìn” để hiểu sâu hơn. Đây là multi-head attention. (Hình minh họa: sơ đồ nhiều head).
           </p>
+          <figure className="mt-4 rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/attention-heatmap.svg"
+              alt="Heatmap attention biểu diễn nhiều head trên câu the cat chased the mouse"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Heatmap nhiều head: ô sáng hơn = trọng số cao hơn, cho phép mô hình học nhiều góc nhìn ngữ cảnh cùng lúc.
+            </figcaption>
+          </figure>
         </section>
 
         <Separator className="my-10" />
@@ -107,10 +149,6 @@ const AttentionModelsPage = () => {
             <Link to="/yeu-cau-bao-gia">Nhận báo giá triển khai AI</Link>
           </Button>
         </div>
-
-        <p className="mt-6 text-xs text-muted-foreground">
-          *Chèn hình minh họa khi có file/URL (heatmap attention, Q-K-V ví dụ, self/multi-head attention).
-        </p>
       </main>
       <Footer />
     </div>

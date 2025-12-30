@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" fill="none">
+  <style>
+    .label{font-family:'Inter', system-ui, -apple-system, sans-serif;font-size:13px;fill:#0f172a;}
+    .bubble{fill:#0f4b8a;stroke:#0b3a6f;stroke-width:1.2;opacity:0.08;}
+    .line{stroke-width:2;stroke-linecap:round;}
+  </style>
+  <rect width="900" height="260" rx="12" fill="#f8fafc"/>
+  <text x="24" y="32" class="label" font-weight="700">Attention heads trên hội thoại</text>
+  <text x="24" y="54" class="label" fill="#475569">Mỗi màu đại diện cho một head; độ dày thể hiện trọng số.</text>
+
+  <rect x="30" y="72" width="300" height="32" rx="8" class="bubble"/>
+  <text x="42" y="93" class="label">Rachel: "Hi!"</text>
+
+  <rect x="30" y="112" width="300" height="32" rx="8" class="bubble"/>
+  <text x="42" y="133" class="label">Rachel: "Can I tell you a little secret?"</text>
+
+  <rect x="30" y="152" width="300" height="32" rx="8" class="bubble"/>
+  <text x="42" y="173" class="label">Phoebe: "I want to keep one."</text>
+
+  <rect x="30" y="192" width="300" height="32" rx="8" class="bubble"/>
+  <text x="42" y="213" class="label">Rachel: "I'm gonna be on the news!"</text>
+
+  <!-- attention bars -->
+  <g transform="translate(360,80)">
+    <rect x="0" y="-10" width="520" height="10" fill="#e2e8f0" rx="4"/>
+    <rect x="0" y="-10" width="120" height="10" fill="#ef4444" rx="4"/>
+    <rect x="140" y="-10" width="90" height="10" fill="#22c55e" rx="4"/>
+    <rect x="250" y="-10" width="60" height="10" fill="#6366f1" rx="4"/>
+    <rect x="330" y="-10" width="80" height="10" fill="#f59e0b" rx="4"/>
+    <rect x="430" y="-10" width="70" height="10" fill="#06b6d4" rx="4"/>
+  </g>
+  <g transform="translate(360,120)">
+    <rect x="0" y="-10" width="520" height="10" fill="#e2e8f0" rx="4"/>
+    <rect x="0" y="-10" width="80" height="10" fill="#22c55e" rx="4"/>
+    <rect x="110" y="-10" width="140" height="10" fill="#6366f1" rx="4"/>
+    <rect x="270" y="-10" width="60" height="10" fill="#f43f5e" rx="4"/>
+    <rect x="350" y="-10" width="110" height="10" fill="#f59e0b" rx="4"/>
+  </g>
+  <g transform="translate(360,160)">
+    <rect x="0" y="-10" width="520" height="10" fill="#e2e8f0" rx="4"/>
+    <rect x="0" y="-10" width="90" height="10" fill="#0ea5e9" rx="4"/>
+    <rect x="110" y="-10" width="120" height="10" fill="#22c55e" rx="4"/>
+    <rect x="250" y="-10" width="140" height="10" fill="#a855f7" rx="4"/>
+    <rect x="410" y="-10" width="80" height="10" fill="#f97316" rx="4"/>
+  </g>
+  <g transform="translate(360,200)">
+    <rect x="0" y="-10" width="520" height="10" fill="#e2e8f0" rx="4"/>
+    <rect x="0" y="-10" width="150" height="10" fill="#f59e0b" rx="4"/>
+    <rect x="170" y="-10" width="110" height="10" fill="#6366f1" rx="4"/>
+    <rect x="300" y="-10" width="70" height="10" fill="#22c55e" rx="4"/>
+    <rect x="390" y="-10" width="110" height="10" fill="#06b6d4" rx="4"/>
+  </g>
+
+  <!-- legend -->
+  <g transform="translate(360,30)">
+    <rect x="0" y="0" width="12" height="12" fill="#ef4444" rx="2"/>
+    <text x="18" y="11" class="label" fill="#475569">Head: cảm xúc</text>
+    <rect x="160" y="0" width="12" height="12" fill="#22c55e" rx="2"/>
+    <text x="176" y="11" class="label" fill="#475569">Head: ngữ nghĩa</text>
+    <rect x="320" y="0" width="12" height="12" fill="#6366f1" rx="2"/>
+    <text x="336" y="11" class="label" fill="#475569">Head: diễn tiến câu</text>
+  </g>
+</svg>
