@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Newspaper } from "lucide-react";
+import { useMemo } from "react";
 
 const articles = [
   {
@@ -28,6 +29,11 @@ const articles = [
 ];
 
 const NewsPage = () => {
+  const subscribeHref = useMemo(
+    () => "mailto:contact@kienhunginvest.vn?subject=Dang%20ky%20nhan%20ban%20tin",
+    [],
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -47,8 +53,8 @@ const NewsPage = () => {
                   khách hàng được cập nhật thường xuyên.
                 </p>
               </div>
-              <Button variant="outline" className="w-fit">
-                Đăng ký nhận tin
+              <Button asChild variant="outline" className="w-fit">
+                <a href={subscribeHref}>Đăng ký nhận tin</a>
               </Button>
             </div>
           </div>
@@ -95,8 +101,8 @@ const NewsPage = () => {
                   </p>
                 </div>
               </div>
-              <Button variant="hero" size="lg">
-                Nhận bản tin
+              <Button asChild variant="hero" size="lg">
+                <a href={subscribeHref}>Nhận bản tin</a>
               </Button>
             </div>
           </div>
