@@ -26,6 +26,14 @@ const articles = [
     date: "28/01/2024",
     tag: "Marketing",
   },
+  {
+    title: "Active Learning: Giảm chi phí gán nhãn, tăng tốc mô hình AI",
+    summary:
+      "Active Learning giúp mô hình chủ động chọn mẫu khó, tiết kiệm 30–70% chi phí gán nhãn nhưng vẫn nâng cao độ chính xác. Ứng dụng rộng rãi cho NLP, CV, Speech.",
+    date: "29/12/2025",
+    tag: "AI & Data",
+    link: "/tin-tuc/active-learning",
+  },
 ];
 
 const NewsPage = () => {
@@ -81,10 +89,20 @@ const NewsPage = () => {
                   <p className="font-body text-muted-foreground leading-relaxed">
                     {article.summary}
                   </p>
-                  <button className="inline-flex items-center gap-2 text-navy hover:text-gold transition-colors text-sm font-medium">
-                    Đọc thêm
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  {article.link ? (
+                    <Link
+                      to={article.link}
+                      className="inline-flex items-center gap-2 text-navy hover:text-gold transition-colors text-sm font-medium"
+                    >
+                      Đọc thêm
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  ) : (
+                    <span className="inline-flex items-center gap-2 text-navy/70 text-sm font-medium">
+                      <ArrowRight className="w-4 h-4" />
+                      Đọc thêm
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
