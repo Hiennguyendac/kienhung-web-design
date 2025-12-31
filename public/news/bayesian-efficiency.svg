@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" fill="none">
+  <style>
+    .title{font-family:'Inter', system-ui, -apple-system, sans-serif;font-size:20px;font-weight:700;fill:#0f172a;}
+    .subtitle{font-family:'Inter', system-ui, -apple-system, sans-serif;font-size:14px;font-weight:600;fill:#0f172a;}
+    .body{font-family:'Inter', system-ui, -apple-system, sans-serif;font-size:14px;fill:#334155;}
+    .muted{fill:#475569;font-size:13px;font-family:'Inter', system-ui, -apple-system, sans-serif;}
+  </style>
+  <rect width="960" height="620" rx="20" fill="#f8fafc"/>
+  <text x="32" y="46" class="title">Hiệu quả Bayesian: học đúng – học nhanh – học bền</text>
+  <text x="32" y="70" class="muted">Tóm tắt: ít dữ liệu vẫn học được • hội tụ nhanh • chịu nhiễu tốt • chi phí tính toán chấp nhận được</text>
+
+  <g transform="translate(32,96)">
+    <rect x="0" y="0" width="896" height="96" rx="14" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+    <text x="20" y="32" class="subtitle">🔥 Bayes có hiệu quả không?</text>
+    <text x="20" y="58" class="body">Hiệu quả Bayesian = mô hình Bayes học đúng, học nhanh, bền vững với dữ liệu thật.</text>
+    <text x="20" y="80" class="body">Ứng dụng khi cần: ít dữ liệu, cần suy luận tin cậy, hoặc dữ liệu lẫn nhiễu/outlier.</text>
+  </g>
+
+  <g transform="translate(32,210)">
+    <rect x="0" y="0" width="420" height="170" rx="14" fill="#ecfeff" stroke="#22c55e" stroke-width="1.2"/>
+    <text x="16" y="32" class="subtitle">🧠 Định nghĩa nhanh</text>
+    <text x="16" y="58" class="body">Bayes cập nhật niềm tin (posterior) khi có dữ liệu mới.</text>
+    <text x="16" y="82" class="body">Không nói “đúng/sai”, mà nói “tôi tin giả thuyết này bao nhiêu % sau khi thấy dữ liệu”.</text>
+    <text x="16" y="110" class="body">Hiệu quả = posterior ổn định nhanh, ít tài nguyên, chịu nhiễu tốt.</text>
+  </g>
+
+  <g transform="translate(476,210)">
+    <rect x="0" y="0" width="452" height="170" rx="14" fill="#eef2ff" stroke="#6366f1" stroke-width="1.2"/>
+    <text x="16" y="32" class="subtitle">📊 4 đặc điểm của mô hình Bayesian hiệu quả</text>
+    <text x="16" y="60" class="body">✅ Hội tụ nhanh: ít data vẫn đủ.</text>
+    <text x="16" y="84" class="body">✅ Tính toán chấp nhận được: sampler không kẹt, không burn-in cả đêm.</text>
+    <text x="16" y="108" class="body">✅ Chịu đòn tốt: dữ liệu lệch, outlier vẫn cho kết quả hợp lý.</text>
+    <text x="16" y="132" class="body">✅ Ít dữ liệu vẫn sống: lợi thế lớn trong y tế, kỹ thuật, nghiên cứu.</text>
+  </g>
+
+  <g transform="translate(32,402)">
+    <rect x="0" y="0" width="420" height="170" rx="14" fill="#fff1f2" stroke="#f87171" stroke-width="1.2"/>
+    <text x="16" y="32" class="subtitle">⚠️ Vì sao nhiều mô hình Bayes kém hiệu quả?</text>
+    <text x="16" y="60" class="body">• Không gian tham số quá lớn → sampler đi lạc.</text>
+    <text x="16" y="84" class="body">• Prior chọn cho có → chậm hội tụ hoặc lệch kết quả.</text>
+    <text x="16" y="108" class="body">• Thuật toán không phù hợp với posterior phức tạp.</text>
+    <text x="16" y="136" class="body">👉 Bayes không sai, dùng sai thì mới mệt.</text>
+  </g>
+
+  <g transform="translate(476,402)">
+    <rect x="0" y="0" width="452" height="170" rx="14" fill="#ecfdf3" stroke="#22c55e" stroke-width="1.2"/>
+    <text x="16" y="32" class="subtitle">🚀 Làm gì để Bayes hiệu quả hơn?</text>
+    <text x="16" y="60" class="body">• Dùng HMC/NUTS thay vì MCMC ngây thơ.</text>
+    <text x="16" y="84" class="body">• Chấp nhận xấp xỉ (Variational Inference) khi cần tốc độ.</text>
+    <text x="16" y="108" class="body">• Tối ưu code, thư viện, phần cứng.</text>
+    <text x="16" y="136" class="body">• Thiết kế prior hợp lý để dẫn hướng posterior.</text>
+  </g>
+
+  <g transform="translate(32,590)"></g>
+</svg>

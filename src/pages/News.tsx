@@ -36,6 +36,14 @@ const articles = [
     link: "/tin-tuc/active-learning",
   },
   {
+    title: "Hiệu quả Bayesian: Học đúng – học nhanh – học bền",
+    summary:
+      "Bayesian hiệu quả khi ít dữ liệu vẫn học được, hội tụ nhanh, chịu nhiễu tốt và chi phí tính toán hợp lý. Gợi ý kỹ thuật HMC/NUTS, VI, tối ưu prior.",
+    date: "29/12/2025",
+    tag: "Bayes & Inference",
+    link: "/tin-tuc/hieu-qua-bayesian",
+  },
+  {
     title: "Attention Models: Mô hình đang chú ý vào đâu?",
     summary:
       "Giải thích trực quan self-attention, Q-K-V, heatmap và multi-head attention; cách mô hình gán trọng số để hiểu ngữ cảnh sâu hơn.",
