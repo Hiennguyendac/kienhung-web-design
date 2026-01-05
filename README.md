@@ -1,63 +1,47 @@
-# Welcome to your Lovable project
+# Kiến Hưng Investment Website
 
-## Project info
+Vite + React + Tailwind + shadcn-ui site for Kiến Hưng Investment, including an AI chat widget that calls a Supabase Edge Function (which proxies to the Lovable AI gateway). This folder is the project root for Git.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Tech stack
+- React 18, TypeScript, Vite
+- Tailwind CSS, shadcn-ui components, framer-motion animations
+- Supabase client + Edge Functions (`supabase/functions/openai-chat`)
+- Router: `react-router-dom`
 
-## How can I edit this code?
+## Requirements
+- Node.js 18+ and npm
+- (Optional) Supabase CLI for running the Edge Function locally
+- Env vars (create `.env` or `.env.local`):
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_PUBLISHABLE_KEY`
+  - `LOVABLE_API_KEY` (only needed when serving the Edge Function)
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## Quick start
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Run the AI chat function locally
+```bash
+LOVABLE_API_KEY=your_key supabase functions serve openai-chat --no-verify-jwt
+```
+The front end calls `supabase.functions.invoke("openai-chat")`. The function lives at `supabase/functions/openai-chat/index.ts` and forwards chat to `https://ai.gateway.lovable.dev/v1/chat/completions` with a Vietnamese system prompt customized for Kiến Hưng Investment.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
+- `npm run dev` – Vite dev server
+- `npm run build` – production build to `dist/`
+- `npm run preview` – preview the build
+- `npm run lint` – ESLint
 
-**Use GitHub Codespaces**
+## Project structure
+- `src/` – app code, components, pages, hooks
+- `supabase/functions/openai-chat/` – Edge Function used by the AI chat widget
+- `public/` – static assets
+- `tailwind.config.ts` – Tailwind + shadcn config
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+## Deployment
+Build with `npm run build` and serve `dist/`, or deploy via Lovable/your static host. Ensure the runtime has the same Supabase env vars and the Edge Function is deployed with `LOVABLE_API_KEY` configured.
 - Tailwind CSS
 
 ## How can I deploy this project?
