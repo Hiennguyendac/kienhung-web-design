@@ -1,57 +1,91 @@
 # Kiến Hưng Investment Website
 
-Vite + React + Tailwind + shadcn-ui site for Kiến Hưng Investment, including an AI chat widget that calls a Supabase Edge Function (which proxies to the Lovable AI gateway). This folder is the project root for Git.
+Website giới thiệu và truyền thông thương hiệu Kiến Hưng Investment, xây dựng bằng Vite + React + TypeScript. Dự án tập trung vào trải nghiệm doanh nghiệp, nội dung dịch vụ, tin tức, form liên hệ và các trang con theo lĩnh vực hoạt động.
 
-## Tech stack
-- React 18, TypeScript, Vite
-- Tailwind CSS, shadcn-ui components, framer-motion animations
-- Supabase client + Edge Functions (`supabase/functions/openai-chat`)
-- Router: `react-router-dom`
+## Mục tiêu
 
-## Requirements
-- Node.js 18+ and npm
-- (Optional) Supabase CLI for running the Edge Function locally
-- Env vars (create `.env` or `.env.local`):
-  - `VITE_SUPABASE_URL`
-  - `VITE_SUPABASE_PUBLISHABLE_KEY`
-  - `LOVABLE_API_KEY` (only needed when serving the Edge Function)
+- Trình bày hình ảnh thương hiệu và dịch vụ một cách chuyên nghiệp.
+- Cung cấp trang con cho từng lĩnh vực, tin tức, chính sách và liên hệ.
+- Dễ mở rộng nội dung và triển khai tự động lên hosting cPanel.
 
-## Quick start
+## Công nghệ sử dụng
+
+- Vite 5
+- React 18 + TypeScript
+- Tailwind CSS
+- shadcn/ui
+- React Router
+
+## Cấu trúc chính
+
+```
+public/              # Tài nguyên tĩnh (favicon, robots, .htaccess, ảnh)
+src/
+  components/        # UI components
+  pages/             # Trang chính và trang con
+  integrations/      # Tích hợp dịch vụ (nếu có)
+  styles/            # (nếu có) style bổ trợ
+```
+
+## Yêu cầu môi trường
+
+- Node.js 20.x (khuyến nghị)
+- npm 9+
+
+## Cài đặt & chạy local
+
 ```bash
 npm install
 npm run dev
 ```
 
-## Run the AI chat function locally
+Mở trình duyệt: `http://localhost:8080`
+
+## Build
+
 ```bash
-LOVABLE_API_KEY=your_key supabase functions serve openai-chat --no-verify-jwt
+npm run build
+npm run preview
 ```
-The front end calls `supabase.functions.invoke("openai-chat")`. The function lives at `supabase/functions/openai-chat/index.ts` and forwards chat to `https://ai.gateway.lovable.dev/v1/chat/completions` with a Vietnamese system prompt customized for Kiến Hưng Investment.
 
-## Scripts
-- `npm run dev` – Vite dev server
-- `npm run build` – production build to `dist/`
-- `npm run preview` – preview the build
-- `npm run lint` – ESLint
+> Lưu ý: Vite sẽ copy mọi thứ trong `public/` sang `dist/`, bao gồm `.htaccess`, `robots.txt`, `favicon.jpg`.
 
-## Project structure
-- `src/` – app code, components, pages, hooks
-- `supabase/functions/openai-chat/` – Edge Function used by the AI chat widget
-- `public/` – static assets
-- `tailwind.config.ts` – Tailwind + shadcn config
+## Cấu hình biến môi trường (nếu dùng)
 
-## Deployment
-Build with `npm run build` and serve `dist/`, or deploy via Lovable/your static host. Ensure the runtime has the same Supabase env vars and the Edge Function is deployed with `LOVABLE_API_KEY` configured.
-- Tailwind CSS
+Tạo file `.env.local` (không commit) và khai báo các biến cần thiết. Ví dụ:
 
-## How can I deploy this project?
+```
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Triển khai tự động qua GitHub Actions (cPanel FTP)
 
-## Can I connect a custom domain to my Lovable project?
+Workflow đã được cấu hình tại `.github/workflows/deploy.yml`.
 
-Yes, you can!
+### Secrets cần tạo trong GitHub
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Vào **Settings → Secrets and variables → Actions** và tạo:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- `FTP_SERVER`
+- `FTP_USERNAME`
+- `FTP_PASSWORD`
+- (Tuỳ chọn) `FTP_PORT` nếu không dùng cổng 21
+
+### Cách deploy
+
+Mỗi lần push lên nhánh `main`, GitHub Actions sẽ:
+
+1. Cài đặt dependencies
+2. Build dự án (`dist/`)
+3. Upload lên `public_html/` bằng FTP/FTPS
+
+## Ghi chú
+
+- `public/.htaccess` hỗ trợ SPA rewrite khi deploy trên Apache.
+- `public/favicon.jpg` là favicon hiện tại của dự án.
+
+## Liên hệ
+
+- Website: https://kienhunginvest.vn
+- Email: contact@kienhunginvest.vn
