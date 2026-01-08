@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Newspaper } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 const articles = [
@@ -66,6 +66,13 @@ const NewsPage = () => {
     () => "mailto:contact@kienhunginvest.vn?subject=Dang%20ky%20nhan%20ban%20tin",
     [],
   );
+  const pageSize = 6;
+  const [page, setPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(articles.length / pageSize));
+  const pagedArticles = useMemo(
+    () => articles.slice((page - 1) * pageSize, page * pageSize),
+    [page, pageSize],
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,7 +103,7 @@ const NewsPage = () => {
         <section id="news" className="py-14 lg:py-20">
           <div className="container mx-auto px-6 lg:px-12">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {articles.map((article) => (
+              {pagedArticles.map((article) => (
                 <div
                   key={article.title}
                   className="p-6 rounded-xl border border-border bg-card shadow-soft flex flex-col gap-4"
@@ -130,6 +137,29 @@ const NewsPage = () => {
                   )}
                 </div>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 shadow-soft">
+              <div className="text-sm text-muted-foreground">
+                Trang <span className="font-semibold text-foreground">{page}</span> / {totalPages}
+              </div>
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === 1}
+                  onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="default"
+                  size="sm"
+                  disabled={page === totalPages}
+                  onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
 
             <div className="mt-12 p-6 rounded-xl bg-navy text-primary-foreground flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
