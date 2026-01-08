@@ -20,6 +20,7 @@ import GeneralRulesPage from "./pages/policies/GeneralRules";
 import ActiveLearningPage from "./pages/news/ActiveLearning";
 import AttentionModelsPage from "./pages/news/AttentionModels";
 import BayesianEfficiencyPage from "./pages/news/BayesianEfficiency";
+import BayesFactorPage from "./pages/news/BayesFactor";
 import NotFound from "./pages/NotFound";
 import { AIChatWidget } from "./components/AIChatWidget";
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/tin-tuc/active-learning" element={<ActiveLearningPage />} />
           <Route path="/tin-tuc/attention-models" element={<AttentionModelsPage />} />
           <Route path="/tin-tuc/hieu-qua-bayesian" element={<BayesianEfficiencyPage />} />
+          <Route path="/tin-tuc/bayes-factor" element={<BayesFactorPage />} />
           <Route path="/chinh-sach/dieu-khoan-su-dung" element={<TermsPage />} />
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />

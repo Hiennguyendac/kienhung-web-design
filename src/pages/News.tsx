@@ -44,6 +44,14 @@ const articles = [
     link: "/tin-tuc/hieu-qua-bayesian",
   },
   {
+    title: "Bayes Factor Explained: Hướng dẫn thực chiến cho người mới bắt đầu",
+    summary:
+      "Giải thích Bayes Factor, công thức/ý nghĩa, thang Jeffrey, ảnh hưởng của prior, ưu điểm và hạn chế khi dùng trong kiểm định giả thuyết.",
+    date: "08/01/2026",
+    tag: "Bayes & Inference",
+    link: "/tin-tuc/bayes-factor",
+  },
+  {
     title: "Attention Models: Mô hình đang chú ý vào đâu?",
     summary:
       "Giải thích trực quan self-attention, Q-K-V, heatmap và multi-head attention; cách mô hình gán trọng số để hiểu ngữ cảnh sâu hơn.",
