@@ -69,9 +69,18 @@ const NewsPage = () => {
   const pageSize = 6;
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(articles.length / pageSize));
+  const sortedArticles = useMemo(
+    () =>
+      [...articles].sort((a, b) => {
+        const aTime = Date.parse(a.date.split("/").reverse().join("-"));
+        const bTime = Date.parse(b.date.split("/").reverse().join("-"));
+        return bTime - aTime;
+      }),
+    [],
+  );
   const pagedArticles = useMemo(
-    () => articles.slice((page - 1) * pageSize, page * pageSize),
-    [page, pageSize],
+    () => sortedArticles.slice((page - 1) * pageSize, page * pageSize),
+    [page, pageSize, sortedArticles],
   );
 
   return (
