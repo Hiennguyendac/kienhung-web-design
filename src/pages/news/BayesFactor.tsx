@@ -79,6 +79,16 @@ const BayesFactorPage = () => {
 
         <section className="mt-8 space-y-4">
           <h2 className="font-heading text-2xl font-semibold text-foreground">3. Diễn giải theo thang Jeffrey</h2>
+          <figure className="rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/bayes-factor-jeffreys-scale.png"
+              alt="Infographic thang Jeffrey cho Bayes Factor"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Jeffreys’s Scale: BF &gt; 1 ủng hộ H1, BF &lt; 1 ủng hộ H0; mức độ bằng chứng tăng dần theo thang.
+            </figcaption>
+          </figure>
           <div className="overflow-hidden rounded-xl border border-border bg-card shadow-soft">
             <div className="grid grid-cols-2 gap-px bg-border text-sm">
               <div className="bg-muted px-4 py-3 font-semibold text-foreground">Bayes Factor (BF10)</div>
@@ -107,6 +117,16 @@ const BayesFactorPage = () => {
               <div className="bg-background px-4 py-3">Cực mạnh ủng hộ H0</div>
             </div>
           </div>
+          <figure className="rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+            <img
+              src="/news/bayes-factor-table.png"
+              alt="Bảng diễn giải mức bằng chứng của Bayes Factor theo Jeffreys"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Bảng tham chiếu Jeffrey: đối chiếu BF và mức độ bằng chứng ủng hộ H1/H0.
+            </figcaption>
+          </figure>
           <p className="text-muted-foreground font-body leading-relaxed">
             Ví dụ: BF10 = 5 nghĩa là có bằng chứng vừa đủ ủng hộ H1.
           </p>
