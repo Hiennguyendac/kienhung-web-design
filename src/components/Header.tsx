@@ -44,7 +44,7 @@ export const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+              <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-1 ring-navy/10">
                 <img 
                   src={kienHungLogo} 
                   alt="Kiến Hưng Investment Logo" 
