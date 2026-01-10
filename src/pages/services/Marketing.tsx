@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BarChart2, Megaphone, PenTool, Target, Users } from "lucide-react";
 import heroImage from "@/assets/hero-building.jpg";
+import { Seo } from "@/components/Seo";
 
 const offerings = [
   "Chiến lược truyền thông đa kênh (digital, PR, offline) gắn với mục tiêu kinh doanh.",
@@ -21,6 +22,13 @@ const strengths = [
 const MarketingPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Quảng cáo & Marketing | Kiến Hưng Investment"
+        description="Giải pháp quảng cáo và nghiên cứu thị trường: chiến lược truyền thông đa kênh, tối ưu KPI, sáng tạo nội dung và tăng trưởng khách hàng."
+        keywords="marketing, quảng cáo, nghiên cứu thị trường, đầu tư, thiết bị"
+        canonical="https://kienhunginvest.com/dich-vu/quang-cao-marketing"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden">

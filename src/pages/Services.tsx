@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Handshake, Target } from "lucide-react";
+import { Seo } from "@/components/Seo";
 
 const highlights = [
   {
@@ -22,6 +23,13 @@ const highlights = [
 const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Lĩnh vực hoạt động | Kiến Hưng Investment"
+        description="Tổng quan các lĩnh vực hoạt động của Kiến Hưng Investment: thương mại & phân phối, CNTT, marketing, logistics và giáo dục & đào tạo."
+        keywords="đầu tư, thiết bị, thương mại, CNTT, marketing, logistics, đào tạo nghề, học AI"
+        canonical="https://kienhunginvest.com/linh-vuc-hoat-dong"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="bg-secondary/50 border-b border-border">

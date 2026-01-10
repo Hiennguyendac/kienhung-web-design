@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Clock3, FileText, GraduationCap, Lightbulb, Presentation } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
+import { Seo } from "@/components/Seo";
 
 const offerings = [
   "Đào tạo kỹ năng mềm, kỹ năng kinh doanh và chăm sóc khách hàng cho đội ngũ sale/service.",
@@ -35,6 +36,13 @@ const EducationPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Giáo dục & Đào tạo | Kiến Hưng Investment"
+        description="Chương trình đào tạo nghề và học AI thực tiễn: AI Office, kỹ năng quản trị, vận hành, truyền thông nội bộ và tự động hóa."
+        keywords="học AI, đào tạo nghề, AI Office, học lái xe, đầu tư"
+        canonical="https://kienhunginvest.com/dich-vu/giao-duc-dao-tao"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden">

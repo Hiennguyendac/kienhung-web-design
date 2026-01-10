@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Code2, Cpu, Shield, Server, Workflow } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
+import { Seo } from "@/components/Seo";
 
 const offerings = [
   "Tư vấn chuyển đổi số, đánh giá hiện trạng hệ thống, lộ trình và ngân sách.",
@@ -21,6 +22,13 @@ const strengths = [
 const ITPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Công nghệ thông tin & Phần mềm | Kiến Hưng Investment"
+        description="Giải pháp phần mềm và hạ tầng CNTT: tư vấn chuyển đổi số, phát triển web/mobile, tích hợp API, bảo mật và vận hành."
+        keywords="công nghệ thông tin, phần mềm, chuyển đổi số, đầu tư, học AI"
+        canonical="https://kienhunginvest.com/dich-vu/cong-nghe-thong-tin"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden">

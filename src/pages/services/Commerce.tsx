@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Building2, Box, Globe2, Handshake, ShieldCheck } from "lucide-react";
 import heroBuilding from "@/assets/hero-building.jpg";
+import { Seo } from "@/components/Seo";
 
 const offerings = [
   "Phân phối hàng hóa B2B, xây dựng kênh đại lý và đối tác chiến lược.",
@@ -21,6 +22,13 @@ const strengths = [
 const CommercePage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Thương mại & Phân phối | Kiến Hưng Investment"
+        description="Dịch vụ thương mại & phân phối: xây kênh đại lý, tối ưu chuỗi cung ứng, xuất nhập khẩu, cung ứng thiết bị và hàng hóa B2B."
+        keywords="thiết bị, thương mại, phân phối, đầu tư, chuỗi cung ứng"
+        canonical="https://kienhunginvest.com/dich-vu/thuong-mai-phan-phoi"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden">

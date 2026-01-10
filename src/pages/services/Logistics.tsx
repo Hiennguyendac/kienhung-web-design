@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Clock4, Navigation, Route, Truck, Warehouse } from "lucide-react";
 import heroImage from "@/assets/hero-building.jpg";
+import { Seo } from "@/components/Seo";
 
 const offerings = [
   "Vận tải hàng hóa nội địa, giao nhận nhanh, tối ưu chi phí tuyến cố định.",
@@ -21,6 +22,13 @@ const strengths = [
 const LogisticsPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Logistics & Cho thuê xe | Kiến Hưng Investment"
+        description="Giải pháp logistics, vận tải hàng hóa và cho thuê xe doanh nghiệp: quản lý kho bãi, tối ưu lộ trình, theo dõi thời gian thực."
+        keywords="logistics, vận tải, cho thuê xe, học lái xe, đầu tư"
+        canonical="https://kienhunginvest.com/dich-vu/logistics-cho-thue-xe"
+        image="https://kienhunginvest.com/favicon.jpg"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden">
