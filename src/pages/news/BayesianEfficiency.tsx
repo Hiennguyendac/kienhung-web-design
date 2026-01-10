@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarDays, GaugeCircle, ShieldCheck, Zap, TriangleAlert, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 const highlights = [
   {
@@ -27,6 +28,38 @@ const highlights = [
 const BayesianEfficiencyPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Hiệu quả Bayesian | Kiến Hưng Investment"
+        description="Giải thích hiệu quả Bayesian: hội tụ nhanh, chịu nhiễu tốt, ít dữ liệu vẫn học được và chi phí tính toán hợp lý."
+        keywords="Bayesian, hiệu quả Bayesian, học AI, suy luận Bayes, đào tạo nghề"
+        canonical="https://kienhunginvest.com/tin-tuc/hieu-qua-bayesian"
+        image="https://kienhunginvest.com/news/bayesian-efficiency.svg"
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "headline": "Hiệu quả Bayesian: vì sao có mô hình học rất nhanh, có mô hình thì chạy mãi không xong?",
+          "datePublished": "2025-12-29",
+          "dateModified": "2025-12-29",
+          "author": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kienhunginvest.com/favicon.jpg"
+            }
+          },
+          "image": [
+            "https://kienhunginvest.com/news/bayesian-efficiency.svg"
+          ],
+          "mainEntityOfPage": "https://kienhunginvest.com/tin-tuc/hieu-qua-bayesian",
+          "inLanguage": "vi-VN"
+        }}
+      />
       <Header />
       <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
         <div className="mb-6 flex items-center gap-3 text-sm text-muted-foreground">
@@ -84,6 +117,8 @@ const BayesianEfficiencyPage = () => {
               src="/news/bayesian-efficiency.svg"
               alt="Infographic tóm tắt hiệu quả Bayesian"
               className="w-full"
+              loading="lazy"
+              decoding="async"
             />
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
               Infographic: hiệu quả Bayesian = hội tụ nhanh, chịu nhiễu tốt, ít dữ liệu vẫn học, chi phí tính toán hợp lý.

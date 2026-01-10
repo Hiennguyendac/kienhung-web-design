@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarDays, ArrowLeft, Sparkles, Target, Brain, Layers, Shield, BarChart4 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 const highlightBlocks = [
   {
@@ -32,6 +33,35 @@ const highlightBlocks = [
 const ActiveLearningPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Active Learning | Giảm chi phí gán nhãn, tăng tốc huấn luyện AI"
+        description="Active Learning giúp mô hình chủ động chọn mẫu cần gán nhãn, tiết kiệm chi phí và nâng cao độ chính xác. Ứng dụng rộng rãi trong NLP, CV, y tế."
+        keywords="học AI, Active Learning, gán nhãn dữ liệu, mô hình AI, đào tạo nghề AI"
+        canonical="https://kienhunginvest.com/tin-tuc/active-learning"
+        image="https://kienhunginvest.com/favicon.jpg"
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "headline": "Active Learning: Giảm chi phí gán nhãn, tăng tốc huấn luyện mô hình AI",
+          "datePublished": "2024-12-29",
+          "dateModified": "2024-12-29",
+          "author": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kienhunginvest.com/favicon.jpg"
+            }
+          },
+          "mainEntityOfPage": "https://kienhunginvest.com/tin-tuc/active-learning",
+          "inLanguage": "vi-VN"
+        }}
+      />
       <Header />
       <main>
         {/* Hero Section */}

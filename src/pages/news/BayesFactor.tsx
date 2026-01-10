@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarDays, Scale, Sigma, Lightbulb, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 const highlights = [
   {
@@ -27,6 +28,39 @@ const highlights = [
 const BayesFactorPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Bayes Factor Explained | Kiến Hưng Investment"
+        description="Hướng dẫn thực chiến về Bayes Factor: định nghĩa, công thức, thang Jeffrey, ảnh hưởng của prior, ưu điểm và hạn chế."
+        keywords="Bayes Factor, kiểm định giả thuyết, Jeffrey scale, học AI, đào tạo nghề"
+        canonical="https://kienhunginvest.com/tin-tuc/bayes-factor"
+        image="https://kienhunginvest.com/news/bayes-factor-jeffreys-scale.png"
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "headline": "Bayes Factor Explained: Hướng dẫn thực chiến cho người mới bắt đầu",
+          "datePublished": "2026-01-08",
+          "dateModified": "2026-01-08",
+          "author": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Kiến Hưng Investment",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://kienhunginvest.com/favicon.jpg"
+            }
+          },
+          "image": [
+            "https://kienhunginvest.com/news/bayes-factor-jeffreys-scale.png",
+            "https://kienhunginvest.com/news/bayes-factor-table.png"
+          ],
+          "mainEntityOfPage": "https://kienhunginvest.com/tin-tuc/bayes-factor",
+          "inLanguage": "vi-VN"
+        }}
+      />
       <Header />
       <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
         <div className="mb-6 flex items-center gap-3 text-sm text-muted-foreground">
@@ -84,6 +118,8 @@ const BayesFactorPage = () => {
               src="/news/bayes-factor-jeffreys-scale.png"
               alt="Infographic thang Jeffrey cho Bayes Factor"
               className="w-full"
+              loading="lazy"
+              decoding="async"
             />
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
               Jeffreys’s Scale: BF &gt; 1 ủng hộ H1, BF &lt; 1 ủng hộ H0; mức độ bằng chứng tăng dần theo thang.
@@ -122,6 +158,8 @@ const BayesFactorPage = () => {
               src="/news/bayes-factor-table.png"
               alt="Bảng diễn giải mức bằng chứng của Bayes Factor theo Jeffreys"
               className="w-full"
+              loading="lazy"
+              decoding="async"
             />
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
               Bảng tham chiếu Jeffrey: đối chiếu BF và mức độ bằng chứng ủng hộ H1/H0.

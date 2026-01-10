@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Newspaper } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 const articles = [
   {
@@ -85,6 +86,14 @@ const NewsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Tin tức Kiến Hưng Investment | Học AI, đầu tư, đào tạo nghề, thiết bị"
+        description="Cập nhật tin tức mới nhất về học AI, đầu tư, đào tạo nghề, thiết bị và các hoạt động kinh doanh của Kiến Hưng Investment."
+        keywords="học AI, đầu tư, đào tạo nghề, thiết bị, tin tức Kiến Hưng, logistics, công nghệ"
+        canonical="https://kienhunginvest.com/tin-tuc"
+        image="https://kienhunginvest.com/favicon.jpg"
+        type="website"
+      />
       <Header />
       <main>
         <section className="bg-secondary/50 border-b border-border">
@@ -111,6 +120,32 @@ const NewsPage = () => {
 
         <section id="news" className="py-14 lg:py-20">
           <div className="container mx-auto px-6 lg:px-12">
+            <div className="mb-10 rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-soft">
+              <p className="text-sm font-semibold text-gold uppercase tracking-widest mb-3">
+                Chủ đề nổi bật
+              </p>
+              <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                Học AI, đầu tư, đào tạo nghề và thiết bị cho doanh nghiệp
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Khám phá các nội dung về học AI ứng dụng, đào tạo nghề thực hành, đầu tư mở rộng năng lực, học lái xe và giải pháp thiết bị
+                cho doanh nghiệp.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/dich-vu/giao-duc-dao-tao" className="px-4 py-2 rounded-full bg-navy/10 text-navy text-sm font-medium">
+                  Học AI & Đào tạo nghề
+                </Link>
+                <Link to="/dich-vu/logistics-cho-thue-xe" className="px-4 py-2 rounded-full bg-navy/10 text-navy text-sm font-medium">
+                  Học lái xe & Logistics
+                </Link>
+                <Link to="/dich-vu/thuong-mai-phan-phoi" className="px-4 py-2 rounded-full bg-navy/10 text-navy text-sm font-medium">
+                  Thiết bị & Phân phối
+                </Link>
+                <Link to="/gioi-thieu" className="px-4 py-2 rounded-full bg-navy/10 text-navy text-sm font-medium">
+                  Đầu tư & Hợp tác
+                </Link>
+              </div>
+            </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {pagedArticles.map((article) => (
                 <div
