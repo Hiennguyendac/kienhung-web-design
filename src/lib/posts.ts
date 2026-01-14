@@ -46,6 +46,32 @@ function normalizeSlug(value: string): string {
   return value.trim().toLowerCase();
 }
 
+function deriveDateFromFilename(filename: string): string | undefined {
+  const match = filename.match(/^(\d{4}-\d{2}-\d{2})-/);
+  return match ? match[1] : undefined;
+}
+
+function cleanSlugForTitle(slug: string): string {
+  const parts = slug.split("-");
+  if (parts.length > 1 && /^[0-9a-f]{6,}$/i.test(parts[parts.length - 1])) {
+    parts.pop();
+  }
+  return parts.join("-");
+}
+
+function toTitleCase(value: string): string {
+  const acronyms = new Set(["ai", "cntt", "b2b", "b2c", "tp", "hcm", "vn"]);
+  return value
+    .split(/[-_\\s]+/)
+    .filter(Boolean)
+    .map((word) => {
+      const lower = word.toLowerCase();
+      if (acronyms.has(lower)) return lower.toUpperCase();
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
 export function stripMarkdown(text: string): string {
   return text
     .replace(/```[\s\S]*?```/g, " ")
@@ -82,15 +108,25 @@ export function getAllPosts(): Post[] {
       // fallback slug from filename if missing
       const file = path.split("/").pop() || "";
       const fileSlug = file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+      const fileDate = deriveDateFromFilename(file);
 
       const slug = (meta.slug || fileSlug).trim();
+      const normalizedTitleSource = cleanSlugForTitle(slug || fileSlug);
+      const derivedTitle = toTitleCase(normalizedTitleSource);
       const excerpt = makeExcerpt(body, 200);
+      const rawTitle = String(meta.title || "").trim();
+      const title =
+        !rawTitle ||
+        rawTitle === fileSlug ||
+        normalizeSlug(rawTitle).replace(/\\s+/g, "-") === normalizeSlug(fileSlug)
+          ? derivedTitle
+          : rawTitle;
 
       return {
-        title: meta.title || fileSlug,
+        title,
         slug,
-        date: meta.date,
-        category: meta.category,
+        date: meta.date || fileDate,
+        category: meta.category || "Tin tức",
         description: meta.description || "",
         image: meta.image || "",
         excerpt,
