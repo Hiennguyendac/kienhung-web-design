@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Active Learning">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1f3a"/>
+      <stop offset="50%" stop-color="#14345d"/>
+      <stop offset="100%" stop-color="#1f4b7a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="220" cy="520" r="140" fill="#f4c542" opacity="0.12"/>
+  <circle cx="980" cy="180" r="170" fill="#f4c542" opacity="0.12"/>
+  <text x="80" y="320" fill="#ffffff" font-size="56" font-family="Arial, sans-serif" font-weight="700">
+    Active Learning
+  </text>
+  <text x="80" y="380" fill="#cbd5e1" font-size="24" font-family="Arial, sans-serif">
+    Giảm chi phí gán nhãn, tăng tốc mô hình AI
+  </text>
+</svg>

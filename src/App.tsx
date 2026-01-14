@@ -1,3 +1,4 @@
+import NewsDetail from "./pages/news/[slug]";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,10 +18,6 @@ import EducationPage from "./pages/services/Education";
 import TermsPage from "./pages/policies/Terms";
 import PrivacyPage from "./pages/policies/Privacy";
 import GeneralRulesPage from "./pages/policies/GeneralRules";
-import ActiveLearningPage from "./pages/news/ActiveLearning";
-import AttentionModelsPage from "./pages/news/AttentionModels";
-import BayesianEfficiencyPage from "./pages/news/BayesianEfficiency";
-import BayesFactorPage from "./pages/news/BayesFactor";
 import NotFound from "./pages/NotFound";
 import { AIChatWidget } from "./components/AIChatWidget";
 
@@ -41,16 +38,14 @@ const App = () => (
           <Route path="/dich-vu/quang-cao-marketing" element={<MarketingPage />} />
           <Route path="/dich-vu/logistics-cho-thue-xe" element={<LogisticsPage />} />
           <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
-          <Route path="/tin-tuc/active-learning" element={<ActiveLearningPage />} />
-          <Route path="/tin-tuc/attention-models" element={<AttentionModelsPage />} />
-          <Route path="/tin-tuc/hieu-qua-bayesian" element={<BayesianEfficiencyPage />} />
-          <Route path="/tin-tuc/bayes-factor" element={<BayesFactorPage />} />
           <Route path="/chinh-sach/dieu-khoan-su-dung" element={<TermsPage />} />
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
+          <Route path="/tin-tuc/:slug" element={<NewsDetail />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
