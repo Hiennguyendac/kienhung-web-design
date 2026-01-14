@@ -15,26 +15,25 @@ export type Post = {
 };
 
 function parseFrontmatter(raw: string): { meta: any; body: string } {
-  // Expect:
-  // ---
-  // key: value
-  // ---
-  // body...
-  const fmMatch = raw.match(/^---\s*[\r\n]+([\s\S]*?)\s*---\s*[\r\n]+([\s\S]*)$/);
-  if (!fmMatch) {
+  // Support block frontmatter or inline: --- key: value --- body...
+  const fmBlockMatch = raw.match(/^---\s*[\r\n]+([\s\S]*?)\s*---\s*[\r\n]+([\s\S]*)$/);
+  const fmInlineMatch = raw.match(/^---\s*(.*?)\s*---\s*[\r\n]+([\s\S]*)$/);
+  if (!fmBlockMatch && !fmInlineMatch) {
     return { meta: {}, body: raw };
   }
 
-  const fm = fmMatch[1];
-  const body = fmMatch[2];
+  const fm = (fmBlockMatch ? fmBlockMatch[1] : fmInlineMatch?.[1] || "").trim();
+  const body = (fmBlockMatch ? fmBlockMatch[2] : fmInlineMatch?.[2] || "").trimStart();
 
   const meta: any = {};
-  fm.split(/\r?\n/).forEach((line) => {
+  const lines = fm.includes("\n")
+    ? fm.split(/\r?\n/)
+    : fm.match(/([A-Za-z0-9_]+:\s*\"[^\"]*\"|[A-Za-z0-9_]+:\s*'[^']*'|[A-Za-z0-9_]+:\s*[^\s]+)/g) || [];
+  lines.forEach((line) => {
     const m = line.match(/^([A-Za-z0-9_]+)\s*:\s*(.*)\s*$/);
     if (!m) return;
     const key = m[1];
     let val = m[2] || "";
-    // strip quotes
     val = val.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1").trim();
     meta[key] = val;
   });
@@ -115,12 +114,7 @@ export function getAllPosts(): Post[] {
       const derivedTitle = toTitleCase(normalizedTitleSource);
       const excerpt = makeExcerpt(body, 200);
       const rawTitle = String(meta.title || "").trim();
-      const title =
-        !rawTitle ||
-        rawTitle === fileSlug ||
-        normalizeSlug(rawTitle).replace(/\\s+/g, "-") === normalizeSlug(fileSlug)
-          ? derivedTitle
-          : rawTitle;
+      const title = rawTitle ? rawTitle : derivedTitle;
 
       return {
         title,
