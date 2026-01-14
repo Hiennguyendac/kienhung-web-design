@@ -1,5 +1,5 @@
 ---
-title: "Bayes Factor Explained: Hướng dẫn thực chiến cho người mới bắt đầu"
+title: "Bayes Factor"
 slug: "bayes-factor"
 date: "2026-01-08"
 category: "Bayes & Inference"

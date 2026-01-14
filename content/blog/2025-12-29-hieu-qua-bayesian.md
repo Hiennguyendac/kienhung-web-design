@@ -1,5 +1,5 @@
 ---
-title: "Hiệu quả Bayesian: vì sao có mô hình học rất nhanh, có mô hình thì chạy mãi không xong?"
+title: "Hieu Qua Bayesian"
 slug: "hieu-qua-bayesian"
 date: "2025-12-29"
 category: "Bayes & Inference"

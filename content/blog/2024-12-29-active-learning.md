@@ -1,5 +1,5 @@
 ---
-title: "Active Learning: Giảm chi phí gán nhãn, tăng tốc huấn luyện mô hình AI"
+title: "Active Learning"
 slug: "active-learning"
 date: "2024-12-29"
 category: "AI & Data"

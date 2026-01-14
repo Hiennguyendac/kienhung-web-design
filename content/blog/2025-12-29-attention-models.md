@@ -1,5 +1,5 @@
 ---
-title: "Attention Models trong Deep Learning: Mô hình đang chú ý vào đâu?"
+title: "Attention Models"
 slug: "attention-models"
 date: "2025-12-29"
 category: "Deep Learning"
