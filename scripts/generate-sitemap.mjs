@@ -6,20 +6,12 @@ const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "content", "blog");
 const publicDir = path.join(rootDir, "public");
 const outputPath = path.join(publicDir, "sitemap.xml");
-
-const staticRoutes = [
+const appRoutesPath = path.join(rootDir, "src", "App.tsx");
+const fallbackStaticRoutes = [
   "/",
   "/gioi-thieu",
   "/linh-vuc-hoat-dong",
-  "/dich-vu/thuong-mai-phan-phoi",
-  "/dich-vu/cong-nghe-thong-tin",
-  "/dich-vu/quang-cao-marketing",
-  "/dich-vu/logistics-cho-thue-xe",
-  "/dich-vu/giao-duc-dao-tao",
   "/tin-tuc",
-  "/chinh-sach/dieu-khoan-su-dung",
-  "/chinh-sach/chinh-sach-bao-mat",
-  "/chinh-sach/quy-dinh-chung",
   "/lien-he",
   "/yeu-cau-bao-gia",
 ];
@@ -78,6 +70,20 @@ async function loadPostRoutes() {
   return posts;
 }
 
+async function loadStaticRoutesFromApp() {
+  try {
+    const source = await fs.readFile(appRoutesPath, "utf8");
+    const matches = Array.from(source.matchAll(/<Route\s+path="([^"]+)"/g));
+    const routes = matches
+      .map((match) => match[1])
+      .filter((route) => route && !route.includes(":") && route !== "*")
+      .filter((route) => route.startsWith("/"));
+    return Array.from(new Set(routes)).sort();
+  } catch {
+    return fallbackStaticRoutes;
+  }
+}
+
 function renderUrl({ loc, lastmod }) {
   const url = new URL(loc, siteUrl).toString();
   const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : "";
@@ -86,6 +92,7 @@ function renderUrl({ loc, lastmod }) {
 
 async function main() {
   await fs.mkdir(publicDir, { recursive: true });
+  const staticRoutes = await loadStaticRoutesFromApp();
   const postRoutes = await loadPostRoutes();
   const allRoutes = [
     ...staticRoutes.map((loc) => ({ loc })),
