@@ -98,10 +98,15 @@ export function makeExcerpt(body: string, maxLen = 200): string {
   return `${clean.slice(0, cutoff).trim()}...`;
 }
 
+function extractHeadingTitle(body: string): string | undefined {
+  const match = body.match(/^\s*#{1,2}\s+(.+?)\s*$/m);
+  return match ? match[1].trim() : undefined;
+}
+
 export function getAllPosts(): Post[] {
   return Object.entries(modules)
     .map(([path, raw]) => {
-      const text = String(raw);
+      const text = String(raw).replace(/^\uFEFF/, "");
       const { meta, body } = parseFrontmatter(text);
 
       // fallback slug from filename if missing
@@ -114,7 +119,8 @@ export function getAllPosts(): Post[] {
       const derivedTitle = toTitleCase(normalizedTitleSource);
       const excerpt = makeExcerpt(body, 200);
       const rawTitle = String(meta.title || "").trim();
-      const title = rawTitle ? rawTitle : derivedTitle;
+      const headingTitle = extractHeadingTitle(body);
+      const title = rawTitle || headingTitle || derivedTitle;
 
       return {
         title,
