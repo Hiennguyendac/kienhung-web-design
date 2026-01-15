@@ -17,7 +17,7 @@ export type Post = {
 function parseFrontmatter(raw: string): { meta: any; body: string } {
   // Support block frontmatter or inline: --- key: value --- body...
   const fmBlockMatch = raw.match(/^---\s*[\r\n]+([\s\S]*?)\s*---\s*[\r\n]+([\s\S]*)$/);
-  const fmInlineMatch = raw.match(/^---\s*(.*?)\s*---\s*[\r\n]+([\s\S]*)$/);
+  const fmInlineMatch = raw.match(/^---\s*(.*?)\s*---\s*([\s\S]*)$/);
   if (!fmBlockMatch && !fmInlineMatch) {
     return { meta: {}, body: raw };
   }
