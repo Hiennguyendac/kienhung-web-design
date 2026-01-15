@@ -10,6 +10,8 @@ import ServicesPage from "./pages/Services";
 import NewsPage from "./pages/News";
 import ContactPage from "./pages/Contact";
 import RequestForm from "./pages/RequestForm";
+import CaseStudies from "./pages/CaseStudies";
+import Schedule from "./pages/Schedule";
 import CommercePage from "./pages/services/Commerce";
 import ITPage from "./pages/services/IT";
 import MarketingPage from "./pages/services/Marketing";
@@ -42,8 +44,10 @@ const App = () => (
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
+          <Route path="/dat-lich-hen" element={<Schedule />} />
           <Route path="/tin-tuc/:slug" element={<NewsDetail />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

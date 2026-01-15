@@ -9,6 +9,7 @@ const navItems = [
   { label: "Trang chủ", to: "/" },
   { label: "Giới thiệu", to: "/gioi-thieu" },
   { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
+  { label: "Case study", to: "/case-studies" },
   { label: "Tin tức", to: "/tin-tuc" },
   { label: "Liên hệ", to: "/lien-he" },
 ];
@@ -84,6 +85,11 @@ export const Header = () => {
 
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-4">
+              <Link to="/dat-lich-hen">
+                <Button variant="outline" size="sm">
+                  Đặt lịch hẹn
+                </Button>
+              </Link>
               <Link to="/lien-he">
                 <Button variant="default" size="sm">
                   Liên hệ tư vấn
@@ -123,6 +129,11 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
+                  <Link to="/dat-lich-hen" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">
+                      Đặt lịch hẹn
+                    </Button>
+                  </Link>
                   <Link to="/lien-he" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="default" className="w-full">
                       Liên hệ tư vấn

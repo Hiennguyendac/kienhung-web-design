@@ -4,6 +4,11 @@ import { AboutSection } from "@/components/AboutSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { LegalSection } from "@/components/LegalSection";
 import { ContactSection } from "@/components/ContactSection";
+import { LeadCaptureSection } from "@/components/LeadCaptureSection";
+import { CaseStudiesSection } from "@/components/CaseStudiesSection";
+import { NewsletterSection } from "@/components/NewsletterSection";
+import { BookingSection } from "@/components/BookingSection";
+import { SocialHighlightsSection } from "@/components/SocialHighlightsSection";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 
@@ -72,6 +77,11 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <ServicesSection />
+        <LeadCaptureSection />
+        <CaseStudiesSection />
+        <NewsletterSection />
+        <BookingSection />
+        <SocialHighlightsSection />
         <section className="py-16 lg:py-20 bg-secondary/30">
           <div className="container mx-auto px-6 lg:px-12">
             <div className="max-w-3xl">

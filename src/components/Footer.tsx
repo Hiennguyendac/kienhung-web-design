@@ -5,6 +5,7 @@ const footerLinks = {
   company: [
     { label: "Giới thiệu", href: "/gioi-thieu#about" },
     { label: "Lĩnh vực hoạt động", href: "/linh-vuc-hoat-dong#services" },
+    { label: "Case study", href: "/case-studies" },
     { label: "Tin tức", href: "/tin-tuc#news" },
     { label: "Tuyển dụng", href: "/tin-tuc#news" },
   ],

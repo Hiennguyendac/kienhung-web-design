@@ -89,6 +89,20 @@ export const ServicesSection = () => {
             </motion.div>
           ))}
         </div>
+
+        <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-background px-6 py-5 shadow-soft">
+          <div className="text-sm text-muted-foreground">
+            Cần xem dự án tương tự hoặc đặt lịch tư vấn nhanh?
+          </div>
+          <div className="flex gap-3">
+            <Link to="/case-studies" className="text-sm font-semibold text-navy underline hover:text-navy/80">
+              Xem case study
+            </Link>
+            <Link to="/dat-lich-hen" className="text-sm font-semibold text-navy underline hover:text-navy/80">
+              Đặt lịch hẹn
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

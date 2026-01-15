@@ -5,6 +5,19 @@ import { Button } from "@/components/ui/button";
 
 export const AIChatWidget = () => {
   const { chat, loading, error } = useAIChat();
+  const systemMessage: ChatMessage = {
+    role: "system",
+    content:
+      "Bạn là trợ lý AI của Kiến Hưng Investment. Trả lời ngắn gọn, chuyên nghiệp bằng tiếng Việt. " +
+      "Luôn ưu tiên hướng người dùng đến các trang: /yeu-cau-bao-gia, /dat-lich-hen, /tin-tuc, /case-studies. " +
+      "Nếu người dùng hỏi dịch vụ, hãy gợi ý đúng lĩnh vực: thương mại & phân phối, CNTT, marketing, logistics, giáo dục & đào tạo.",
+  };
+  const quickSuggestions = [
+    "Tôi muốn nhận tư vấn đầu tư",
+    "Làm sao để đặt lịch hẹn?",
+    "Các dịch vụ chính của Kiến Hưng là gì?",
+    "Cho tôi xem case study tiêu biểu",
+  ];
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -27,8 +40,7 @@ export const AIChatWidget = () => {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    // Send only user/assistant messages, system prompt is handled on backend
-    const reply = await chat([...messages, userMsg]);
+    const reply = await chat([systemMessage, ...messages, userMsg]);
     if (reply) {
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     }
@@ -129,6 +141,18 @@ export const AIChatWidget = () => {
       </div>
 
       <div className="border-t border-border bg-background px-4 py-3">
+        <div className="mb-3 flex flex-wrap gap-2">
+          {quickSuggestions.map((suggestion) => (
+            <button
+              key={suggestion}
+              type="button"
+              onClick={() => setInput(suggestion)}
+              className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground hover:text-navy hover:border-navy/40"
+            >
+              {suggestion}
+            </button>
+          ))}
+        </div>
         <div className="flex gap-2">
           <textarea
             value={input}
