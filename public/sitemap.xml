@@ -28,18 +28,6 @@
     <loc>https://kienhunginvest.com/tin-tuc</loc>
   </url>
   <url>
-    <loc>https://kienhunginvest.com/tin-tuc/active-learning</loc>
-  </url>
-  <url>
-    <loc>https://kienhunginvest.com/tin-tuc/attention-models</loc>
-  </url>
-  <url>
-    <loc>https://kienhunginvest.com/tin-tuc/hieu-qua-bayesian</loc>
-  </url>
-  <url>
-    <loc>https://kienhunginvest.com/tin-tuc/bayes-factor</loc>
-  </url>
-  <url>
     <loc>https://kienhunginvest.com/chinh-sach/dieu-khoan-su-dung</loc>
   </url>
   <url>
@@ -53,5 +41,45 @@
   </url>
   <url>
     <loc>https://kienhunginvest.com/yeu-cau-bao-gia</loc>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/active-learning</loc>
+    <lastmod>2024-12-29</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/attention-models</loc>
+    <lastmod>2025-12-29</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/hieu-qua-bayesian</loc>
+    <lastmod>2025-12-29</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/bayes-factor</loc>
+    <lastmod>2026-01-08</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/chien-luoc-dau-tu-vao-co-phieu-nang-luong-tai-tao-trong-boi-canh-chuyen-dich-xanh</loc>
+    <lastmod>2026-01-12</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/xu-huong-dau-tu-bat-dong-san-khu-cong-nghiep-tai-viet-nam</loc>
+    <lastmod>2026-01-13</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/xu-huong-dau-tu-vao-linh-vuc-du-lieu-lon-tai-viet-nam-2ba1b7a59b</loc>
+    <lastmod>2026-01-13</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/xu-huong-dau-tu-vao-bat-dong-san-thuong-mai-tai-viet-nam</loc>
+    <lastmod>2026-01-14</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/duong-sat-viet-nam-tang-toc-2023-41d4caca18</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kienhunginvest.com/tin-tuc/quang-ngai-dan-dau-mien-trung-tang-truong-kinh-te-b3b68baaa2</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
 </urlset>
