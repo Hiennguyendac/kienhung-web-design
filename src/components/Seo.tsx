@@ -54,7 +54,12 @@ export const Seo = ({
     "@type": "Organization",
     "name": "Kiến Hưng Investment",
     "url": "https://kienhunginvest.com/",
-    "logo": "https://kienhunginvest.com/favicon.jpg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kienhunginvest.com/logo-512.png",
+      "width": 512,
+      "height": 512,
+    },
     "sameAs": [
       "https://www.facebook.com/AIforbusinessvietnam/",
       "https://www.linkedin.com/company/ai-business-vn/?viewAsMember=true",
