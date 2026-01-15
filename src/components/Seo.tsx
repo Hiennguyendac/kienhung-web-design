@@ -7,7 +7,7 @@ type SeoProps = {
   canonical?: string;
   image?: string;
   type?: "website" | "article";
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 };
 
 const setMeta = (name: string, content: string) => {
@@ -49,6 +49,18 @@ export const Seo = ({
   type = "website",
   jsonLd,
 }: SeoProps) => {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kiến Hưng Investment",
+    "url": "https://kienhunginvest.com/",
+    "logo": "https://kienhunginvest.com/favicon.jpg",
+    "sameAs": [
+      "https://www.facebook.com/AIforbusinessvietnam/",
+      "https://www.linkedin.com/company/ai-business-vn/?viewAsMember=true",
+    ],
+  };
+
   useEffect(() => {
     document.title = title;
     setMeta("description", description);
@@ -72,14 +84,20 @@ export const Seo = ({
     setMeta("twitter:description", description);
   }, [title, description, keywords, canonical, image, type]);
 
-  if (!jsonLd) {
-    return null;
-  }
+  const jsonLdItems = [
+    organizationJsonLd,
+    ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []),
+  ];
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <>
+      {jsonLdItems.map((item, index) => (
+        <script
+          key={`jsonld-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
+        />
+      ))}
+    </>
   );
 };
