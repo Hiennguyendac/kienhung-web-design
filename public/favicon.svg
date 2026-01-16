@@ -14,18 +14,21 @@
       d="M0-22 3.5-19.5 7.5-20.5 9.5-16.5 13-15 12-10 15-7 12-4 12-1 8-1 6 2 2 1 -2 2 -6 1 -8-1 -12-1 -12-4 -15-7 -12-10 -13-15 -9.5-16.5 -7.5-20.5 -3.5-19.5Z"
       fill="none"
       stroke="#f6c03f"
-      stroke-width="1.2"
+      stroke-width="1.4"
       stroke-linejoin="round"
+      opacity="0.85"
+      transform="scale(0.78)"
     />
     <text
       x="0"
-      y="6"
+      y="1"
       font-family="Arial, Helvetica, sans-serif"
-      font-size="16"
+      font-size="18"
       font-weight="800"
       text-anchor="middle"
       fill="#ffd165"
       letter-spacing="0.8"
+      dominant-baseline="middle"
     >
       KH
     </text>
