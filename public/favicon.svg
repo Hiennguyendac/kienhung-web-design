@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="khGear" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c2b4b" />
+      <stop offset="100%" stop-color="#0f3a66" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#f6f8fb" />
+  <g transform="translate(32 32)">
+    <path
+      d="M0-21 4-19 8-19 9-15 12-13 10-9 12-5 9-3 8 1 4 1 0 3 -4 1 -8 1 -9-3 -12-5 -10-9 -12-13 -9-15 -8-19 -4-19Z"
+      fill="url(#khGear)"
+    />
+    <circle r="12" fill="#f6f8fb" />
+    <circle r="10.5" fill="#0c2b4b" />
+    <text
+      x="0"
+      y="4.5"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="12"
+      font-weight="700"
+      text-anchor="middle"
+      fill="#f6c03f"
+    >
+      KH
+    </text>
+  </g>
+</svg>
