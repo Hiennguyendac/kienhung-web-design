@@ -1,3 +1,13 @@
+---
+title: "Quảng Ngãi dẫn đầu miền Trung tăng trưởng kinh tế"
+slug: "quang-ngai-dan-dau-mien-trung-tang-truong-kinh-te"
+date: "2026-01-15"
+category: "Kinh tế"
+description: "Bức tranh tăng trưởng của Quảng Ngãi nửa đầu năm 2024 và các động lực giúp địa phương bứt tốc so với khu vực."
+---
+
+# Quảng Ngãi dẫn đầu miền Trung tăng trưởng kinh tế
+
 ## Giới thiệu
 
 Trong bức tranh kinh tế của miền Trung nửa đầu năm 2024, Quảng Ngãi nổi lên như một điểm sáng, vượt qua nhiều địa phương để dẫn đầu khu vực về tốc độ tăng trưởng. Với mức tăng trưởng GRDP ấn tượng 9,01%, tỉnh này không chỉ khẳng định vai trò là trung tâm công nghiệp trọng điểm mà còn đưa ra những gợi mở quan trọng cho các địa phương đang tìm kiếm động lực phát triển. Bài viết phân tích sâu về những yếu tố thúc đẩy tăng trưởng kinh tế Quảng Ngãi, bao gồm vai trò của Nhà máy lọc dầu Dung Quất, sự phục hồi mạnh mẽ ngành công nghiệp chế biến, các chính sách đầu tư – hạ tầng, và những chỉ số vĩ mô khẳng định đà phát triển bền vững.
