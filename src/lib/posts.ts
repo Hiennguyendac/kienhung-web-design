@@ -99,7 +99,7 @@ export function makeExcerpt(body: string, maxLen = 200): string {
 }
 
 function extractHeadingTitle(body: string): string | undefined {
-  const match = body.match(/^\s*#{1,2}\s+(.+?)\s*$/m);
+  const match = body.match(/^\s*#\s+(.+?)\s*$/m);
   return match ? match[1].trim() : undefined;
 }
 
