@@ -10,13 +10,12 @@
     <circle r="22" fill="url(#khRing)" />
     <circle r="16.5" fill="#0a2540" />
     <circle r="12.5" fill="#0f355c" />
-    <path
-      d="M0-22 3.5-19.5 7.5-20.5 9.5-16.5 13-15 12-10 15-7 12-4 12-1 8-1 6 2 2 1 -2 2 -6 1 -8-1 -12-1 -12-4 -15-7 -12-10 -13-15 -9.5-16.5 -7.5-20.5 -3.5-19.5Z"
+    <circle
+      r="13.5"
       fill="none"
       stroke="#f6c03f"
-      stroke-width="1.4"
-      stroke-linejoin="round"
-      opacity="0.85"
+      stroke-width="1.6"
+      opacity="0.9"
     />
     <text
       x="0"
