@@ -1,3 +1,13 @@
+---
+title: "Tăng trưởng kinh tế khu vực phía Nam: Tây Ninh bứt phá 2024"
+slug: "tang-truong-kinh-te-khu-vuc-phia-nam-tay-ninh-but-pha-2024"
+date: "2026-01-18"
+category: "Kinh tế"
+description: "Bức tranh tăng trưởng khu vực phía Nam năm 2024 với điểm sáng Tây Ninh và các địa phương đang tái cấu trúc động lực kinh tế."
+---
+
+# Tăng trưởng kinh tế khu vực phía Nam: Tây Ninh bứt phá 2024
+
 ## Giới thiệu
 
 Trong bức tranh hồi phục kinh tế hậu đại dịch COVID-19, khu vực phía Nam Việt Nam – vùng động lực kinh tế của cả nước – đang chứng kiến sự phân hóa rõ nét giữa các địa phương. Báo cáo 6 tháng đầu năm 2024 đưa ra nhiều tín hiệu đáng chú ý: Tây Ninh vươn lên dẫn đầu về tốc độ tăng trưởng GRDP, trong khi các đầu tàu truyền thống như TP.HCM, Bình Dương, Long An, và Đồng Nai lại có dấu hiệu chững lại. Điều gì đang tạo nên sự chuyển dịch trong nội lực phát triển vùng? Làm thế nào những tỉnh "vệ tinh" đang tận dụng cấu trúc kinh tế linh hoạt để tăng tốc và thích nghi tốt hơn với biến động toàn cầu?

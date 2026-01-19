@@ -1,3 +1,13 @@
+---
+title: "Khoa học công nghệ và đổi mới sáng tạo: bệ phóng tăng trưởng kinh tế Việt Nam"
+slug: "khoa-hoc-cong-nghe-va-doi-moi-sang-tao-be-phong-tang-truong-kinh-te-viet-nam"
+date: "2026-01-19"
+category: "Khoa học & Công nghệ"
+description: "Vai trò của khoa học công nghệ và đổi mới sáng tạo trong thúc đẩy kinh tế Việt Nam, từ R&D đến chuyển đổi số."
+---
+
+# Khoa học công nghệ và đổi mới sáng tạo: bệ phóng tăng trưởng kinh tế Việt Nam
+
 ## Giới thiệu
 
 Trong bối cảnh toàn cầu đang bước vào kỷ nguyên của Cách mạng công nghiệp 4.0, khoa học công nghệ (KHCN) và đổi mới sáng tạo không chỉ là yếu tố cạnh tranh then chốt mà còn là động lực cốt lõi để thúc đẩy phát triển kinh tế – xã hội của mỗi quốc gia. Việt Nam đang dần ghi dấu ấn trên bản đồ công nghệ thế giới với những bước tiến rõ rệt trong đầu tư nghiên cứu, ứng dụng công nghệ cao, xây dựng hệ sinh thái khởi nghiệp và phát triển công nghiệp mũi nhọn. Năm 2023, Việt Nam xếp hạng 48/132 quốc gia về Chỉ số đổi mới sáng tạo toàn cầu theo WIPO – khẳng định vai trò ngày càng rõ nét của KHCN với năng lực cạnh tranh quốc gia.
