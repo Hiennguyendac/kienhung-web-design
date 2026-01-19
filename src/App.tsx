@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import AboutPage from "./pages/About";
 import ServicesPage from "./pages/Services";
 import NewsPage from "./pages/News";
-import AIToolsPage from "./pages/AIToolsPage";
 import ContactPage from "./pages/Contact";
 import RequestForm from "./pages/RequestForm";
 import CaseStudies from "./pages/CaseStudies";
@@ -22,7 +21,7 @@ import TermsPage from "./pages/policies/Terms";
 import PrivacyPage from "./pages/policies/Privacy";
 import GeneralRulesPage from "./pages/policies/GeneralRules";
 import NotFound from "./pages/NotFound";
-import { AIChatWidget } from "./components/ai/AIChatWidget";
+import { AIChatWidget } from "./components/AIChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -45,7 +44,6 @@ const App = () => (
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
-          <Route path="/ai-tools" element={<AIToolsPage />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />
