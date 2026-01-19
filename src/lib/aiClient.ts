@@ -33,16 +33,12 @@ async function requestJson<T>(
         signal: controller.signal,
       });
 
-      const text = await res.text();
       if (!res.ok) {
-        throw new Error(text || `AI API error (${res.status})`);
+        const message = await res.text();
+        throw new Error(message || `AI API error (${res.status})`);
       }
 
-      try {
-        return JSON.parse(text) as T;
-      } catch {
-        throw new Error("AI Gateway returned non-JSON response. Check /api-ai configuration.");
-      }
+      return (await res.json()) as T;
     } catch (err) {
       lastError = err;
       const isAbort = err instanceof DOMException && err.name === "AbortError";
