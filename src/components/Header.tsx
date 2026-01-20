@@ -11,6 +11,7 @@ const navItems = [
   { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
   { label: "Case study", to: "/case-studies" },
   { label: "Tin tức", to: "/tin-tuc" },
+  { label: "AI Tools", to: "/ai-tools" },
   { label: "Liên hệ", to: "/lien-he" },
 ];
 
