@@ -34,3 +34,15 @@ export type RagResponse = {
 export type ModelsResponse = {
   models: string[];
 };
+
+export type ImageRequest = {
+  mode: AiMode;
+  model: string;
+  prompt: string;
+  size?: string;
+};
+
+export type ImageResponse = {
+  url: string;
+  revised_prompt?: string;
+};

@@ -14,7 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_usage: {
+        Row: {
+          id: string
+          user_id: string
+          period: string
+          tokens_used: number
+          tokens_limit: number
+          plan: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          period: string
+          tokens_used?: number
+          tokens_limit: number
+          plan: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          period?: string
+          tokens_used?: number
+          tokens_limit?: number
+          plan?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

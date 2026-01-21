@@ -6,9 +6,10 @@ type ModelSelectorProps = {
   mode: AiMode;
   onModeChange: (mode: AiMode) => void;
   onChange: (model: string) => void;
+  disabled?: boolean;
 };
 
-export const ModelSelector = ({ models, value, mode, onModeChange, onChange }: ModelSelectorProps) => {
+export const ModelSelector = ({ models, value, mode, onModeChange, onChange, disabled = false }: ModelSelectorProps) => {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="inline-flex rounded-full border border-border bg-background p-1 text-xs">
@@ -17,9 +18,10 @@ export const ModelSelector = ({ models, value, mode, onModeChange, onChange }: M
             key={item}
             type="button"
             onClick={() => onModeChange(item)}
+            disabled={disabled}
             className={`px-3 py-1 rounded-full font-medium transition-colors ${
               mode === item ? "bg-navy text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
+            } ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
           >
             {item === "local" ? "Fast (local)" : "Latest (remote)"}
           </button>
@@ -29,7 +31,8 @@ export const ModelSelector = ({ models, value, mode, onModeChange, onChange }: M
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-foreground"
+        disabled={disabled}
+        className="rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-foreground disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {models.length === 0 ? (
           <option value="default">default</option>

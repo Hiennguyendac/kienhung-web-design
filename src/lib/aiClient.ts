@@ -1,4 +1,4 @@
-import type { ChatRequest, ChatResponse, ModelsResponse, RagResponse } from "./aiTypes";
+import type { ChatRequest, ChatResponse, ImageRequest, ImageResponse, ModelsResponse, RagResponse } from "./aiTypes";
 
 const API_BASE = (import.meta.env.VITE_AI_API_BASE as string) || "/api-ai";
 const DEFAULT_TIMEOUT_MS = 30_000;
@@ -7,6 +7,7 @@ const DEFAULT_RETRY = 1;
 type RequestOptions = {
   timeoutMs?: number;
   retry?: number;
+  authToken?: string | null;
 };
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,6 +19,7 @@ async function requestJson<T>(
 ): Promise<T> {
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const retry = options.retry ?? DEFAULT_RETRY;
+  const authToken = options.authToken ?? null;
   let lastError: unknown = null;
 
   for (let attempt = 0; attempt <= retry; attempt += 1) {
@@ -28,6 +30,7 @@ async function requestJson<T>(
         ...init,
         headers: {
           "Content-Type": "application/json",
+          ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
           ...(init.headers || {}),
         },
         signal: controller.signal,
@@ -63,8 +66,10 @@ async function requestJson<T>(
 export const aiClient = {
   getHealth: () => requestJson<{ status: string }>("/health", {}, { retry: 0 }),
   getModels: () => requestJson<ModelsResponse>("/models", {}, { retry: 1 }),
-  chat: (payload: ChatRequest) =>
-    requestJson<ChatResponse>("/chat", { method: "POST", body: JSON.stringify(payload) }),
-  ragChat: (payload: ChatRequest) =>
-    requestJson<RagResponse>("/rag/chat", { method: "POST", body: JSON.stringify(payload) }),
+  chat: (payload: ChatRequest, authToken?: string | null) =>
+    requestJson<ChatResponse>("/chat", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
+  ragChat: (payload: ChatRequest, authToken?: string | null) =>
+    requestJson<RagResponse>("/rag/chat", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
+  image: (payload: ImageRequest, authToken?: string | null) =>
+    requestJson<ImageResponse>("/image", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
 };
