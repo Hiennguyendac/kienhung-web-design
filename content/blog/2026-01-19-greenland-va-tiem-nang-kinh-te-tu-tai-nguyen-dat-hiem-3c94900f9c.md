@@ -1,3 +1,9 @@
+---
+title: "Greenland và tiềm năng kinh tế từ tài nguyên đất hiếm"
+slug: "greenland-va-tiem-nang-kinh-te-tu-tai-nguyen-dat-hiem-3c94900f9c"
+date: "2026-01-19"
+---
+
 ## Giới thiệu
 
 Greenland – hòn đảo lớn nhất thế giới thuộc Vương quốc Đan Mạch – đang thu hút ngày càng nhiều sự chú ý từ cộng đồng quốc tế nhờ sở hữu nguồn tài nguyên thiên nhiên phong phú cùng vị trí địa chính trị chiến lược tại Bắc Cực. Nhưng giữa kỳ vọng về tiềm năng kinh tế khổng lồ từ đất hiếm, uranium, dầu mỏ và khí đốt, Greenland cũng đối mặt với một nghịch lý: tiến thoái lưỡng nan giữa phát triển và bảo vệ môi trường trong bối cảnh biến đổi khí hậu ngày càng rõ rệt. Bài viết này phân tích sâu tiềm năng và những thách thức của nền kinh tế Greenland, đặc biệt trong bối cảnh xu hướng toàn cầu hóa chuyển trọng tâm chiến lược về khu vực Bắc Cực.

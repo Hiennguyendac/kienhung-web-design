@@ -1,3 +1,9 @@
+---
+title: "Đường sắt Việt Nam tăng tốc: Năm 2023 bùng nổ các dự án hạ tầng giao thông trọng điểm"
+slug: "duong-sat-viet-nam-tang-toc-2023-41d4caca18"
+date: "2026-01-15"
+---
+
 # Đường sắt Việt Nam tăng tốc: Năm 2023 bùng nổ các dự án hạ tầng giao thông trọng điểm
 
 ## Đường sắt – Hướng đi chiến lược trong phát triển giao thông quốc gia

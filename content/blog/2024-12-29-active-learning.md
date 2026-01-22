@@ -1,5 +1,5 @@
 ---
-title: "Active Learning"
+title: "Active Learning: Học chủ động trong AI"
 slug: "active-learning"
 date: "2024-12-29"
 category: "AI & Data"

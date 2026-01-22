@@ -1,5 +1,5 @@
 ---
-title: "Attention Models"
+title: "Attention Models: Mô hình Attention trong Deep Learning"
 slug: "attention-models"
 date: "2025-12-29"
 category: "Deep Learning"

@@ -1,5 +1,5 @@
 ---
-title: "Bayes Factor"
+title: "Bayes Factor: Hệ số Bayes trong kiểm định giả thuyết"
 slug: "bayes-factor"
 date: "2026-01-08"
 category: "Bayes & Inference"

@@ -1,5 +1,5 @@
 ---
-title: "Xu Huong Dau Tu Bat Dong San Khu Cong Nghiep Tai Viet Nam"
+title: "Xu hướng đầu tư bất động sản khu công nghiệp tại Việt Nam"
 slug: "xu-huong-dau-tu-bat-dong-san-khu-cong-nghiep-tai-viet-nam"
 date: "2026-01-13"
 category: "Bất động sản"

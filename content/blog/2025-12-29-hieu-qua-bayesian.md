@@ -1,5 +1,5 @@
 ---
-title: "Hieu Qua Bayesian"
+title: "Hiệu quả Bayesian"
 slug: "hieu-qua-bayesian"
 date: "2025-12-29"
 category: "Bayes & Inference"

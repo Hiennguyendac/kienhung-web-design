@@ -1,4 +1,12 @@
---- title: "Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam" slug: "xu-huong-dau-tu-vao-bat-dong-san-thuong-mai-tai-viet-nam" date: "2026-01-14" category: "Bất động sản" description: "Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam" ---  ## Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam
+---
+title: "Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam"
+slug: "xu-huong-dau-tu-vao-bat-dong-san-thuong-mai-tai-viet-nam"
+date: "2026-01-14"
+category: "Bất động sản"
+description: "Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam"
+---
+
+## Xu hướng đầu tư vào bất động sản thương mại tại Việt Nam
 
 Trong bối cảnh nền kinh tế Việt Nam đang phục hồi và tăng trưởng ổn định sau đại dịch, phân khúc bất động sản thương mại (BĐS TM) đang cho thấy nhiều tiềm năng thu hút dòng vốn đầu tư trong và ngoài nước. Sự phát triển đồng bộ của hạ tầng, nhu cầu tiêu dùng tăng cao cùng với sự mở rộng của các tập đoàn bán lẻ và công nghiệp đang tạo ra nhiều cơ hội cho các nhà đầu tư vào thị trường BĐS TM.
 
