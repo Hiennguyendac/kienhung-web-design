@@ -1,3 +1,9 @@
+---
+title: "Bất động sản hưởng lợi từ hạ tầng giao thông"
+slug: "bat-dong-san-huong-loi-tu-ha-tang-giao-thong-25b46d8006"
+date: "2026-01-22"
+---
+
 ## Giới thiệu
 
 Trong những năm gần đây, thị trường bất động sản Việt Nam đã ghi nhận sự chuyển mình rõ rệt cùng với sự phát triển mạnh mẽ của hạ tầng giao thông. Sự bùng nổ các dự án giao thông lớn như cao tốc Bắc - Nam, các tuyến đường vành đai 3, vành đai 4 và nhiều tuyến kết nối vùng đã tạo ra bước ngoặt cho làn sóng đầu tư bất động sản tại các khu vực vệ tinh và vùng ven đô thị lớn. Hơn 90.000 sản phẩm bất động sản mới được phát triển quanh các trục hạ tầng trọng điểm là minh chứng mạnh mẽ cho xu thế này.
