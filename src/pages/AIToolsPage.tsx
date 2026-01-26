@@ -100,6 +100,14 @@ export default function AIToolsPage() {
   }, []);
 
   useEffect(() => {
+    if (!session) return;
+    setSignInEmail("");
+    setSignInPassword("");
+    setSignUpEmail("");
+    setSignUpPassword("");
+  }, [session]);
+
+  useEffect(() => {
     if (!session) {
       setUsage(null);
       return;
@@ -164,6 +172,10 @@ export default function AIToolsPage() {
     });
     if (signInError) {
       setAuthError(signInError.message);
+    } else {
+      setSignInEmail("");
+      setSignInPassword("");
+      setAuthMessage(null);
     }
     setAuthLoading(false);
   };
@@ -184,12 +196,19 @@ export default function AIToolsPage() {
       setAuthError(signUpError.message);
     } else {
       setAuthMessage("Đã tạo tài khoản. Vui lòng kiểm tra email để xác nhận.");
+      setSignUpPassword("");
     }
     setAuthLoading(false);
   };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    setSignInEmail("");
+    setSignInPassword("");
+    setSignUpEmail("");
+    setSignUpPassword("");
+    setAuthMessage(null);
+    setAuthError(null);
   };
 
   const handleChat = async (
@@ -421,6 +440,7 @@ export default function AIToolsPage() {
                       placeholder="Email"
                       value={signInEmail}
                       onChange={(e) => setSignInEmail(e.target.value)}
+                      autoComplete="email"
                       className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                     />
                     <input
@@ -428,6 +448,7 @@ export default function AIToolsPage() {
                       placeholder="Mật khẩu"
                       value={signInPassword}
                       onChange={(e) => setSignInPassword(e.target.value)}
+                      autoComplete="current-password"
                       className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                     />
                     <button
@@ -449,6 +470,7 @@ export default function AIToolsPage() {
                       placeholder="Email"
                       value={signUpEmail}
                       onChange={(e) => setSignUpEmail(e.target.value)}
+                      autoComplete="email"
                       className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                     />
                     <input
@@ -456,6 +478,7 @@ export default function AIToolsPage() {
                       placeholder="Mật khẩu"
                       value={signUpPassword}
                       onChange={(e) => setSignUpPassword(e.target.value)}
+                      autoComplete="new-password"
                       className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
                     />
                     <button
