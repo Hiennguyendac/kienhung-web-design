@@ -9,6 +9,7 @@ import AboutPage from "./pages/About";
 import ServicesPage from "./pages/Services";
 import NewsPage from "./pages/News";
 import AIToolsPage from "./pages/AIToolsPage";
+import AuthCallback from "./pages/AuthCallback";
 import ContactPage from "./pages/Contact";
 import RequestForm from "./pages/RequestForm";
 import CaseStudies from "./pages/CaseStudies";
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/ai-tools" element={<AIToolsPage />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/lien-he" element={<ContactPage />} />
           <Route path="/yeu-cau-bao-gia" element={<RequestForm />} />

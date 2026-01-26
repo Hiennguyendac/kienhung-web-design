@@ -190,6 +190,7 @@ export default function AIToolsPage() {
       password: signUpPassword,
       options: {
         data: { plan: "free" },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     if (signUpError) {
