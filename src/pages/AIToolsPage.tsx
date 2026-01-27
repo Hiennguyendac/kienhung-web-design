@@ -311,6 +311,7 @@ export default function AIToolsPage() {
         title="AI Tools Studio | Kiến Hưng Investment"
         description="AI Tools Studio: tóm tắt, SEO draft, RAG chat và tạo ảnh qua AI Gateway."
         canonical="https://kienhunginvest.com/ai-tools"
+        noindex
       />
       <Header />
       <main className="bg-slate-950 text-slate-100">

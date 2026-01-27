@@ -94,8 +94,9 @@ async function main() {
   await fs.mkdir(publicDir, { recursive: true });
   const staticRoutes = await loadStaticRoutesFromApp();
   const postRoutes = await loadPostRoutes();
+  const excluded = new Set(["/ai-tools"]);
   const allRoutes = [
-    ...staticRoutes.map((loc) => ({ loc })),
+    ...staticRoutes.filter((loc) => !excluded.has(loc)).map((loc) => ({ loc })),
     ...postRoutes,
   ];
 

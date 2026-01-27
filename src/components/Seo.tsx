@@ -8,6 +8,7 @@ type SeoProps = {
   image?: string;
   type?: "website" | "article";
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  noindex?: boolean;
 };
 
 const setMeta = (name: string, content: string) => {
@@ -48,6 +49,7 @@ export const Seo = ({
   image,
   type = "website",
   jsonLd,
+  noindex = false,
 }: SeoProps) => {
   const organizationJsonLd = {
     "@context": "https://schema.org",
@@ -87,7 +89,8 @@ export const Seo = ({
     }
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
-  }, [title, description, keywords, canonical, image, type]);
+    setMeta("robots", noindex ? "noindex, nofollow" : "index, follow");
+  }, [title, description, keywords, canonical, image, type, noindex]);
 
   const jsonLdItems = [
     organizationJsonLd,
