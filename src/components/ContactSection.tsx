@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { submitContact } from "@/lib/contactApi";
 
 const contactInfo = [
   {
@@ -30,6 +32,44 @@ const contactInfo = [
 ];
 
 export const ContactSection = () => {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onChange = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      await submitContact({
+        type: "contact",
+        payload: {
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          email: form.email.trim(),
+          company: form.company.trim() || undefined,
+          message: form.message.trim(),
+        },
+      });
+      setStatus("success");
+      setForm({ name: "", phone: "", email: "", company: "", message: "" });
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Gửi thất bại. Vui lòng thử lại.");
+    }
+  };
+
   return (
     <section id="contact" className="py-20 lg:py-28 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
@@ -92,7 +132,7 @@ export const ContactSection = () => {
             <h3 className="font-heading text-xl font-semibold text-foreground mb-6">
               Gửi yêu cầu liên hệ
             </h3>
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={onSubmit}>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block font-body text-sm font-medium text-foreground mb-2">
@@ -100,8 +140,11 @@ export const ContactSection = () => {
                   </label>
                   <input
                     type="text"
+                    value={form.name}
+                    onChange={onChange("name")}
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition-colors"
                     placeholder="Nhập họ và tên"
+                    required
                   />
                 </div>
                 <div>
@@ -110,8 +153,11 @@ export const ContactSection = () => {
                   </label>
                   <input
                     type="tel"
+                    value={form.phone}
+                    onChange={onChange("phone")}
                     className="w-full px-4 py-3 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition-colors"
                     placeholder="Nhập số điện thoại"
+                    required
                   />
                 </div>
               </div>
@@ -121,8 +167,11 @@ export const ContactSection = () => {
                 </label>
                 <input
                   type="email"
+                  value={form.email}
+                  onChange={onChange("email")}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition-colors"
                   placeholder="Nhập địa chỉ email"
+                  required
                 />
               </div>
               <div>
@@ -131,6 +180,8 @@ export const ContactSection = () => {
                 </label>
                 <input
                   type="text"
+                  value={form.company}
+                  onChange={onChange("company")}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition-colors"
                   placeholder="Nhập tên công ty (nếu có)"
                 />
@@ -141,13 +192,26 @@ export const ContactSection = () => {
                 </label>
                 <textarea
                   rows={4}
+                  value={form.message}
+                  onChange={onChange("message")}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition-colors resize-none"
                   placeholder="Mô tả yêu cầu của bạn..."
+                  required
                 />
               </div>
-              <Button variant="default" size="lg" className="w-full">
-                Gửi yêu cầu
+              <Button variant="default" size="lg" className="w-full" disabled={status === "loading"}>
+                {status === "loading" ? "Đang gửi..." : "Gửi yêu cầu"}
               </Button>
+              {status === "success" && (
+                <p className="text-sm text-green-600 text-center">
+                  Đã gửi thông tin. Chúng tôi sẽ liên hệ trong 24 giờ làm việc.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-sm text-red-600 text-center">
+                  {errorMessage || "Gửi thất bại. Vui lòng thử lại."}
+                </p>
+              )}
               <p className="font-body text-xs text-muted-foreground text-center">
                 Chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc
               </p>

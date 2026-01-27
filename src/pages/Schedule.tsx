@@ -5,6 +5,7 @@ import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { submitContact } from "@/lib/contactApi";
 
 const slots = [
   "08:30 - 09:30",
@@ -32,7 +33,7 @@ const Schedule = () => {
     slot: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const formsEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChange = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
@@ -42,28 +43,19 @@ const Schedule = () => {
     e.preventDefault();
     setStatus("loading");
 
-    if (!formsEndpoint) {
-      const subject = `Đặt lịch tư vấn từ ${form.name || "khách hàng"}`;
-      const body = [
-        `Họ tên: ${form.name}`,
-        `Điện thoại: ${form.phone}`,
-        `Email: ${form.email}`,
-        `Dịch vụ quan tâm: ${form.service}`,
-        `Ngày hẹn: ${form.date}`,
-        `Khung giờ: ${form.slot}`,
-      ].join("%0D%0A");
-      window.location.href = `mailto:nguyen.dac.hien@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-      setStatus("idle");
-      return;
-    }
-
     try {
-      const res = await fetch(formsEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, type: "schedule" }),
+      setErrorMessage("");
+      await submitContact({
+        type: "schedule",
+        payload: {
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          service: form.service,
+          date: form.date,
+          slot: form.slot,
+        },
       });
-      if (!res.ok) throw new Error("Submit failed");
       setStatus("success");
       setForm({
         name: "",
@@ -75,6 +67,7 @@ const Schedule = () => {
       });
     } catch {
       setStatus("error");
+      setErrorMessage("Gửi thất bại. Vui lòng thử lại.");
     }
   };
 
@@ -168,7 +161,7 @@ const Schedule = () => {
             )}
             {status === "error" && (
               <div className="text-sm text-red-600 font-medium">
-                Gửi thất bại. Vui lòng thử lại hoặc gọi hotline 0903 103 198.
+                {errorMessage || "Gửi thất bại. Vui lòng thử lại hoặc gọi hotline 0903 103 198."}
               </div>
             )}
           </form>

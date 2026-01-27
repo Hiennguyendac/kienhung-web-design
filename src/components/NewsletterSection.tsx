@@ -1,34 +1,29 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { submitContact } from "@/lib/contactApi";
 
 export const NewsletterSection = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const formsEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setStatus("loading");
 
-    if (!formsEndpoint) {
-      window.location.href = `mailto:nguyen.dac.hien@gmail.com?subject=Dang%20ky%20nhan%20ban%20tin&body=Email:%20${encodeURIComponent(email)}`;
-      setStatus("success");
-      return;
-    }
-
     try {
-      const res = await fetch(formsEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, type: "newsletter" }),
+      setErrorMessage("");
+      await submitContact({
+        type: "newsletter",
+        payload: { email: email.trim() },
       });
-      if (!res.ok) throw new Error("Submit failed");
       setStatus("success");
       setEmail("");
     } catch {
       setStatus("error");
+      setErrorMessage("Gửi thất bại. Vui lòng thử lại.");
     }
   };
 
@@ -74,7 +69,7 @@ export const NewsletterSection = () => {
                 <p className="text-sm text-green-600 mt-3">Đã đăng ký thành công. Kiểm tra email của bạn.</p>
               )}
               {status === "error" && (
-                <p className="text-sm text-red-600 mt-3">Gửi thất bại. Vui lòng thử lại.</p>
+                <p className="text-sm text-red-600 mt-3">{errorMessage}</p>
               )}
               <p className="text-xs text-muted-foreground mt-4">
                 Bằng cách đăng ký, bạn đồng ý nhận email chuyên đề từ Kiến Hưng Investment.

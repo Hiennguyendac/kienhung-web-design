@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
+import { submitContact } from "@/lib/contactApi";
 
 const RequestForm = () => {
   const steps = ["Nhu cầu", "Chi tiết", "Thông tin liên hệ"];
@@ -39,40 +40,17 @@ const RequestForm = () => {
     }[form.goal] || "";
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const formsEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
 
-    if (!formsEndpoint) {
-      // Fallback: open mail client nếu chưa cấu hình endpoint
-      const subject = `Yêu cầu tư vấn từ ${form.name || "khách hàng"}`;
-      const body = [
-        `Mục tiêu: ${form.goal}`,
-        `Ngân sách dự kiến: ${form.budget}`,
-        `Thời gian triển khai: ${form.timeline}`,
-        `Đối tác mong muốn: ${form.partner}`,
-        `Ghi chú thêm: ${form.note}`,
-        `Họ tên: ${form.name}`,
-        `Điện thoại: ${form.phone}`,
-        `Email: ${form.email}`,
-        `Công ty: ${form.company}`,
-        `Dịch vụ quan tâm: ${form.service}`,
-        `Nhu cầu chi tiết: ${form.detail}`,
-      ].join("%0D%0A");
-      window.location.href = `mailto:nguyen.dac.hien@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-      setStatus("idle");
-      return;
-    }
-
     try {
-      const res = await fetch(formsEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      setErrorMessage("");
+      await submitContact({
+        type: "quote",
+        payload: {
           goal: form.goal,
           budget: form.budget,
           timeline: form.timeline,
@@ -84,10 +62,8 @@ const RequestForm = () => {
           company: form.company,
           service: form.service,
           detail: form.detail,
-        }),
+        },
       });
-
-      if (!res.ok) throw new Error("Submit failed");
 
       setStatus("success");
       setForm({
@@ -105,6 +81,7 @@ const RequestForm = () => {
       });
     } catch (err) {
       setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Gửi thất bại. Vui lòng thử lại.");
     }
   };
 
@@ -150,7 +127,7 @@ const RequestForm = () => {
             Gửi yêu cầu tư vấn / nhận báo giá
           </h1>
           <p className="font-body text-muted-foreground mb-10 max-w-2xl">
-            Điền thông tin dưới đây, chúng tôi sẽ phản hồi trong 24 giờ. Thông tin sẽ được gửi về email nguyen.dac.hien@gmail.com.
+            Điền thông tin dưới đây, chúng tôi sẽ phản hồi trong 24 giờ. Thông tin sẽ được gửi về email contact@kienhunginvest.com.
           </p>
 
           <form onSubmit={onSubmit} className="bg-card border border-border rounded-2xl shadow-elevated p-6 lg:p-8 space-y-6">
@@ -292,7 +269,7 @@ const RequestForm = () => {
             )}
             {status === "error" && (
               <div className="text-sm text-red-600 font-medium">
-                Gửi thất bại. Vui lòng thử lại hoặc gửi email tới nguyen.dac.hien@gmail.com.
+                {errorMessage || "Gửi thất bại. Vui lòng thử lại hoặc gửi email tới contact@kienhunginvest.com."}
               </div>
             )}
           </form>
