@@ -2,9 +2,15 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { SmtpClient } from "https://deno.land/x/smtp@v0.7.0/mod.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.50.0";
 
-// Supabase CLI blocks secrets prefixed with SUPABASE_, so use custom names.
-const SUPABASE_URL = Deno.env.get("SB_URL") || "";
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SB_SERVICE_ROLE_KEY") || "";
+// Prefer custom names (SB_*) because Supabase CLI blocks SUPABASE_* secrets.
+const SUPABASE_URL = (
+  Deno.env.get("SB_URL") || Deno.env.get("SUPABASE_URL") || ""
+).trim();
+const SUPABASE_SERVICE_ROLE_KEY = (
+  Deno.env.get("SB_SERVICE_ROLE_KEY") ||
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ||
+  ""
+).trim();
 
 const SMTP_HOST = Deno.env.get("SMTP_HOST") || "";
 const SMTP_PORT = Number(Deno.env.get("SMTP_PORT") || "465");
@@ -18,9 +24,16 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false },
-});
+let supabase: ReturnType<typeof createClient> | null = null;
+
+function getSupabase() {
+  if (!supabase) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+      auth: { persistSession: false },
+    });
+  }
+  return supabase;
+}
 
 type ContactType = "contact" | "newsletter" | "quote" | "schedule";
 
@@ -32,7 +45,10 @@ type ContactRequest = {
 
 function mustEnv() {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error("Missing SB_URL or SB_SERVICE_ROLE_KEY");
+    throw new Error("Missing SB_URL/SUPABASE_URL or SB_SERVICE_ROLE_KEY/SUPABASE_SERVICE_ROLE_KEY");
+  }
+  if (!SUPABASE_URL.startsWith("http")) {
+    throw new Error("SUPABASE_URL is invalid (must start with http/https)");
   }
 }
 
@@ -178,8 +194,10 @@ serve(async (req: Request) => {
       error: null,
     };
 
+    const sb = getSupabase();
+
     if (type === "contact") {
-      insertResult = await supabase
+      insertResult = await sb
         .from("contact_messages")
         .insert({
           name: payload.name,
@@ -194,7 +212,7 @@ serve(async (req: Request) => {
     }
 
     if (type === "newsletter") {
-      insertResult = await supabase
+      insertResult = await sb
         .from("newsletter_signups")
         .insert({
           email: payload.email,
@@ -205,7 +223,7 @@ serve(async (req: Request) => {
     }
 
     if (type === "quote") {
-      insertResult = await supabase
+      insertResult = await sb
         .from("quote_requests")
         .insert({
           goal: payload.goal,
@@ -226,7 +244,7 @@ serve(async (req: Request) => {
     }
 
     if (type === "schedule") {
-      insertResult = await supabase
+      insertResult = await sb
         .from("schedule_requests")
         .insert({
           name: payload.name,
@@ -242,6 +260,7 @@ serve(async (req: Request) => {
     }
 
     if (insertResult.error) {
+      console.error("Supabase insert failed:", insertResult.error);
       throw new Error(insertResult.error.message);
     }
 

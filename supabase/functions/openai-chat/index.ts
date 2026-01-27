@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY")?.trim();
+const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY")?.trim();
+const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL")?.trim() || "gpt-4o-mini";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -105,8 +107,8 @@ serve(async (req: Request) => {
     });
   }
 
-  if (!LOVABLE_API_KEY) {
-    console.error("Missing LOVABLE_API_KEY");
+  if (!LOVABLE_API_KEY && !OPENAI_API_KEY) {
+    console.error("Missing LOVABLE_API_KEY or OPENAI_API_KEY");
     return new Response(JSON.stringify({ error: "AI chưa được cấu hình" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -126,16 +128,23 @@ serve(async (req: Request) => {
     // Filter out any existing system prompts and add our own
     const userMessages = messages.filter((m: any) => m.role !== "system");
 
-    console.log("Calling Lovable AI with", userMessages.length, "messages");
+    console.log("Calling AI with", userMessages.length, "messages");
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const isLovable = Boolean(LOVABLE_API_KEY);
+    const apiUrl = isLovable
+      ? "https://ai.gateway.lovable.dev/v1/chat/completions"
+      : "https://api.openai.com/v1/chat/completions";
+
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${isLovable ? LOVABLE_API_KEY : OPENAI_API_KEY}`,
+    };
+
+    const response = await fetch(apiUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      },
+      headers,
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: isLovable ? "google/gemini-2.5-flash" : OPENAI_MODEL,
         messages: [
           { role: "system", content: systemPrompt },
           ...userMessages,
