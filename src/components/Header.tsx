@@ -29,9 +29,9 @@ export const Header = () => {
               <Phone className="w-4 h-4" />
               <span>Hotline: 0903 103 198</span>
             </a>
-            <a href="mailto:contact@kienhunginvest.vn" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href="mailto:contact@kienhunginvest.com" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-4 h-4" />
-              <span>contact@kienhunginvest.vn</span>
+              <span>contact@kienhunginvest.com</span>
             </a>
           </div>
           <div className="text-primary-foreground/80">

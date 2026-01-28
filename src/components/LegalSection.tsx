@@ -30,7 +30,7 @@ const legalInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "contact@kienhunginvest.vn",
+    value: "contact@kienhunginvest.com",
   },
 ];
 

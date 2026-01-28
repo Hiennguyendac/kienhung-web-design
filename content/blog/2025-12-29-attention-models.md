@@ -40,4 +40,4 @@ Hình dung xem phim với nhiều góc nhìn: head1 nhìn ánh sáng, head2 nhì
 ![Heatmap attention biểu diễn nhiều head trên câu the cat chased the mouse](/news/attention-heatmap.svg)
 *Heatmap nhiều head: ô sáng hơn = trọng số cao hơn, cho phép mô hình học nhiều góc nhìn ngữ cảnh cùng lúc.*
 
-> Cần tư vấn giải pháp AI? Gửi email tới [contact@kienhunginvest.vn](mailto:contact@kienhunginvest.vn?subject=Tu%20van%20AI%20Attention%20Models).
+> Cần tư vấn giải pháp AI? Gửi email tới [contact@kienhunginvest.com](mailto:contact@kienhunginvest.com?subject=Tu%20van%20AI%20Attention%20Models).

@@ -43,7 +43,7 @@ const PrivacyPage = () => {
             <h2 className="font-heading text-xl font-semibold">4. Quyền của bạn</h2>
             <p>
               Bạn có quyền yêu cầu chỉnh sửa, cập nhật hoặc xóa dữ liệu cá nhân. Liên hệ
-              contact@kienhunginvest.vn để được hỗ trợ.
+              contact@kienhunginvest.com để được hỗ trợ.
             </p>
           </section>
         </div>

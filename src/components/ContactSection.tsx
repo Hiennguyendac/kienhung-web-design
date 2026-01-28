@@ -14,7 +14,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "contact@kienhunginvest.vn",
+    content: "contact@kienhunginvest.com",
     subContent: "Phản hồi trong 24h",
   },
   {

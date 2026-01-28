@@ -88,4 +88,4 @@ Mỗi lần push lên nhánh `main`, GitHub Actions sẽ:
 ## Liên hệ
 
 - Website: https://kienhunginvest.vn
-- Email: contact@kienhunginvest.vn
+- Email: contact@kienhunginvest.com

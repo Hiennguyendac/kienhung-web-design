@@ -158,7 +158,7 @@ const BayesianEfficiencyPage = () => {
 
         <div className="grid gap-4 md:grid-cols-2">
           <Button asChild variant="default" size="lg" className="justify-center">
-            <a href="mailto:contact@kienhunginvest.vn?subject=Tu%20van%20Bayesian">Trao đổi với chuyên gia Bayes</a>
+            <a href="mailto:contact@kienhunginvest.com?subject=Tu%20van%20Bayesian">Trao đổi với chuyên gia Bayes</a>
           </Button>
           <Button asChild variant="outline" size="lg" className="justify-center">
             <Link to="/yeu-cau-bao-gia">Nhận báo giá triển khai mô hình Bayes</Link>

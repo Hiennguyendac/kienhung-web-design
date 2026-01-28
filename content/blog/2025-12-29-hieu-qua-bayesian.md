@@ -40,4 +40,4 @@ Mô hình Bayes được xem là hiệu quả khi ít dữ liệu vẫn học đ
 ## Kết luận ngắn gọn
 Bayesian không phải để “cho đẹp”. Nó đáng dùng khi kết luận đáng tin, chạy đủ nhanh và chi phí chấp nhận được. Đừng chỉ hỏi “Bayes có đúng không?”, hãy hỏi “Bayes này có hiệu quả không?”
 
-> Cần trao đổi với chuyên gia Bayes? Gửi email tới [contact@kienhunginvest.vn](mailto:contact@kienhunginvest.vn?subject=Tu%20van%20Bayesian).
+> Cần trao đổi với chuyên gia Bayes? Gửi email tới [contact@kienhunginvest.com](mailto:contact@kienhunginvest.com?subject=Tu%20van%20Bayesian).

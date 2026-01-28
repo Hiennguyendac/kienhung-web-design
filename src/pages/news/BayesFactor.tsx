@@ -215,7 +215,7 @@ const BayesFactorPage = () => {
 
         <div className="grid gap-4 md:grid-cols-2">
           <Button asChild variant="default" size="lg" className="justify-center">
-            <a href="mailto:contact@kienhunginvest.vn?subject=Tu%20van%20Bayes%20Factor">Trao đổi về Bayes Factor</a>
+            <a href="mailto:contact@kienhunginvest.com?subject=Tu%20van%20Bayes%20Factor">Trao đổi về Bayes Factor</a>
           </Button>
           <Button asChild variant="outline" size="lg" className="justify-center">
             <Link to="/yeu-cau-bao-gia">Nhận tư vấn triển khai</Link>

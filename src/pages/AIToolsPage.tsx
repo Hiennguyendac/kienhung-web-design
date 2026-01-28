@@ -402,7 +402,7 @@ export default function AIToolsPage() {
                         </p>
                       </div>
                       <a
-                        href="mailto:contact@kienhunginvest.vn?subject=AI%20Tools%20Upgrade"
+                        href="mailto:contact@kienhunginvest.com?subject=AI%20Tools%20Upgrade"
                         className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300"
                       >
                         Nâng cấp Pro

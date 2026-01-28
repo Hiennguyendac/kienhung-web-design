@@ -63,9 +63,9 @@ export const Footer = () => {
                 <Phone className="w-4 h-4" />
                 0903 103 198
               </a>
-              <a href="mailto:contact@kienhunginvest.vn" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-gold transition-colors">
+              <a href="mailto:contact@kienhunginvest.com" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-gold transition-colors">
                 <Mail className="w-4 h-4" />
-                contact@kienhunginvest.vn
+                contact@kienhunginvest.com
               </a>
               <div className="flex items-start gap-3 text-sm text-primary-foreground/70">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />

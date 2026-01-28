@@ -57,4 +57,4 @@ Bayes Factor phụ thuộc vào prior (niềm tin ban đầu). Prior hợp lý g
 ## Kết luận
 Bayes Factor là công cụ mạnh để kiểm định giả thuyết, cung cấp bằng chứng chi tiết hơn so với phương pháp truyền thống. Dù có hạn chế, BF vẫn là lựa chọn tốt khi cần đánh giá mức độ ủng hộ giữa các giả thuyết cạnh tranh.
 
-> Cần trao đổi về Bayes Factor? Gửi email tới [contact@kienhunginvest.vn](mailto:contact@kienhunginvest.vn?subject=Tu%20van%20Bayes%20Factor).
+> Cần trao đổi về Bayes Factor? Gửi email tới [contact@kienhunginvest.com](mailto:contact@kienhunginvest.com?subject=Tu%20van%20Bayes%20Factor).

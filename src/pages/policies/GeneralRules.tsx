@@ -28,7 +28,7 @@ const GeneralRulesPage = () => {
           <section className="space-y-2">
             <h2 className="font-heading text-xl font-semibold">2. Hỗ trợ và liên hệ</h2>
             <p>
-              Mọi yêu cầu hỗ trợ, phản hồi hoặc khiếu nại gửi về contact@kienhunginvest.vn hoặc hotline
+              Mọi yêu cầu hỗ trợ, phản hồi hoặc khiếu nại gửi về contact@kienhunginvest.com hoặc hotline
               0903 103 198 để được giải quyết kịp thời.
             </p>
           </section>

@@ -30,7 +30,7 @@ const aiOfficeModules = [
 
 const EducationPage = () => {
   const subscribeHref = useMemo(
-    () => "mailto:contact@kienhunginvest.vn?subject=Tu%20van%20chuong%20trinh%20AI%20Office",
+    () => "mailto:contact@kienhunginvest.com?subject=Tu%20van%20chuong%20trinh%20AI%20Office",
     [],
   );
 

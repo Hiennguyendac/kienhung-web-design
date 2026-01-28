@@ -185,7 +185,7 @@ const AttentionModelsPage = () => {
 
         <div className="grid gap-4 md:grid-cols-2">
           <Button asChild variant="default" size="lg" className="justify-center">
-            <a href="mailto:contact@kienhunginvest.vn?subject=Tu%20van%20AI%20Attention%20Models">Liên hệ tư vấn giải pháp AI</a>
+            <a href="mailto:contact@kienhunginvest.com?subject=Tu%20van%20AI%20Attention%20Models">Liên hệ tư vấn giải pháp AI</a>
           </Button>
           <Button asChild variant="outline" size="lg" className="justify-center">
             <Link to="/yeu-cau-bao-gia">Nhận báo giá triển khai AI</Link>

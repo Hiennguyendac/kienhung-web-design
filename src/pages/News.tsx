@@ -82,7 +82,7 @@ export default function News() {
             </div>
             <a
               className="news-cta"
-              href="mailto:contact@kienhunginvest.vn?subject=Dang%20ky%20nhan%20tin"
+              href="mailto:contact@kienhunginvest.com?subject=Dang%20ky%20nhan%20tin"
             >
               Đăng ký nhận tin
             </a>
