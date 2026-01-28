@@ -10,7 +10,9 @@ export default function News() {
   const pageSize = 4;
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page") || "1");
+  const initialCategory = (searchParams.get("category") || "").trim();
   const [page, setPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
+  const [category, setCategory] = useState(initialCategory);
   const posts = useMemo(() => {
     return getAllPosts().sort((a, b) => {
       const da = new Date(a.date || "1970-01-01").getTime();
@@ -18,24 +20,58 @@ export default function News() {
       return db - da;
     });
   }, []);
-  const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    posts.forEach((post) => {
+      if (post.category) set.add(post.category);
+    });
+    return Array.from(set);
+  }, [posts]);
+  const filteredPosts = useMemo(() => {
+    if (!category) return posts;
+    return posts.filter((p) => (p.category || "Tin tức") === category);
+  }, [posts, category]);
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
   useEffect(() => {
     if (page > totalPages) {
       setPage(totalPages);
-      setSearchParams({ page: String(totalPages) });
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set("page", String(totalPages));
+        if (category) {
+          next.set("category", category);
+        } else {
+          next.delete("category");
+        }
+        return next;
+      });
     }
-  }, [page, totalPages, setSearchParams]);
+  }, [page, totalPages, setSearchParams, category]);
 
   useEffect(() => {
     const current = Number(searchParams.get("page") || "1");
+    const currentCategory = (searchParams.get("category") || "").trim();
     if (!Number.isNaN(current) && current !== page) {
       setPage(current);
     }
-  }, [searchParams, page]);
+    if (currentCategory !== category) {
+      setCategory(currentCategory);
+      setPage(1);
+    }
+  }, [searchParams, page, category]);
   const pagedPosts = useMemo(() => {
     const start = (page - 1) * pageSize;
-    return posts.slice(start, start + pageSize);
-  }, [page, pageSize, posts]);
+    return filteredPosts.slice(start, start + pageSize);
+  }, [page, pageSize, filteredPosts]);
+
+  const updateParams = (nextPage: number, nextCategory: string) => {
+    setSearchParams(() => {
+      const params = new URLSearchParams();
+      if (nextPage > 1) params.set("page", String(nextPage));
+      if (nextCategory) params.set("category", nextCategory);
+      return params;
+    });
+  };
 
   const formatDate = (value?: string) => {
     if (!value) return "";
@@ -87,8 +123,37 @@ export default function News() {
               Đăng ký nhận tin
             </a>
           </section>
+          <div className="news-filters" role="tablist" aria-label="Chọn chủ đề tin tức">
+            <button
+              type="button"
+              className={`filter-pill ${category ? "" : "active"}`}
+              onClick={() => {
+                setCategory("");
+                setPage(1);
+                updateParams(1, "");
+              }}
+              aria-pressed={!category}
+            >
+              Tất cả
+            </button>
+            {categories.map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={`filter-pill ${category === item ? "active" : ""}`}
+                onClick={() => {
+                  setCategory(item);
+                  setPage(1);
+                  updateParams(1, item);
+                }}
+                aria-pressed={category === item}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
 
-          {posts.length === 0 ? (
+          {filteredPosts.length === 0 ? (
             <div className="news-empty">
               <h3>Chưa có bài viết nào</h3>
               <p>Vui lòng quay lại sau để xem các cập nhật mới nhất.</p>
@@ -106,7 +171,18 @@ export default function News() {
                         </div>
                       ) : null}
                       <div className="news-meta">
-                        <span className="badge">{p.category || "Tin tức"}</span>
+                        <button
+                          type="button"
+                          className="badge badge-filter"
+                          onClick={() => {
+                            const nextCategory = p.category || "Tin tức";
+                            setCategory(nextCategory);
+                            setPage(1);
+                            updateParams(1, nextCategory);
+                          }}
+                        >
+                          {p.category || "Tin tức"}
+                        </button>
                         <span>{formatDate(p.date)}</span>
                       </div>
 
@@ -132,7 +208,7 @@ export default function News() {
                   onClick={() => {
                     const next = Math.max(1, page - 1);
                     setPage(next);
-                    setSearchParams({ page: String(next) });
+                    updateParams(next, category);
                   }}
                   disabled={page === 1}
                 >
@@ -147,7 +223,7 @@ export default function News() {
                   onClick={() => {
                     const next = Math.min(totalPages, page + 1);
                     setPage(next);
-                    setSearchParams({ page: String(next) });
+                    updateParams(next, category);
                   }}
                   disabled={page === totalPages}
                 >
