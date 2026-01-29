@@ -46,12 +46,34 @@ export type Database = {
           updated_at?: string
         }
       }
+      post_views: {
+        Row: {
+          slug: string
+          views: number
+          updated_at: string
+        }
+        Insert: {
+          slug: string
+          views?: number
+          updated_at?: string
+        }
+        Update: {
+          slug?: string
+          views?: number
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_post_view: {
+        Args: {
+          p_slug: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

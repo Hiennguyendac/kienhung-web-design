@@ -1,10 +1,12 @@
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Seo } from "../../components/Seo";
 import { getPostBySlug } from "../../lib/posts";
+import { fetchPostViews, incrementPostView, subscribePostViews } from "../../lib/postViews";
 import "../News.css";
 
 export default function NewsDetail() {
@@ -12,6 +14,7 @@ export default function NewsDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const post = slug ? getPostBySlug(slug) : undefined;
+  const [views, setViews] = useState<number | null>(null);
 
   const formatDate = (value?: string) => {
     if (!value) return "";
@@ -23,6 +26,35 @@ export default function NewsDetail() {
       year: "numeric",
     });
   };
+
+  const formatViews = (value?: number | null) => {
+    if (typeof value !== "number") return "—";
+    return new Intl.NumberFormat("vi-VN").format(value);
+  };
+
+  useEffect(() => {
+    if (!post?.slug) return;
+    let isActive = true;
+
+    fetchPostViews([post.slug]).then((data) => {
+      if (!isActive) return;
+      setViews(data[post.slug] ?? 0);
+    });
+
+    incrementPostView(post.slug).then((value) => {
+      if (!isActive) return;
+      if (typeof value === "number") setViews(value);
+    });
+
+    const unsubscribe = subscribePostViews([post.slug], (_slug, nextViews) => {
+      setViews(nextViews);
+    });
+
+    return () => {
+      isActive = false;
+      if (unsubscribe) unsubscribe();
+    };
+  }, [post?.slug]);
 
   if (!post) {
     return (
@@ -104,6 +136,7 @@ export default function NewsDetail() {
               <div className="news-meta">
                 <span className="badge">{post.category || "Tin tức"}</span>
                 <span>{formatDate(post.date)}</span>
+                <span className="news-views">{formatViews(views)} lượt xem</span>
               </div>
             </header>
             {post.image ? (

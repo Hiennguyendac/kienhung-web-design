@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Seo } from "../components/Seo";
 import { getAllPosts } from "../lib/posts";
+import { fetchPostViews, subscribePostViews } from "../lib/postViews";
 import "./News.css";
 
 export default function News() {
@@ -13,6 +14,7 @@ export default function News() {
   const initialCategory = (searchParams.get("category") || "").trim();
   const [page, setPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
   const [category, setCategory] = useState(initialCategory);
+  const [viewsBySlug, setViewsBySlug] = useState<Record<string, number>>({});
   const posts = useMemo(() => {
     return getAllPosts().sort((a, b) => {
       const da = new Date(a.date || "1970-01-01").getTime();
@@ -64,6 +66,31 @@ export default function News() {
     return filteredPosts.slice(start, start + pageSize);
   }, [page, pageSize, filteredPosts]);
 
+  const pagedSlugs = useMemo(() => pagedPosts.map((post) => post.slug), [pagedPosts]);
+  const pagedSlugKey = useMemo(() => pagedSlugs.join("|"), [pagedSlugs]);
+
+  useEffect(() => {
+    if (!pagedSlugs.length) return;
+    let isActive = true;
+    fetchPostViews(pagedSlugs).then((data) => {
+      if (!isActive) return;
+      setViewsBySlug((prev) => ({ ...prev, ...data }));
+    });
+    return () => {
+      isActive = false;
+    };
+  }, [pagedSlugKey, pagedSlugs]);
+
+  useEffect(() => {
+    if (!pagedSlugs.length) return;
+    const unsubscribe = subscribePostViews(pagedSlugs, (slug, views) => {
+      setViewsBySlug((prev) => ({ ...prev, [slug]: views }));
+    });
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [pagedSlugKey, pagedSlugs]);
+
   const updateParams = (nextPage: number, nextCategory: string) => {
     setSearchParams(() => {
       const params = new URLSearchParams();
@@ -82,6 +109,11 @@ export default function News() {
       month: "2-digit",
       year: "numeric",
     });
+  };
+
+  const formatViews = (value?: number) => {
+    if (typeof value !== "number") return "—";
+    return new Intl.NumberFormat("vi-VN").format(value);
   };
 
   return (
@@ -184,6 +216,9 @@ export default function News() {
                           {p.category || "Tin tức"}
                         </button>
                         <span>{formatDate(p.date)}</span>
+                        <span className="news-views">
+                          {formatViews(viewsBySlug[p.slug])} lượt xem
+                        </span>
                       </div>
 
                       <h3>{p.title}</h3>
