@@ -116,7 +116,7 @@ serve(async (req: Request) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, systemPrompt: customSystemPrompt, useWebsitePrompt } = await req.json();
     
     if (!messages || !Array.isArray(messages)) {
       return new Response(JSON.stringify({ error: "Invalid payload" }), {
@@ -127,6 +127,13 @@ serve(async (req: Request) => {
 
     // Filter out any existing system prompts and add our own
     const userMessages = messages.filter((m: any) => m.role !== "system");
+
+    const resolvedSystemPrompt =
+      typeof customSystemPrompt === "string" && customSystemPrompt.trim().length > 0
+        ? customSystemPrompt.trim()
+        : useWebsitePrompt === false
+          ? ""
+          : systemPrompt;
 
     console.log("Calling AI with", userMessages.length, "messages");
 
@@ -145,10 +152,9 @@ serve(async (req: Request) => {
       headers,
       body: JSON.stringify({
         model: isLovable ? "google/gemini-2.5-flash" : OPENAI_MODEL,
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...userMessages,
-        ],
+        messages: resolvedSystemPrompt
+          ? [{ role: "system", content: resolvedSystemPrompt }, ...userMessages]
+          : userMessages,
       }),
     });
 

@@ -245,6 +245,40 @@ export default function AIToolsPage() {
     }
   };
 
+  const handleSupabaseChat = async (
+    input: string,
+    setOutput: (value: string) => void,
+    systemPrompt?: string
+  ) => {
+    if (!input.trim()) return;
+    if (toolsLocked) {
+      setError("Bạn cần đăng nhập và còn quota để sử dụng AI Tools.");
+      return;
+    }
+    setLoading("chat");
+    setError(null);
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke("openai-chat", {
+        body: {
+          messages: [{ role: "user", content: input.trim() }],
+          systemPrompt,
+          useWebsitePrompt: false,
+        },
+      });
+      if (fnError) {
+        throw new Error(fnError.message || "Không thể gọi AI. Vui lòng thử lại.");
+      }
+      const content = (data as { content?: string })?.content || "";
+      setOutput(content);
+      const tokenDelta = estimateTokens(input) + estimateTokens(content);
+      await applyUsage(tokenDelta);
+    } catch (err: any) {
+      setError(err?.message || "Không thể kết nối AI.");
+    } finally {
+      setLoading(null);
+    }
+  };
+
   const handleRag = async () => {
     if (!ragQuery.trim()) return;
     if (toolsLocked) {
@@ -627,9 +661,7 @@ export default function AIToolsPage() {
                   />
                   <button
                     type="button"
-                    onClick={() =>
-                      handleChat(summarizeInput, setSummarizeOutput, [{ role: "system", content: summarizePrompt }])
-                    }
+                    onClick={() => handleSupabaseChat(summarizeInput, setSummarizeOutput, summarizePrompt)}
                     disabled={loading === "chat" || toolsLocked}
                     className="mt-4 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
                   >
@@ -658,7 +690,7 @@ export default function AIToolsPage() {
                   />
                   <button
                     type="button"
-                    onClick={() => handleChat(seoInput, setSeoOutput, [{ role: "system", content: seoPrompt }])}
+                    onClick={() => handleSupabaseChat(seoInput, setSeoOutput, seoPrompt)}
                     disabled={loading === "chat" || toolsLocked}
                     className="mt-4 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
                   >
