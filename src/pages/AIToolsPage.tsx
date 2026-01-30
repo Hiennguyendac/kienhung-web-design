@@ -869,6 +869,12 @@ export default function AIToolsPage() {
                 <p className="text-sm text-slate-300 mt-2">
                   Giá 100.000 VNĐ/tháng. Sau khi chuyển khoản, hệ thống sẽ gửi email cho admin duyệt.
                 </p>
+                <div className="mt-3 rounded-lg border border-white/10 bg-slate-900/70 px-3 py-2 text-xs text-slate-200">
+                  <p className="text-slate-400 uppercase tracking-widest text-[10px]">Thông tin thanh toán</p>
+                  <p className="mt-1">Công ty TNHH TM DV Đầu tư Kiến Hưng</p>
+                  <p>Ngân hàng: Vietin Bank</p>
+                  <p>STK: 114002909099</p>
+                </div>
                 {proStatus === "pending" && (
                   <p className="mt-2 text-xs text-gold">Bạn đã có yêu cầu đang chờ duyệt.</p>
                 )}
