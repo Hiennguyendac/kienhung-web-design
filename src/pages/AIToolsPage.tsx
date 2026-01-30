@@ -348,7 +348,7 @@ export default function AIToolsPage() {
         noindex
       />
       <Header />
-      <main className="bg-slate-950 text-slate-100">
+      <main className="bg-slate-950 text-slate-100 ai-tools">
         <div className="container mx-auto px-6 lg:px-12 py-12 lg:py-16">
           <div className="flex flex-col lg:flex-row gap-10">
             <aside className="lg:w-64 flex-shrink-0">
@@ -396,7 +396,7 @@ export default function AIToolsPage() {
             <section className="flex-1 space-y-8">
               <div
                 id="overview"
-                className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-800/80 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-800/80 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] ai-panel"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div>
@@ -546,7 +546,7 @@ export default function AIToolsPage() {
               <div className="grid xl:grid-cols-2 gap-6">
                 <div
                   id="image"
-                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-semibold text-white">Image Studio</h2>
@@ -577,7 +577,7 @@ export default function AIToolsPage() {
                       type="button"
                       onClick={handleImage}
                       disabled={loading === "image" || toolsLocked}
-                      className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
+                      className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60 ai-action-btn"
                     >
                       {loading === "image" ? "Đang tạo ảnh..." : "Tạo ảnh"}
                     </button>
@@ -600,7 +600,7 @@ export default function AIToolsPage() {
 
                 <div
                   id="rag"
-                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
                 >
                   <h2 className="text-lg font-semibold text-white mb-3">RAG Chat</h2>
                   <p className="text-sm text-slate-300 mb-4">Hỏi đáp tài liệu nội bộ, trả lời kèm nguồn tham chiếu.</p>
@@ -616,7 +616,7 @@ export default function AIToolsPage() {
                     type="button"
                     onClick={handleRag}
                     disabled={loading === "rag" || toolsLocked}
-                    className="mt-4 rounded-lg border border-gold/60 px-4 py-2 text-sm font-semibold text-gold disabled:opacity-60"
+                    className="mt-4 rounded-lg border border-gold/60 px-4 py-2 text-sm font-semibold text-gold disabled:opacity-60 ai-action-btn ai-action-btn--ghost"
                   >
                     {loading === "rag" ? "Đang xử lý..." : "Gửi RAG"}
                   </button>
@@ -647,7 +647,7 @@ export default function AIToolsPage() {
               <div className="grid xl:grid-cols-2 gap-6">
                 <div
                   id="summarize"
-                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
                 >
                   <h2 className="text-lg font-semibold text-white mb-3">Quick Summarize</h2>
                   <p className="text-sm text-slate-300 mb-4">Tóm tắt nội dung dài thành gạch đầu dòng ngắn gọn.</p>
@@ -663,7 +663,7 @@ export default function AIToolsPage() {
                     type="button"
                     onClick={() => handleSupabaseChat(summarizeInput, setSummarizeOutput, summarizePrompt)}
                     disabled={loading === "chat" || toolsLocked}
-                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
+                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60 ai-action-btn"
                   >
                     {loading === "chat" ? "Đang xử lý..." : "Tóm tắt"}
                   </button>
@@ -676,7 +676,7 @@ export default function AIToolsPage() {
 
                 <div
                   id="seo"
-                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
                 >
                   <h2 className="text-lg font-semibold text-white mb-3">SEO Draft</h2>
                   <p className="text-sm text-slate-300 mb-4">Gợi ý dàn ý chuẩn SEO và các ý chính nổi bật.</p>
@@ -692,7 +692,7 @@ export default function AIToolsPage() {
                     type="button"
                     onClick={() => handleSupabaseChat(seoInput, setSeoOutput, seoPrompt)}
                     disabled={loading === "chat" || toolsLocked}
-                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
+                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60 ai-action-btn"
                   >
                     {loading === "chat" ? "Đang xử lý..." : "Tạo dàn ý"}
                   </button>

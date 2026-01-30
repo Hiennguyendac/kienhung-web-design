@@ -154,3 +154,90 @@
     box-shadow: var(--shadow-gold);
   }
 }
+
+@layer components {
+  .ai-tools {
+    background-image:
+      radial-gradient(1200px 700px at 20% -10%, hsla(45 80% 55% / 0.12), transparent 60%),
+      radial-gradient(900px 600px at 90% 10%, hsla(210 70% 35% / 0.25), transparent 55%),
+      linear-gradient(180deg, hsl(210 55% 10%) 0%, hsl(210 65% 8%) 100%);
+  }
+
+  .ai-panel {
+    position: relative;
+    transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  }
+
+  .ai-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 0 0 1px hsla(45 80% 55% / 0.12);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .ai-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 25px 50px -30px hsla(45 80% 55% / 0.35);
+    border-color: hsla(45 80% 55% / 0.35);
+  }
+
+  .ai-panel:hover::after {
+    opacity: 1;
+  }
+
+  .ai-action-btn {
+    position: relative;
+    overflow: hidden;
+    transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+    box-shadow: 0 12px 24px -16px hsla(45 80% 55% / 0.55);
+  }
+
+  .ai-action-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, hsla(0 0% 100% / 0.35) 50%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform 500ms ease;
+  }
+
+  .ai-action-btn:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 18px 35px -20px hsla(45 80% 55% / 0.75);
+  }
+
+  .ai-action-btn:hover::before {
+    transform: translateX(120%);
+  }
+
+  .ai-action-btn:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  .ai-action-btn:focus-visible {
+    outline: 2px solid hsla(45 80% 55% / 0.7);
+    outline-offset: 2px;
+  }
+
+  .ai-action-btn--ghost {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .ai-action-btn--ghost:hover {
+    background: hsla(45 80% 55% / 0.08);
+    box-shadow: 0 16px 30px -20px hsla(45 80% 55% / 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-panel,
+    .ai-action-btn,
+    .ai-action-btn::before {
+      transition: none;
+    }
+  }
+}
