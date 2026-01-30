@@ -418,7 +418,7 @@ export default function AIToolsPage() {
                       className="flex items-center justify-between rounded-xl px-3 py-2 text-slate-200 hover:bg-white/5 transition-colors ai-sidebar-link"
                     >
                       {item.label}
-                      <span className="text-xs text-slate-500">→</span>
+                      <span className="text-xs text-slate-500 ai-sidebar-arrow">→</span>
                     </a>
                   ))}
                 </nav>
