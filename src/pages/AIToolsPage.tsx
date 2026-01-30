@@ -663,7 +663,7 @@ export default function AIToolsPage() {
                     type="button"
                     onClick={() => handleSupabaseChat(summarizeInput, setSummarizeOutput, summarizePrompt)}
                     disabled={loading === "chat" || toolsLocked}
-                    className="mt-4 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
                   >
                     {loading === "chat" ? "Đang xử lý..." : "Tóm tắt"}
                   </button>
@@ -692,7 +692,7 @@ export default function AIToolsPage() {
                     type="button"
                     onClick={() => handleSupabaseChat(seoInput, setSeoOutput, seoPrompt)}
                     disabled={loading === "chat" || toolsLocked}
-                    className="mt-4 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+                    className="mt-4 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
                   >
                     {loading === "chat" ? "Đang xử lý..." : "Tạo dàn ý"}
                   </button>
