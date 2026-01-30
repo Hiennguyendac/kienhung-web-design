@@ -631,7 +631,7 @@ export default function AIToolsPage() {
                     {loading === "rag" ? "Đang xử lý..." : "Gửi RAG"}
                   </button>
                   {ragAnswer && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap">
+                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
                       {ragAnswer}
                     </div>
                   )}
@@ -678,7 +678,7 @@ export default function AIToolsPage() {
                     {loading === "chat" ? "Đang xử lý..." : "Tóm tắt"}
                   </button>
                   {summarizeOutput && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap">
+                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
                       {summarizeOutput}
                     </div>
                   )}
@@ -707,7 +707,7 @@ export default function AIToolsPage() {
                     {loading === "chat" ? "Đang xử lý..." : "Tạo dàn ý"}
                   </button>
                   {seoOutput && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap">
+                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
                       {seoOutput}
                     </div>
                   )}
