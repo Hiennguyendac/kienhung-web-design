@@ -8,6 +8,7 @@ import type { AiMode, ChatMessage, RagCitation } from "@/lib/aiTypes";
 import { ModelSelector } from "@/components/ai/ModelSelector";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
+import { Bot, FileText, Image, LayoutGrid, Search, Sparkles } from "lucide-react";
 
 const isEnabled = (import.meta.env.VITE_AI_ENABLED as string) === "true";
 const FREE_LIMIT = 20000;
@@ -428,19 +429,27 @@ export default function AIToolsPage() {
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-4">AI Studio</p>
                 <nav className="space-y-2 text-sm ai-sidebar-nav">
                   {[
-                    { label: "Tổng quan", href: "#overview" },
-                    { label: "Tạo ảnh", href: "#image" },
-                    { label: "RAG Chat", href: "#rag" },
-                    { label: "Tóm tắt nhanh", href: "#summarize" },
-                    { label: "SEO Draft", href: "#seo" },
+                    { label: "Tổng quan", href: "#overview", icon: LayoutGrid },
+                    { label: "Tạo ảnh", href: "#image", icon: Image, badge: "Beta" },
+                    { label: "RAG Chat", href: "#rag", icon: Bot },
+                    { label: "Tóm tắt nhanh", href: "#summarize", icon: Sparkles },
+                    { label: "SEO Draft", href: "#seo", icon: FileText, badge: "New" },
                   ].map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
                       className="flex items-center justify-between rounded-xl px-3 py-2 text-slate-200 hover:bg-white/5 transition-colors ai-sidebar-link"
                     >
-                      {item.label}
-                      <span className="text-xs text-slate-500 ai-sidebar-arrow">→</span>
+                      <span className="ai-sidebar-link__left">
+                        <span className="ai-sidebar-icon">
+                          <item.icon size={16} />
+                        </span>
+                        <span>{item.label}</span>
+                      </span>
+                      <span className="ai-sidebar-link__right">
+                        {item.badge ? <span className="ai-sidebar-badge">{item.badge}</span> : null}
+                        <span className="text-xs text-slate-500 ai-sidebar-arrow">→</span>
+                      </span>
                     </a>
                   ))}
                 </nav>
