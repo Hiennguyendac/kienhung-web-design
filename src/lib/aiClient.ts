@@ -1,4 +1,14 @@
-import type { ChatRequest, ChatResponse, ImageRequest, ImageResponse, ModelsResponse, RagResponse } from "./aiTypes";
+import type {
+  ChatRequest,
+  ChatResponse,
+  ImageEditRequest,
+  ImageEditResponse,
+  ImageRequest,
+  ImageResponse,
+  ImageUploadResponse,
+  ModelsResponse,
+  RagResponse,
+} from "./aiTypes";
 
 const API_BASE = (import.meta.env.VITE_AI_API_BASE as string) || "/api-ai";
 const DEFAULT_TIMEOUT_MS = 30_000;
@@ -72,4 +82,20 @@ export const aiClient = {
     requestJson<RagResponse>("/rag/chat", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
   image: (payload: ImageRequest, authToken?: string | null) =>
     requestJson<ImageResponse>("/image", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
+  uploadImage: async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(`${API_BASE}/upload`, { method: "POST", body: formData });
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(text || `Upload failed (${res.status})`);
+    }
+    try {
+      return JSON.parse(text) as ImageUploadResponse;
+    } catch {
+      throw new Error("Upload returned non-JSON response.");
+    }
+  },
+  imageEdit: (payload: ImageEditRequest, authToken?: string | null) =>
+    requestJson<ImageEditResponse>("/image/edit", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
 };

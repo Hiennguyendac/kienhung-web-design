@@ -46,3 +46,21 @@ export type ImageResponse = {
   url: string;
   revised_prompt?: string;
 };
+
+export type ImageUploadResponse = {
+  url: string;
+  path?: string;
+  filename?: string;
+  size?: number;
+  mime?: string;
+};
+
+export type ImageEditRequest = {
+  imageUrl: string;
+  prompt: string;
+  size?: string;
+};
+
+export type ImageEditResponse = {
+  url: string;
+};

@@ -49,6 +49,8 @@ export default function AIToolsPage() {
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageSize, setImageSize] = useState("1024x1024");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageUploadUrl, setImageUploadUrl] = useState("");
+  const [imageUploadName, setImageUploadName] = useState("");
 
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -325,25 +327,63 @@ export default function AIToolsPage() {
       setError("Bạn cần đăng nhập và còn quota để sử dụng AI Tools.");
       return;
     }
-    setLoading("image");
+    setLoading(imageUploadUrl ? "image-edit" : "image");
     setError(null);
     setImageUrl("");
     try {
-      const response = await aiClient.image(
-        {
-          mode,
-          model,
-          prompt: imagePrompt.trim(),
-          size: imageSize,
-        },
-        authToken
-      );
-      setImageUrl(response.url || "");
+      if (imageUploadUrl) {
+        const response = await aiClient.imageEdit(
+          {
+            imageUrl: imageUploadUrl,
+            prompt: imagePrompt.trim(),
+            size: imageSize,
+          },
+          authToken
+        );
+        setImageUrl(response.url || "");
+      } else {
+        const response = await aiClient.image(
+          {
+            mode,
+            model,
+            prompt: imagePrompt.trim(),
+            size: imageSize,
+          },
+          authToken
+        );
+        setImageUrl(response.url || "");
+      }
       const baseCost = imageSize === "1024x1024" ? 2400 : 1200;
       const tokenDelta = baseCost + estimateTokens(imagePrompt);
       await applyUsage(tokenDelta);
     } catch (err: any) {
       setError(err?.message || "Không thể tạo ảnh.");
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleImageFileChange = async (file: File | null) => {
+    setError(null);
+    setImageUploadUrl("");
+    setImageUploadName("");
+    if (!file) return;
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      setError("Chỉ hỗ trợ JPG/PNG/WebP.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Dung lượng tối đa 5MB.");
+      return;
+    }
+    setLoading("image-upload");
+    try {
+      const response = await aiClient.uploadImage(file);
+      setImageUploadUrl(response.url || "");
+      setImageUploadName(file.name);
+    } catch (err: any) {
+      setError(err?.message || "Không thể upload ảnh.");
     } finally {
       setLoading(null);
     }
@@ -570,9 +610,38 @@ export default function AIToolsPage() {
                     onChange={(e) => setImagePrompt(e.target.value)}
                     rows={4}
                     className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
-                    placeholder="Ví dụ: Một trung tâm dữ liệu hiện đại, phong cách tương lai, ánh sáng xanh."
+                    placeholder="Ví dụ: Làm ảnh sáng hơn, tông màu điện ảnh, giữ chủ thể..."
                     disabled={toolsLocked}
                   />
+                  <div className="mt-4 space-y-3">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <label className="text-xs text-slate-300">
+                        Upload ảnh (JPG/PNG/WebP, tối đa 5MB)
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        disabled={toolsLocked || loading === "image-upload"}
+                        onChange={(e) => handleImageFileChange(e.target.files?.[0] ?? null)}
+                        className="text-xs text-slate-300"
+                      />
+                    </div>
+                    {imageUploadUrl && (
+                      <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-950/50 px-3 py-2 text-xs text-slate-200">
+                        <span>Đã upload: {imageUploadName || "Ảnh"}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImageUploadUrl("");
+                            setImageUploadName("");
+                          }}
+                          className="text-gold hover:text-yellow-300"
+                        >
+                          Xoá
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   <div className="flex flex-wrap items-center gap-3 mt-4">
                     <select
                       value={imageSize}
@@ -586,24 +655,43 @@ export default function AIToolsPage() {
                     <button
                       type="button"
                       onClick={handleImage}
-                      disabled={loading === "image" || toolsLocked}
+                      disabled={loading === "image" || loading === "image-edit" || toolsLocked}
                       className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60 ai-action-btn"
                     >
-                      {loading === "image" ? "Đang tạo ảnh..." : "Tạo ảnh"}
+                      {loading === "image" || loading === "image-edit"
+                        ? "Đang xử lý..."
+                        : imageUploadUrl
+                          ? "Chỉnh sửa ảnh"
+                          : "Tạo ảnh"}
                     </button>
                   </div>
-                  {imageUrl && (
-                    <div className="mt-5 space-y-3">
-                      <img
-                        src={imageUrl}
-                        alt="AI generated"
-                        className="w-full rounded-2xl border border-white/10 object-cover"
-                      />
-                      <input
-                        value={imageUrl}
-                        readOnly
-                        className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-xs text-slate-200"
-                      />
+                  {(imageUploadUrl || imageUrl) && (
+                    <div className="mt-5 grid gap-4 md:grid-cols-2">
+                      {imageUploadUrl && (
+                        <div className="space-y-2">
+                          <p className="text-xs uppercase tracking-widest text-slate-400">Ảnh gốc</p>
+                          <img
+                            src={imageUploadUrl}
+                            alt="Uploaded"
+                            className="w-full rounded-2xl border border-white/10 object-cover"
+                          />
+                        </div>
+                      )}
+                      {imageUrl && (
+                        <div className="space-y-2">
+                          <p className="text-xs uppercase tracking-widest text-slate-400">Ảnh sau chỉnh sửa</p>
+                          <img
+                            src={imageUrl}
+                            alt="AI edited"
+                            className="w-full rounded-2xl border border-white/10 object-cover"
+                          />
+                          <input
+                            value={imageUrl}
+                            readOnly
+                            className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-xs text-slate-200"
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
