@@ -64,6 +64,9 @@ async function requestJson<T>(
         await sleep(300);
         continue;
       }
+      if (isAbort) {
+        throw new Error("Yêu cầu quá thời gian xử lý, vui lòng thử lại.");
+      }
       throw err;
     } finally {
       clearTimeout(timeoutId);
@@ -81,7 +84,11 @@ export const aiClient = {
   ragChat: (payload: ChatRequest, authToken?: string | null) =>
     requestJson<RagResponse>("/rag/chat", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
   image: (payload: ImageRequest, authToken?: string | null) =>
-    requestJson<ImageResponse>("/image", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
+    requestJson<ImageResponse>(
+      "/image",
+      { method: "POST", body: JSON.stringify(payload) },
+      { authToken, timeoutMs: 120_000, retry: 0 }
+    ),
   uploadImage: async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -97,5 +104,9 @@ export const aiClient = {
     }
   },
   imageEdit: (payload: ImageEditRequest, authToken?: string | null) =>
-    requestJson<ImageEditResponse>("/image/edit", { method: "POST", body: JSON.stringify(payload) }, { authToken }),
+    requestJson<ImageEditResponse>(
+      "/image/edit",
+      { method: "POST", body: JSON.stringify(payload) },
+      { authToken, timeoutMs: 120_000, retry: 0 }
+    ),
 };
