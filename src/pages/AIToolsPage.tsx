@@ -74,6 +74,16 @@ export default function AIToolsPage() {
   const isQuotaExceeded = usage ? usage.tokens_used >= usage.tokens_limit : false;
   const toolsLocked = !isEnabled || !session || !usage || isQuotaExceeded;
 
+  const isChatModel = (value: string) =>
+    /gpt|gemini|claude|llama|mistral|mixtral|deepseek|o1|o3|chat/i.test(value) &&
+    !/babbage|davinci|curie|ada|text-/i.test(value);
+
+  const resolveChatModel = () => {
+    if (isChatModel(model)) return model;
+    const fallback = models.find(isChatModel);
+    return fallback ?? "gpt-4o-mini";
+  };
+
   useEffect(() => {
     if (!isEnabled) return;
     aiClient
@@ -229,7 +239,7 @@ export default function AIToolsPage() {
       const response = await aiClient.chat(
         {
           mode,
-          model,
+          model: resolveChatModel(),
           messages,
           temperature: 0.7,
         },
@@ -292,7 +302,7 @@ export default function AIToolsPage() {
       const response = await aiClient.ragChat(
         {
           mode,
-          model,
+          model: resolveChatModel(),
           messages,
           temperature: 0.7,
         },
