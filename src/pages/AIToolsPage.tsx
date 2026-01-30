@@ -349,12 +349,12 @@ export default function AIToolsPage() {
       />
       <Header />
       <main className="bg-slate-950 text-slate-100 ai-tools">
-        <div className="container mx-auto px-6 lg:px-12 py-12 lg:py-16">
+        <div className="container mx-auto px-6 lg:px-12 py-12 lg:py-16 ai-tools-shell">
           <div className="flex flex-col lg:flex-row gap-10">
-            <aside className="lg:w-64 flex-shrink-0">
-              <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-5 shadow-[0_12px_32px_rgba(0,0,0,0.35)]">
+            <aside className="lg:w-64 flex-shrink-0 ai-tools-sidebar">
+              <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-5 shadow-[0_12px_32px_rgba(0,0,0,0.35)] ai-panel ai-sidebar-card">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-4">AI Studio</p>
-                <nav className="space-y-2 text-sm">
+                <nav className="space-y-2 text-sm ai-sidebar-nav">
                   {[
                     { label: "Tổng quan", href: "#overview" },
                     { label: "Tạo ảnh", href: "#image" },
@@ -365,7 +365,7 @@ export default function AIToolsPage() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-slate-200 hover:bg-white/5 transition-colors"
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-slate-200 hover:bg-white/5 transition-colors ai-sidebar-link"
                     >
                       {item.label}
                       <span className="text-xs text-slate-500">→</span>
@@ -374,7 +374,7 @@ export default function AIToolsPage() {
                 </nav>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/80 p-5">
+              <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/80 p-5 ai-panel ai-sidebar-card">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-3">Tài khoản</p>
                 {session ? (
                   <div className="space-y-3 text-sm">
@@ -382,7 +382,7 @@ export default function AIToolsPage() {
                     <button
                       type="button"
                       onClick={handleSignOut}
-                      className="w-full rounded-lg border border-white/20 px-3 py-2 text-xs uppercase tracking-widest text-slate-200 hover:bg-white/10"
+                      className="w-full rounded-lg border border-white/20 px-3 py-2 text-xs uppercase tracking-widest text-slate-200 hover:bg-white/10 ai-action-btn ai-action-btn--ghost"
                     >
                       Đăng xuất
                     </button>
@@ -393,18 +393,18 @@ export default function AIToolsPage() {
               </div>
             </aside>
 
-            <section className="flex-1 space-y-8">
+            <section className="flex-1 space-y-8 ai-tools-main">
               <div
                 id="overview"
-                className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-800/80 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] ai-panel"
+                className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-800/80 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.4)] ai-panel ai-hero"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-gold mb-3">AI tools studio</p>
-                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                    <p className="text-xs uppercase tracking-[0.3em] text-gold mb-3 ai-hero-kicker">AI tools studio</p>
+                    <h1 className="text-3xl md:text-4xl font-heading font-bold text-white ai-hero-title">
                       Trung tâm trải nghiệm AI cho Kiến Hưng
                     </h1>
-                    <p className="text-slate-300 mt-3 max-w-xl">
+                    <p className="text-slate-300 mt-3 max-w-xl ai-hero-subtitle">
                       Tạo nội dung, phân tích dữ liệu và sinh ảnh minh họa với bộ công cụ AI thực chiến. Yêu cầu đăng
                       nhập để đảm bảo quota và quyền sử dụng.
                     </p>
@@ -418,7 +418,7 @@ export default function AIToolsPage() {
                       onChange={setModel}
                       disabled={!session || !isEnabled}
                     />
-                    <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+                    <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4 ai-usage-card">
                       <div className="flex items-center justify-between text-xs uppercase tracking-widest text-slate-400">
                         <span>Usage</span>
                         <span>{usage ? usage.plan.toUpperCase() : "FREE"}</span>
@@ -437,7 +437,7 @@ export default function AIToolsPage() {
                       </div>
                       <a
                         href="mailto:contact@kienhunginvest.com?subject=AI%20Tools%20Upgrade"
-                        className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300"
+                        className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300 ai-usage-cta"
                       >
                         Nâng cấp Pro
                       </a>
@@ -559,7 +559,7 @@ export default function AIToolsPage() {
                     value={imagePrompt}
                     onChange={(e) => setImagePrompt(e.target.value)}
                     rows={4}
-                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
                     placeholder="Ví dụ: Một trung tâm dữ liệu hiện đại, phong cách tương lai, ánh sáng xanh."
                     disabled={toolsLocked}
                   />
@@ -568,7 +568,7 @@ export default function AIToolsPage() {
                       value={imageSize}
                       onChange={(e) => setImageSize(e.target.value)}
                       disabled={toolsLocked}
-                      className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-xs text-slate-100"
+                      className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-xs text-slate-100 ai-input"
                     >
                       <option value="512x512">512x512</option>
                       <option value="1024x1024">1024x1024</option>
@@ -608,7 +608,7 @@ export default function AIToolsPage() {
                     value={ragQuery}
                     onChange={(e) => setRagQuery(e.target.value)}
                     rows={4}
-                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
                     placeholder="Nhập câu hỏi..."
                     disabled={toolsLocked}
                   />
@@ -655,7 +655,7 @@ export default function AIToolsPage() {
                     value={summarizeInput}
                     onChange={(e) => setSummarizeInput(e.target.value)}
                     rows={4}
-                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
                     placeholder="Dán nội dung cần tóm tắt..."
                     disabled={toolsLocked}
                   />
@@ -684,7 +684,7 @@ export default function AIToolsPage() {
                     value={seoInput}
                     onChange={(e) => setSeoInput(e.target.value)}
                     rows={4}
-                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
                     placeholder="Nhập chủ đề hoặc keyword..."
                     disabled={toolsLocked}
                   />
