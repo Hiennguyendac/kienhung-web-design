@@ -400,6 +400,222 @@
     color: hsla(210 15% 78% / 0.7);
   }
 
+  .pro-upgrade-page {
+    background:
+      radial-gradient(900px 600px at 20% -10%, hsla(45 80% 55% / 0.12), transparent 60%),
+      radial-gradient(700px 500px at 85% 10%, hsla(210 70% 35% / 0.3), transparent 60%),
+      linear-gradient(180deg, hsl(210 55% 9%) 0%, hsl(210 65% 7%) 100%);
+    color: hsl(0 0% 98%);
+  }
+
+  .pro-upgrade-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 28px;
+    border: 1px solid hsla(210 40% 30% / 0.35);
+    background: linear-gradient(135deg, hsla(210 70% 12% / 0.95), hsla(210 60% 18% / 0.9));
+    box-shadow: 0 30px 60px -45px hsla(210 80% 10% / 0.7);
+    margin-bottom: 2.5rem;
+  }
+
+  .pro-upgrade-hero h1 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .pro-upgrade-hero p {
+    color: hsla(210 20% 88% / 0.85);
+    max-width: 560px;
+  }
+
+  .pro-upgrade-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: hsl(45 80% 60%);
+  }
+
+  .pro-upgrade-price .pro-price-card {
+    min-width: 240px;
+    border-radius: 20px;
+    border: 1px solid hsla(45 80% 55% / 0.4);
+    padding: 1.5rem;
+    background: linear-gradient(160deg, hsla(45 80% 55% / 0.18), hsla(210 50% 15% / 0.9));
+    box-shadow: 0 18px 40px -25px hsla(45 80% 55% / 0.45);
+  }
+
+  .pro-price-card p {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .pro-price-card span {
+    color: hsla(210 20% 85% / 0.8);
+    font-size: 0.85rem;
+  }
+
+  .pro-price-card ul {
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+    font-size: 0.85rem;
+    color: hsla(210 20% 90% / 0.75);
+  }
+
+  .pro-price-card li {
+    margin-bottom: 0.5rem;
+  }
+
+  .pro-upgrade-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .pro-upgrade-card {
+    border-radius: 22px;
+    border: 1px solid hsla(210 40% 30% / 0.35);
+    padding: 2rem;
+    background: linear-gradient(135deg, hsla(210 65% 12% / 0.95), hsla(210 55% 16% / 0.9));
+    box-shadow: 0 20px 50px -35px hsla(210 80% 10% / 0.7);
+  }
+
+  .pro-upgrade-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pro-upgrade-card p {
+    color: hsla(210 20% 88% / 0.8);
+  }
+
+  .pro-bank-card {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid hsla(45 80% 55% / 0.25);
+    background: hsla(210 55% 12% / 0.6);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .pro-bank-card .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsla(210 20% 75% / 0.8);
+  }
+
+  .pro-bank-card .value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: hsl(0 0% 98%);
+  }
+
+  .pro-upgrade-steps {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .pro-upgrade-steps div {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    color: hsla(210 20% 88% / 0.85);
+  }
+
+  .pro-upgrade-steps span {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: hsla(45 80% 55% / 0.2);
+    color: hsl(45 80% 70%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  .pro-upgrade-form {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .pro-upgrade-form input,
+  .pro-upgrade-form textarea {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid hsla(210 35% 30% / 0.5);
+    background: hsla(210 40% 12% / 0.7);
+    color: hsl(0 0% 98%);
+    padding: 0.75rem 1rem;
+  }
+
+  .pro-upgrade-form button {
+    justify-self: flex-start;
+    border-radius: 12px;
+    background: linear-gradient(120deg, hsl(45 85% 58%), hsl(35 90% 55%));
+    color: hsl(210 60% 12%);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 16px 28px -22px hsla(45 80% 55% / 0.6);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .pro-upgrade-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px -26px hsla(45 80% 55% / 0.75);
+  }
+
+  .pro-upgrade-alert {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid hsla(0 80% 60% / 0.4);
+    background: hsla(0 70% 50% / 0.12);
+    color: hsl(0 0% 98%);
+    font-size: 0.9rem;
+  }
+
+  .pro-upgrade-alert--info {
+    border-color: hsla(45 80% 55% / 0.4);
+    background: hsla(45 80% 55% / 0.12);
+    color: hsl(45 80% 85%);
+  }
+
+  .pro-upgrade-alert--success {
+    border-color: hsla(140 70% 45% / 0.4);
+    background: hsla(140 70% 40% / 0.12);
+  }
+
+  .pro-upgrade-alert--error {
+    border-color: hsla(0 80% 60% / 0.5);
+    background: hsla(0 80% 60% / 0.12);
+  }
+
+  .pro-upgrade-alert a {
+    color: hsl(45 80% 70%);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 960px) {
+    .pro-upgrade-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .pro-upgrade-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .ai-output {
     color: hsla(210 20% 96% / 0.95);
     background: linear-gradient(180deg, hsla(210 40% 12% / 0.95), hsla(210 45% 9% / 0.98));

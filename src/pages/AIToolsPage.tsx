@@ -7,6 +7,7 @@ import { aiClient } from "@/lib/aiClient";
 import type { AiMode, ChatMessage, RagCitation } from "@/lib/aiTypes";
 import { ModelSelector } from "@/components/ai/ModelSelector";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 
 const isEnabled = (import.meta.env.VITE_AI_ENABLED as string) === "true";
 const FREE_LIMIT = 20000;
@@ -66,12 +67,7 @@ export default function AIToolsPage() {
   const [authMessage, setAuthMessage] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
-  const [proModalOpen, setProModalOpen] = useState(false);
-  const [proFullName, setProFullName] = useState("");
-  const [proPhone, setProPhone] = useState("");
-  const [proNote, setProNote] = useState("");
   const [proStatus, setProStatus] = useState<string | null>(null);
-  const [proLoading, setProLoading] = useState(false);
 
   const periodKey = useMemo(() => getPeriodKey(), []);
   const authToken = session?.access_token ?? null;
@@ -248,34 +244,7 @@ export default function AIToolsPage() {
     setAuthError(null);
   };
 
-  const handleProUpgrade = async () => {
-    if (!session) {
-      setError("Bạn cần đăng nhập để nâng cấp Pro.");
-      return;
-    }
-    setProLoading(true);
-    setError(null);
-    try {
-      const { data, error: fnError } = await supabase.functions.invoke("pro-upgrade", {
-        body: {
-          fullName: proFullName.trim(),
-          phone: proPhone.trim(),
-          note: proNote.trim(),
-          amount: 100000,
-        },
-      });
-      if (fnError) {
-        throw new Error(fnError.message || "Không thể gửi yêu cầu nâng cấp.");
-      }
-      if (data?.status) setProStatus(data.status);
-      setProModalOpen(false);
-      setAuthMessage("Đã gửi yêu cầu nâng cấp Pro. Vui lòng chờ admin duyệt.");
-    } catch (err: any) {
-      setError(err?.message || "Không thể gửi yêu cầu nâng cấp.");
-    } finally {
-      setProLoading(false);
-    }
-  };
+  
 
   const handleChat = async (
     input: string,
@@ -538,13 +507,15 @@ export default function AIToolsPage() {
                               : "Đăng nhập để xem quota"}
                         </p>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => setProModalOpen(true)}
+                      <Link
+                        to="/ai-tools/pro"
                         className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300 ai-usage-cta"
                       >
                         Nâng cấp Pro
-                      </button>
+                      </Link>
+                      {proStatus === "pending" && (
+                        <span className="mt-1 text-xs text-gold/80">Đang chờ duyệt</span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -859,69 +830,6 @@ export default function AIToolsPage() {
           </div>
         </div>
       </main>
-      {proModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 px-4">
-          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-slate-950 p-6 text-slate-100 shadow-2xl">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Pro Upgrade</p>
-                <h3 className="text-xl font-semibold text-white mt-2">Nâng cấp gói Pro</h3>
-                <p className="text-sm text-slate-300 mt-2">
-                  Giá 100.000 VNĐ/tháng. Sau khi chuyển khoản, hệ thống sẽ gửi email cho admin duyệt.
-                </p>
-                <div className="mt-3 rounded-lg border border-white/10 bg-slate-900/70 px-3 py-2 text-xs text-slate-200">
-                  <p className="text-slate-400 uppercase tracking-widest text-[10px]">Thông tin thanh toán</p>
-                  <p className="mt-1">Công ty TNHH TM DV Đầu tư Kiến Hưng</p>
-                  <p>Ngân hàng: Vietin Bank</p>
-                  <p>STK: 114002909099</p>
-                </div>
-                {proStatus === "pending" && (
-                  <p className="mt-2 text-xs text-gold">Bạn đã có yêu cầu đang chờ duyệt.</p>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() => setProModalOpen(false)}
-                className="text-slate-400 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="mt-4 space-y-3">
-              <input
-                value={proFullName}
-                onChange={(e) => setProFullName(e.target.value)}
-                placeholder="Họ tên"
-                className="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-100"
-              />
-              <input
-                value={proPhone}
-                onChange={(e) => setProPhone(e.target.value)}
-                placeholder="Số điện thoại"
-                className="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-100"
-              />
-              <textarea
-                value={proNote}
-                onChange={(e) => setProNote(e.target.value)}
-                rows={3}
-                placeholder="Mã giao dịch / ghi chú chuyển khoản"
-                className="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-100"
-              />
-            </div>
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs text-slate-400">Hỗ trợ: contact@kienhunginvest.com</p>
-              <button
-                type="button"
-                onClick={handleProUpgrade}
-                disabled={proLoading}
-                className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60"
-              >
-                {proLoading ? "Đang gửi..." : "Gửi yêu cầu"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
       <Footer />
     </div>
   );
