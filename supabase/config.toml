@@ -3,3 +3,7 @@ project_id = "tbtkttprzgnctaztpeid"
 [functions.openai-chat]
 enabled = true
 verify_jwt = false
+
+[functions.pro-upgrade]
+enabled = true
+verify_jwt = true
