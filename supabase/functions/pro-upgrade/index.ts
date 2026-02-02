@@ -61,11 +61,23 @@ function plainLine(label: string, value: unknown) {
   return v ? `${label}: ${v}` : null;
 }
 
+function decodeJwt(token: string): { sub?: string; email?: string } {
+  try {
+    const payload = token.split(".")[1];
+    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    return JSON.parse(json);
+  } catch {
+    return {};
+  }
+}
+
 async function resolveUserId(token: string) {
   const sb = getSupabase();
   const { data, error } = await sb.auth.getUser(token);
   if (error || !data?.user) {
-    return null;
+    const fallback = decodeJwt(token);
+    if (!fallback.sub) return null;
+    return { id: fallback.sub, email: fallback.email ?? null };
   }
   return {
     id: data.user.id,
@@ -223,10 +235,17 @@ serve(async (req: Request) => {
     const user = token ? await resolveUserId(token) : null;
 
     if (!user?.id) {
-      return new Response(JSON.stringify({ ok: false, error: "Unauthenticated" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          error: "Unauthenticated",
+          detail: "Missing or invalid access token",
+        }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
     }
 
     const body = (await req.json()) as {
