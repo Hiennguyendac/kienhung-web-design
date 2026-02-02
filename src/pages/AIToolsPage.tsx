@@ -459,7 +459,22 @@ export default function AIToolsPage() {
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400 mb-3">Tài khoản</p>
                 {session ? (
                   <div className="space-y-3 text-sm">
-                    <p className="text-slate-200 break-all">{session.user.email}</p>
+                    <div className="ai-profile">
+                      <div className="ai-profile-avatar">
+                        {(session.user.email || "U").slice(0, 1).toUpperCase()}
+                      </div>
+                      <div className="ai-profile-meta">
+                        <p className="ai-profile-email">{session.user.email}</p>
+                        <div className="ai-profile-tags">
+                          <span className="ai-profile-tag">
+                            {usage ? usage.plan.toUpperCase() : "FREE"}
+                          </span>
+                          <span className="ai-profile-tag ai-profile-tag--muted">
+                            {usage ? `${usage.tokens_used.toLocaleString()} tokens` : "0 tokens"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                     <button
                       type="button"
                       onClick={handleSignOut}
