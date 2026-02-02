@@ -111,7 +111,7 @@ export default function ProUpgradePage() {
             <section className="pro-upgrade-card">
               <h2>Thông tin thanh toán</h2>
               <p>Vui lòng chuyển khoản đúng nội dung để đối soát nhanh.</p>
-              <div className="pro-bank-card">
+              <div className="pro-bank-card pro-bank-card--with-qr">
                 <div>
                   <p className="label">Tài khoản thụ hưởng</p>
                   <p className="value">Công ty TNHH TM DV Đầu tư Kiến Hưng</p>
@@ -127,6 +127,10 @@ export default function ProUpgradePage() {
                 <div>
                   <p className="label">Nội dung</p>
                   <p className="value">PRO + email đăng nhập</p>
+                </div>
+                <div className="pro-bank-qr">
+                  <img src="/qr-vietinbank.jpg" alt="QR thanh toán Vietin Bank" loading="lazy" />
+                  <p>Quét QR để chuyển khoản nhanh</p>
                 </div>
               </div>
               <div className="pro-upgrade-steps">

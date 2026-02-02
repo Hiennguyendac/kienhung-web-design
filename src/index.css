@@ -647,6 +647,35 @@
     gap: 0.75rem;
   }
 
+  .pro-bank-card--with-qr {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .pro-bank-qr {
+    grid-column: span 2;
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed hsla(45 80% 55% / 0.25);
+  }
+
+  .pro-bank-qr img {
+    width: min(280px, 100%);
+    border-radius: 14px;
+    border: 1px solid hsla(210 40% 30% / 0.3);
+    box-shadow: 0 14px 30px -22px hsla(210 70% 10% / 0.7);
+    background: white;
+    padding: 0.5rem;
+  }
+
+  .pro-bank-qr p {
+    font-size: 0.8rem;
+    color: hsla(210 20% 85% / 0.8);
+  }
+
   .pro-bank-card .label {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
@@ -756,6 +785,10 @@
     }
 
     .pro-upgrade-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pro-bank-card--with-qr {
       grid-template-columns: 1fr;
     }
   }
