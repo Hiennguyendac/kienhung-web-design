@@ -61,14 +61,16 @@ function plainLine(label: string, value: unknown) {
   return v ? `${label}: ${v}` : null;
 }
 
-function decodeJwt(token: string): { sub?: string; email?: string } {
-  try {
-    const payload = token.split(".")[1];
-    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
-    return JSON.parse(json);
-  } catch {
-    return {};
+async function resolveUserId(token: string) {
+  const sb = getSupabase();
+  const { data, error } = await sb.auth.getUser(token);
+  if (error || !data?.user) {
+    return null;
   }
+  return {
+    id: data.user.id,
+    email: data.user.email ?? null,
+  };
 }
 
 async function sendEmail(subject: string, text: string, html: string) {
@@ -218,9 +220,9 @@ serve(async (req: Request) => {
 
     const authHeader = req.headers.get("authorization") || "";
     const token = authHeader.replace(/bearer\s+/i, "").trim();
-    const user = decodeJwt(token);
+    const user = token ? await resolveUserId(token) : null;
 
-    if (!user.sub) {
+    if (!user?.id) {
       return new Response(JSON.stringify({ ok: false, error: "Unauthenticated" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -246,7 +248,7 @@ serve(async (req: Request) => {
     const { data: existing } = await sb
       .from("pro_upgrade_requests")
       .select("id,status")
-      .eq("user_id", user.sub)
+      .eq("user_id", user.id)
       .eq("status", "pending")
       .maybeSingle();
 
@@ -261,7 +263,7 @@ serve(async (req: Request) => {
     const createdAt = new Date().toISOString();
 
     const insertPayload = {
-      user_id: user.sub,
+      user_id: user.id,
       email: user.email,
       full_name: body?.fullName || null,
       phone: body?.phone || null,
