@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { writeAll } from "https://deno.land/std@0.168.0/streams/write_all.ts";
 import { SmtpClient } from "https://deno.land/x/smtp@v0.7.0/mod.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.50.0";
 
@@ -25,6 +26,13 @@ const corsHeaders = {
 };
 
 let supabase: ReturnType<typeof createClient> | null = null;
+
+// Polyfill for older SMTP deps expecting Deno.writeAll
+// deno-lint-ignore no-explicit-any
+if (!(Deno as any).writeAll) {
+  // deno-lint-ignore no-explicit-any
+  (Deno as any).writeAll = writeAll;
+}
 
 function getSupabase() {
   if (!supabase) {
