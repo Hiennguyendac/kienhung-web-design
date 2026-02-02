@@ -232,11 +232,21 @@ serve(async (req: Request) => {
 
     const authHeader = req.headers.get("authorization") || "";
     const headerToken = authHeader.replace(/bearer\s+/i, "").trim();
-    const tokenFromBody = (await req.clone().json().catch(() => ({})))?.accessToken as string | undefined;
+    const bodyPreview = (await req.clone().json().catch(() => ({}))) as Record<string, unknown>;
+    const tokenFromBody = bodyPreview?.accessToken as string | undefined;
+    console.log("pro-upgrade request", {
+      hasAuthHeader: Boolean(authHeader),
+      authHeaderLength: authHeader.length,
+      bodyKeys: Object.keys(bodyPreview || {}),
+    });
     const token = (headerToken || tokenFromBody || "").trim();
     const user = token ? await resolveUserId(token) : null;
 
     if (!user?.id) {
+      console.error("pro-upgrade unauthenticated", {
+        hasHeaderToken: Boolean(headerToken),
+        hasBodyToken: Boolean(tokenFromBody),
+      });
       return new Response(
         JSON.stringify({
           ok: false,
@@ -304,6 +314,7 @@ serve(async (req: Request) => {
       .single();
 
     if (error || !inserted) {
+      console.error("pro-upgrade insert failed", error);
       return new Response(JSON.stringify({ ok: false, error: error?.message || "Insert failed" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -312,13 +323,18 @@ serve(async (req: Request) => {
 
     const approveUrl = buildApproveUrl(tokenHex);
     const email = buildEmail(inserted as Record<string, unknown>, approveUrl);
-    await sendEmail(email.subject, email.text, email.html);
+    try {
+      await sendEmail(email.subject, email.text, email.html);
+    } catch (mailErr) {
+      console.error("pro-upgrade email failed", mailErr);
+    }
 
     return new Response(JSON.stringify({ ok: true, status: "pending" }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Server error";
+    console.error("pro-upgrade error", err);
     return new Response(JSON.stringify({ ok: false, error: message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
