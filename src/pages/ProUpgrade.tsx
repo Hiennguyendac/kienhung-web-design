@@ -61,6 +61,7 @@ export default function ProUpgradePage() {
           phone: phone.trim(),
           note: note.trim(),
           amount: 100000,
+          accessToken: session.access_token,
         },
       });
       if (fnError) {

@@ -231,7 +231,9 @@ serve(async (req: Request) => {
     }
 
     const authHeader = req.headers.get("authorization") || "";
-    const token = authHeader.replace(/bearer\s+/i, "").trim();
+    const headerToken = authHeader.replace(/bearer\s+/i, "").trim();
+    const tokenFromBody = (await req.clone().json().catch(() => ({})))?.accessToken as string | undefined;
+    const token = (headerToken || tokenFromBody || "").trim();
     const user = token ? await resolveUserId(token) : null;
 
     if (!user?.id) {
@@ -253,6 +255,7 @@ serve(async (req: Request) => {
       phone?: string;
       note?: string;
       amount?: number;
+      accessToken?: string;
     };
 
     if (Number(body?.amount || AMOUNT_VND) !== AMOUNT_VND) {
