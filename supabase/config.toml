@@ -4,6 +4,10 @@ project_id = "tbtkttprzgnctaztpeid"
 enabled = true
 verify_jwt = false
 
+[functions.contact-intake]
+enabled = true
+verify_jwt = false
+
 [functions.pro-upgrade]
 enabled = true
 verify_jwt = false
