@@ -1,6 +1,12 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { writeAll } from "https://deno.land/std@0.168.0/streams/write_all.ts";
 import { SmtpClient } from "https://deno.land/x/smtp@v0.7.0/mod.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.50.0";
+
+if (!("writeAll" in Deno)) {
+  // @ts-expect-error Deno.writeAll is missing in edge runtime
+  Deno.writeAll = writeAll;
+}
 
 const SUPABASE_URL = (
   Deno.env.get("SB_URL") || Deno.env.get("SUPABASE_URL") || ""
@@ -61,14 +67,19 @@ function plainLine(label: string, value: unknown) {
   return v ? `${label}: ${v}` : null;
 }
 
-function decodeJwt(token: string): { sub?: string; email?: string } {
+function decodeJwt(token: string): { sub?: string; email?: string; role?: string; aud?: string; iss?: string } {
   try {
     const payload = token.split(".")[1];
-    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    const padded = payload.padEnd(payload.length + (4 - (payload.length % 4 || 4)) % 4, "=");
+    const json = atob(padded.replace(/-/g, "+").replace(/_/g, "/"));
     return JSON.parse(json);
   } catch {
     return {};
   }
+}
+
+function normalizeToken(value: string) {
+  return value.replace(/bearer\s+/i, "").replace(/\s+/g, "").trim();
 }
 
 async function resolveUserId(token: string) {
@@ -231,21 +242,30 @@ serve(async (req: Request) => {
     }
 
     const authHeader = req.headers.get("authorization") || "";
-    const headerToken = authHeader.replace(/bearer\s+/i, "").trim();
+    const headerToken = normalizeToken(authHeader);
     const bodyPreview = (await req.clone().json().catch(() => ({}))) as Record<string, unknown>;
-    const tokenFromBody = bodyPreview?.accessToken as string | undefined;
+    const tokenFromBodyRaw = bodyPreview?.accessToken as string | undefined;
+    const tokenFromBody = tokenFromBodyRaw ? normalizeToken(tokenFromBodyRaw) : "";
     console.log("pro-upgrade request", {
       hasAuthHeader: Boolean(authHeader),
       authHeaderLength: authHeader.length,
       bodyKeys: Object.keys(bodyPreview || {}),
+      tokenLength: (headerToken || tokenFromBody || "").length,
+      tokenDots: ((headerToken || tokenFromBody || "").match(/\./g) || []).length,
     });
     const token = (headerToken || tokenFromBody || "").trim();
+    const tokenClaims = token ? decodeJwt(token) : {};
     const user = token ? await resolveUserId(token) : null;
 
     if (!user?.id) {
       console.error("pro-upgrade unauthenticated", {
         hasHeaderToken: Boolean(headerToken),
         hasBodyToken: Boolean(tokenFromBody),
+        tokenLength: token.length,
+        tokenDots: (token.match(/\./g) || []).length,
+        tokenRole: tokenClaims?.role,
+        tokenAud: tokenClaims?.aud,
+        tokenSubPresent: Boolean(tokenClaims?.sub),
       });
       return new Response(
         JSON.stringify({
@@ -279,12 +299,20 @@ serve(async (req: Request) => {
 
     const { data: existing } = await sb
       .from("pro_upgrade_requests")
-      .select("id,status")
+      .select("id,status,token,full_name,phone,note,amount,email,user_id,created_at")
       .eq("user_id", user.id)
       .eq("status", "pending")
       .maybeSingle();
 
     if (existing?.id) {
+      const approveUrl = buildApproveUrl(existing.token);
+      const email = buildEmail(existing as Record<string, unknown>, approveUrl);
+      try {
+        await sendEmail(email.subject, email.text, email.html);
+        console.log("pro-upgrade email sent", { requestId: existing.id, reused: true });
+      } catch (mailErr) {
+        console.error("pro-upgrade email failed", mailErr);
+      }
       return new Response(JSON.stringify({ ok: true, status: "pending" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -325,6 +353,7 @@ serve(async (req: Request) => {
     const email = buildEmail(inserted as Record<string, unknown>, approveUrl);
     try {
       await sendEmail(email.subject, email.text, email.html);
+      console.log("pro-upgrade email sent", { requestId: inserted.id, reused: false });
     } catch (mailErr) {
       console.error("pro-upgrade email failed", mailErr);
     }

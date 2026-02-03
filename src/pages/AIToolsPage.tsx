@@ -76,6 +76,7 @@ export default function AIToolsPage() {
     ? Math.min(100, Math.round((usage.tokens_used / usage.tokens_limit) * 100))
     : 0;
 
+  const isPro = usage?.plan === "pro" || session?.user.user_metadata?.plan === "pro";
   const isQuotaExceeded = usage ? usage.tokens_used >= usage.tokens_limit : false;
   const toolsLocked = !isEnabled || !session || !usage || isQuotaExceeded;
 
@@ -531,12 +532,18 @@ export default function AIToolsPage() {
                               : "Đăng nhập để xem quota"}
                         </p>
                       </div>
-                      <Link
-                        to="/ai-tools/pro"
-                        className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300 ai-usage-cta"
-                      >
-                        Nâng cấp Pro
-                      </Link>
+                      {isPro ? (
+                        <span className="mt-3 inline-flex text-xs uppercase tracking-widest text-emerald-300 ai-usage-cta">
+                          Gói Pro
+                        </span>
+                      ) : (
+                        <Link
+                          to="/ai-tools/pro"
+                          className="mt-3 inline-flex text-xs uppercase tracking-widest text-gold hover:text-yellow-300 ai-usage-cta"
+                        >
+                          Nâng cấp Pro
+                        </Link>
+                      )}
                       {proStatus === "pending" && (
                         <span className="mt-1 text-xs text-gold/80">Đang chờ duyệt</span>
                       )}
