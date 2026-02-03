@@ -9,6 +9,16 @@ import { ModelSelector } from "@/components/ai/ModelSelector";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Bot, FileText, Image, LayoutGrid, Search, Sparkles } from "lucide-react";
+import {
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const isEnabled = (import.meta.env.VITE_AI_ENABLED as string) === "true";
 const FREE_LIMIT = 20000;
@@ -18,6 +28,10 @@ const summarizePrompt =
   "Bạn là trợ lý biên tập. Hãy tóm tắt nội dung dưới đây thành 5 gạch đầu dòng rõ ý, súc tích, tiếng Việt.";
 const seoPrompt =
   "Bạn là chuyên gia nội dung SEO. Hãy viết dàn ý bài viết chuẩn SEO (tiêu đề H1, H2, H3) kèm 5 bullet ý chính, tiếng Việt.";
+const investmentSystemPrompt =
+  "Bạn là trợ lý phân tích định hướng đầu tư. KHÔNG đưa ra lời khuyên tài chính bắt buộc. " +
+  "Hãy dựa trên dữ liệu người dùng để: (1) phân loại nhà đầu tư, (2) gợi ý 2–3 chiến lược, " +
+  "(3) phân tích ưu/nhược điểm, (4) nêu rõ rủi ro, (5) kết thúc bằng lời khuyên trung lập, mang tính giáo dục.";
 
 const getPeriodKey = () => new Date().toISOString().slice(0, 7);
 const estimateTokens = (text: string) => Math.ceil(text.trim().length / 4);
@@ -47,6 +61,14 @@ export default function AIToolsPage() {
 
   const [seoInput, setSeoInput] = useState("");
   const [seoOutput, setSeoOutput] = useState("");
+
+  const [capital, setCapital] = useState("");
+  const [goal, setGoal] = useState("");
+  const [duration, setDuration] = useState("");
+  const [risk, setRisk] = useState("Trung bình");
+  const [sector, setSector] = useState("");
+  const [investOutput, setInvestOutput] = useState("");
+  const [showDashboard, setShowDashboard] = useState(false);
 
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageSize, setImageSize] = useState("1024x1024");
@@ -88,6 +110,52 @@ export default function AIToolsPage() {
     if (isChatModel(model)) return model;
     const fallback = models.find(isChatModel);
     return fallback ?? "gpt-4o-mini";
+  };
+
+  const buildInvestmentPrompt = () =>
+    [
+      `Số vốn: ${capital || "Chưa rõ"}`,
+      `Mục tiêu: ${goal || "Chưa rõ"}`,
+      `Thời gian: ${duration || "Chưa rõ"}`,
+      `Mức rủi ro: ${risk || "Chưa rõ"}`,
+      `Lĩnh vực quan tâm: ${sector || "Chưa rõ"}`,
+    ].join("\n");
+
+  const parseCapital = () => {
+    const cleaned = capital.replace(/[^\d.]/g, "");
+    const value = Number(cleaned);
+    return Number.isFinite(value) && value > 0 ? value : 100;
+  };
+
+  const buildLineData = () => {
+    const base = parseCapital();
+    return [
+      { name: "0m", safe: base, balance: base, growth: base },
+      { name: "6m", safe: base * 1.04, balance: base * 1.07, growth: base * 1.12 },
+      { name: "12m", safe: base * 1.08, balance: base * 1.15, growth: base * 1.28 },
+      { name: "24m", safe: base * 1.16, balance: base * 1.32, growth: base * 1.55 },
+      { name: "36m", safe: base * 1.25, balance: base * 1.5, growth: base * 1.9 },
+    ];
+  };
+
+  const buildPieData = () => [
+    { name: "BĐS", value: 35 },
+    { name: "Kinh doanh", value: 30 },
+    { name: "Tiền mặt", value: 20 },
+    { name: "Khác", value: 15 },
+  ];
+
+  const buildHeatmap = () => [
+    { sector: "Công nghệ", interest: "Cao", risk: "Cao" },
+    { sector: "Tài chính", interest: "Trung bình", risk: "Trung bình" },
+    { sector: "Tiêu dùng", interest: "Cao", risk: "Thấp" },
+    { sector: "BĐS", interest: "Trung bình", risk: "Cao" },
+  ];
+
+  const heatColor = (riskLevel: string) => {
+    if (riskLevel === "Cao") return "bg-rose-500/30 text-rose-200";
+    if (riskLevel === "Trung bình") return "bg-amber-500/30 text-amber-100";
+    return "bg-emerald-500/30 text-emerald-200";
   };
 
   useEffect(() => {
@@ -331,6 +399,12 @@ export default function AIToolsPage() {
     }
   };
 
+  const handleInvestment = async () => {
+    if (!capital.trim() && !goal.trim() && !duration.trim() && !sector.trim()) return;
+    await handleSupabaseChat(buildInvestmentPrompt(), setInvestOutput, investmentSystemPrompt);
+    setShowDashboard(false);
+  };
+
   const handleRag = async () => {
     if (!ragQuery.trim()) return;
     if (toolsLocked) {
@@ -449,6 +523,8 @@ export default function AIToolsPage() {
                     { label: "Tổng quan", href: "#overview", icon: LayoutGrid },
                     { label: "Tạo ảnh", href: "#image", icon: Image, badge: "Beta" },
                     { label: "RAG Chat", href: "#rag", icon: Bot },
+                    { label: "Investment Advisor", href: "#advisor", icon: Search, badge: "New" },
+                    { label: "Dashboard", href: "#dashboard", icon: LayoutGrid },
                     { label: "Tóm tắt nhanh", href: "#summarize", icon: Sparkles },
                     { label: "SEO Draft", href: "#seo", icon: FileText, badge: "New" },
                   ].map((item) => (
@@ -809,6 +885,159 @@ export default function AIToolsPage() {
                           {cite.snippet && <p className="mt-1">{cite.snippet}</p>}
                         </div>
                       ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid xl:grid-cols-2 gap-6 mt-6">
+                <div
+                  id="advisor"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
+                >
+                  <h2 className="text-lg font-semibold text-white mb-3">Investment Advisor</h2>
+                  <p className="text-sm text-slate-300 mb-4">
+                    Trợ lý phân tích định hướng đầu tư (không phải lời khuyên tài chính bắt buộc).
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <input
+                      value={capital}
+                      onChange={(e) => setCapital(e.target.value)}
+                      placeholder="Số vốn (ví dụ: 500 triệu)"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
+                      disabled={toolsLocked}
+                    />
+                    <input
+                      value={goal}
+                      onChange={(e) => setGoal(e.target.value)}
+                      placeholder="Mục tiêu (tăng trưởng / an toàn...)"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
+                      disabled={toolsLocked}
+                    />
+                    <input
+                      value={duration}
+                      onChange={(e) => setDuration(e.target.value)}
+                      placeholder="Thời gian (6 tháng / 2 năm...)"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
+                      disabled={toolsLocked}
+                    />
+                    <select
+                      value={risk}
+                      onChange={(e) => setRisk(e.target.value)}
+                      className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
+                      disabled={toolsLocked}
+                    >
+                      <option>Thấp</option>
+                      <option>Trung bình</option>
+                      <option>Cao</option>
+                    </select>
+                  </div>
+                  <input
+                    value={sector}
+                    onChange={(e) => setSector(e.target.value)}
+                    placeholder="Lĩnh vực quan tâm (BĐS, công nghệ...)"
+                    className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-100 ai-input"
+                    disabled={toolsLocked}
+                  />
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={handleInvestment}
+                      disabled={loading === "chat" || toolsLocked}
+                      className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-60 ai-action-btn"
+                    >
+                      {loading === "chat" ? "Đang phân tích..." : "Phân tích"}
+                    </button>
+                    {investOutput && (
+                      <button
+                        type="button"
+                        onClick={() => setShowDashboard(true)}
+                        className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-100 hover:border-gold/60 ai-action-btn ai-action-btn--ghost"
+                      >
+                        Xem minh họa bằng dữ liệu
+                      </button>
+                    )}
+                  </div>
+                  {investOutput && (
+                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
+                      {investOutput}
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  id="dashboard"
+                  className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
+                >
+                  <h2 className="text-lg font-semibold text-white mb-3">Interactive Dashboard (MVP)</h2>
+                  {!showDashboard ? (
+                    <p className="text-sm text-slate-300">
+                      AI gợi ý xong → bấm “Xem minh họa bằng dữ liệu” để hiển thị dashboard.
+                    </p>
+                  ) : (
+                    <div className="space-y-6">
+                      <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                        <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">
+                          So sánh phương án đầu tư
+                        </p>
+                        <div className="h-56">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={buildLineData()}>
+                              <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
+                              <YAxis stroke="#94a3b8" fontSize={12} />
+                              <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #1e293b" }} />
+                              <Line type="monotone" dataKey="safe" stroke="#38bdf8" strokeWidth={2} dot={false} />
+                              <Line type="monotone" dataKey="balance" stroke="#facc15" strokeWidth={2} dot={false} />
+                              <Line type="monotone" dataKey="growth" stroke="#f97316" strokeWidth={2} dot={false} />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                          <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">Phân bổ vốn</p>
+                          <div className="h-56">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <PieChart>
+                                <Pie
+                                  data={buildPieData()}
+                                  dataKey="value"
+                                  nameKey="name"
+                                  innerRadius={50}
+                                  outerRadius={80}
+                                  stroke="none"
+                                >
+                                  {buildPieData().map((_, index) => (
+                                    <Cell
+                                      key={index}
+                                      fill={["#38bdf8", "#facc15", "#22c55e", "#f97316"][index % 4]}
+                                    />
+                                  ))}
+                                </Pie>
+                                <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #1e293b" }} />
+                              </PieChart>
+                            </ResponsiveContainer>
+                          </div>
+                        </div>
+
+                        <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                          <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">Heatmap xu hướng</p>
+                          <div className="grid gap-2">
+                            {buildHeatmap().map((row) => (
+                              <div
+                                key={row.sector}
+                                className={`rounded-xl border border-white/10 px-3 py-2 text-xs ${heatColor(row.risk)}`}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <span className="font-semibold text-slate-100">{row.sector}</span>
+                                  <span>{row.interest} • Rủi ro {row.risk}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
