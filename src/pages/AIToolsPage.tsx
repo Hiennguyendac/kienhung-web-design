@@ -496,6 +496,31 @@ export default function AIToolsPage() {
     await handleSupabaseChat(buildInvestmentPrompt(), setInvestOutput, investmentSystemPrompt);
   };
 
+  const renderOutput = (value: string) => {
+    const lines = value
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    if (lines.length === 0) return null;
+    const bulletLines = lines.filter((line) => /^[-*•]\s+|^\d+\.\s+/.test(line));
+    if (bulletLines.length >= 2) {
+      return (
+        <ul className="ai-output-list">
+          {lines.map((line, idx) => (
+            <li key={`${line}-${idx}`}>{line.replace(/^[-*•]\s+|^\d+\.\s+/, "")}</li>
+          ))}
+        </ul>
+      );
+    }
+    return (
+      <div className="ai-output-text">
+        {lines.map((line, idx) => (
+          <p key={`${line}-${idx}`}>{line}</p>
+        ))}
+      </div>
+    );
+  };
+
   const handleRag = async () => {
     if (!ragQuery.trim()) return;
     if (toolsLocked) {
@@ -650,12 +675,26 @@ export default function AIToolsPage() {
                       <div className="ai-profile-meta">
                         <p className="ai-profile-email">{session.user.email}</p>
                         <div className="ai-profile-tags">
-                          <span className="ai-profile-tag">
+                          <span className="ai-profile-tag ai-profile-tag--accent">
                             {usage ? usage.plan.toUpperCase() : "FREE"}
                           </span>
                           <span className="ai-profile-tag ai-profile-tag--muted">
                             {usage ? `${usage.tokens_used.toLocaleString()} tokens` : "0 tokens"}
                           </span>
+                        </div>
+                      </div>
+                      <div className="ai-profile-stats">
+                        <div>
+                          <span>Quota</span>
+                          <strong>
+                            {usage
+                              ? `${usage.tokens_used.toLocaleString()} / ${usage.tokens_limit.toLocaleString()}`
+                              : "0 / 0"}
+                          </strong>
+                        </div>
+                        <div>
+                          <span>Trạng thái</span>
+                          <strong>{isPro ? "Pro" : "Free"}</strong>
                         </div>
                       </div>
                     </div>
@@ -1283,8 +1322,15 @@ export default function AIToolsPage() {
                   </button>
                 </div>
                 {investOutput && (
-                  <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
-                    {investOutput}
+                  <div className="mt-4 rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-100 ai-output ai-output--advisor">
+                    <div className="ai-output-header">
+                      <span>Investment Advisor</span>
+                      <span className="ai-output-tag">Trung lập</span>
+                    </div>
+                    {renderOutput(investOutput)}
+                    <p className="ai-output-note">
+                      Lưu ý: Thông tin chỉ mang tính giáo dục, không phải lời khuyên tài chính bắt buộc.
+                    </p>
                   </div>
                 )}
               </div>
@@ -1313,8 +1359,12 @@ export default function AIToolsPage() {
                     {loading === "chat" ? "Đang xử lý..." : "Tóm tắt"}
                   </button>
                   {summarizeOutput && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
-                      {summarizeOutput}
+                    <div className="mt-4 rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-100 ai-output ai-output--summary">
+                      <div className="ai-output-header">
+                        <span>Quick Summarize</span>
+                        <span className="ai-output-tag">Tối ưu</span>
+                      </div>
+                      {renderOutput(summarizeOutput)}
                     </div>
                   )}
                 </div>
@@ -1342,8 +1392,12 @@ export default function AIToolsPage() {
                     {loading === "chat" ? "Đang xử lý..." : "Tạo dàn ý"}
                   </button>
                   {seoOutput && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
-                      {seoOutput}
+                    <div className="mt-4 rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-100 ai-output ai-output--seo">
+                      <div className="ai-output-header">
+                        <span>SEO Draft</span>
+                        <span className="ai-output-tag">Chuyên nghiệp</span>
+                      </div>
+                      {renderOutput(seoOutput)}
                     </div>
                   )}
                 </div>
