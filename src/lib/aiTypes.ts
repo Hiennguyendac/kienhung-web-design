@@ -64,3 +64,11 @@ export type ImageEditRequest = {
 export type ImageEditResponse = {
   url: string;
 };
+
+export type DataUploadResponse = {
+  columns: string[];
+  rows: Array<Array<string | number | null>>;
+  rowCount: number;
+  sampleSize: number;
+  source: "csv" | "xlsx" | "pdf";
+};

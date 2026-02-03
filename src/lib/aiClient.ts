@@ -8,6 +8,7 @@ import type {
   ImageUploadResponse,
   ModelsResponse,
   RagResponse,
+  DataUploadResponse,
 } from "./aiTypes";
 
 const API_BASE = (import.meta.env.VITE_AI_API_BASE as string) || "/api-ai";
@@ -99,6 +100,24 @@ export const aiClient = {
     }
     try {
       return JSON.parse(text) as ImageUploadResponse;
+    } catch {
+      throw new Error("Upload returned non-JSON response.");
+    }
+  },
+  uploadData: async (file: File, authToken?: string | null) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(`${API_BASE}/data/upload`, {
+      method: "POST",
+      body: formData,
+      headers: authToken ? { Authorization: `Bearer ${authToken}` } : undefined,
+    });
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(text || `Upload failed (${res.status})`);
+    }
+    try {
+      return JSON.parse(text) as DataUploadResponse;
     } catch {
       throw new Error("Upload returned non-JSON response.");
     }
