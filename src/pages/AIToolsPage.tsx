@@ -159,9 +159,11 @@ export default function AIToolsPage() {
           .single();
         if (inserted) {
           setUsage(inserted as UsageRecord);
+          await syncPlanIfNeeded(inserted as UsageRecord);
         }
       } else {
         setUsage(data as UsageRecord);
+        await syncPlanIfNeeded(data as UsageRecord);
       }
 
       setUsageLoading(false);
@@ -188,11 +190,25 @@ export default function AIToolsPage() {
       .catch(() => {});
   }, [session]);
 
+  const syncPlanIfNeeded = async (nextUsage: UsageRecord) => {
+    if (!session) return;
+    if (nextUsage.plan !== "pro") return;
+    if (nextUsage.tokens_used < nextUsage.tokens_limit) return;
+    const { data } = await supabase.functions.invoke("plan-sync", {
+      body: { period: periodKey },
+    });
+    if (data?.usage) {
+      setUsage(data.usage as UsageRecord);
+    }
+  };
+
   const applyUsage = async (tokenDelta: number) => {
     if (!usage || !session) return;
     const nextTokens = usage.tokens_used + tokenDelta;
-    setUsage({ ...usage, tokens_used: nextTokens });
+    const nextUsage = { ...usage, tokens_used: nextTokens };
+    setUsage(nextUsage);
     await supabase.from("ai_usage").update({ tokens_used: nextTokens }).eq("id", usage.id);
+    await syncPlanIfNeeded(nextUsage);
   };
 
   const handleSignIn = async (event: FormEvent) => {

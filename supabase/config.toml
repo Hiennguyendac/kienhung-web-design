@@ -11,3 +11,7 @@ verify_jwt = false
 [functions.pro-upgrade]
 enabled = true
 verify_jwt = false
+
+[functions.plan-sync]
+enabled = true
+verify_jwt = true

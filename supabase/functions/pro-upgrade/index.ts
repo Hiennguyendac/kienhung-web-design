@@ -246,27 +246,13 @@ serve(async (req: Request) => {
     const bodyPreview = (await req.clone().json().catch(() => ({}))) as Record<string, unknown>;
     const tokenFromBodyRaw = bodyPreview?.accessToken as string | undefined;
     const tokenFromBody = tokenFromBodyRaw ? normalizeToken(tokenFromBodyRaw) : "";
-    console.log("pro-upgrade request", {
-      hasAuthHeader: Boolean(authHeader),
-      authHeaderLength: authHeader.length,
-      bodyKeys: Object.keys(bodyPreview || {}),
-      tokenLength: (headerToken || tokenFromBody || "").length,
-      tokenDots: ((headerToken || tokenFromBody || "").match(/\./g) || []).length,
-    });
+    
     const token = (headerToken || tokenFromBody || "").trim();
     const tokenClaims = token ? decodeJwt(token) : {};
     const user = token ? await resolveUserId(token) : null;
 
     if (!user?.id) {
-      console.error("pro-upgrade unauthenticated", {
-        hasHeaderToken: Boolean(headerToken),
-        hasBodyToken: Boolean(tokenFromBody),
-        tokenLength: token.length,
-        tokenDots: (token.match(/\./g) || []).length,
-        tokenRole: tokenClaims?.role,
-        tokenAud: tokenClaims?.aud,
-        tokenSubPresent: Boolean(tokenClaims?.sub),
-      });
+      
       return new Response(
         JSON.stringify({
           ok: false,
@@ -309,7 +295,6 @@ serve(async (req: Request) => {
       const email = buildEmail(existing as Record<string, unknown>, approveUrl);
       try {
         await sendEmail(email.subject, email.text, email.html);
-        console.log("pro-upgrade email sent", { requestId: existing.id, reused: true });
       } catch (mailErr) {
         console.error("pro-upgrade email failed", mailErr);
       }
@@ -353,7 +338,6 @@ serve(async (req: Request) => {
     const email = buildEmail(inserted as Record<string, unknown>, approveUrl);
     try {
       await sendEmail(email.subject, email.text, email.html);
-      console.log("pro-upgrade email sent", { requestId: inserted.id, reused: false });
     } catch (mailErr) {
       console.error("pro-upgrade email failed", mailErr);
     }
