@@ -873,13 +873,45 @@
     padding-left: 1.1rem;
   }
 
-  .ai-output-list--seo li {
+  .ai-seo-layout {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .ai-seo-card {
+    border-radius: 12px;
+    border: 1px solid hsla(210 30% 30% / 0.35);
+    background: hsla(210 35% 10% / 0.75);
+    padding: 0.7rem 0.8rem;
+  }
+
+  .ai-seo-card h4 {
+    font-size: 0.85rem;
+    color: hsl(45 80% 85%);
+    margin-bottom: 0.4rem;
+  }
+
+  .ai-seo-card ul {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: hsla(210 20% 96% / 0.95);
+  }
+
+  .ai-seo-card li {
+    position: relative;
     padding-left: 0.9rem;
   }
 
-  .ai-output-key {
-    color: hsl(45 80% 85%);
-    font-weight: 600;
+  .ai-seo-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: hsl(45 80% 60%);
   }
 
   .ai-output-list li::before {

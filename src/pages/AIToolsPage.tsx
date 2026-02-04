@@ -612,19 +612,48 @@ export default function AIToolsPage() {
     const lines = value
       .split(/\r?\n/)
       .map((line) => line.trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((line) => line.replace(/^[-*•]\s+|^\d+\.\s+/, ""));
     if (lines.length === 0) return null;
+
+    const sections: { title: string; items: string[] }[] = [];
+    let current = { title: "Dàn ý", items: [] as string[] };
+
+    const pushSection = () => {
+      if (current.items.length) sections.push(current);
+      current = { title: "Dàn ý", items: [] };
+    };
+
+    lines.forEach((line) => {
+      const heading = line.match(/^(H1|H2|H3|Tiêu đề|Title|Meta|Keyword|Từ khóa|Mô tả)\s*[:：-]?\s*(.*)$/i);
+      if (heading) {
+        const label = heading[1].toUpperCase();
+        const content = heading[2] || "";
+        if (label === "H1" || label === "TIÊU ĐỀ" || label === "TITLE") {
+          pushSection();
+          current.title = content || "Tiêu đề chính";
+        } else {
+          current.items.push(`${label}: ${content || line}`);
+        }
+      } else {
+        current.items.push(line);
+      }
+    });
+    pushSection();
+
     return (
-      <ul className="ai-output-list ai-output-list--seo">
-        {lines.map((line, idx) => {
-          const isKey = /^(H1|H2|H3|Tiêu đề|Title|Meta|Keyword|Từ khóa|Mô tả)/i.test(line);
-          return (
-            <li key={`${line}-${idx}`} className={isKey ? "ai-output-key" : undefined}>
-              {line.replace(/^[-*•]\s+|^\d+\.\s+/, "")}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="ai-seo-layout">
+        {sections.map((section, idx) => (
+          <div key={`${section.title}-${idx}`} className="ai-seo-card">
+            <h4>{section.title}</h4>
+            <ul>
+              {section.items.map((item, itemIdx) => (
+                <li key={`${item}-${itemIdx}`}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     );
   };
 
