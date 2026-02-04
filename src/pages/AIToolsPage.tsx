@@ -616,42 +616,86 @@ export default function AIToolsPage() {
       .map((line) => line.replace(/^[-*•]\s+|^\d+\.\s+/, ""));
     if (lines.length === 0) return null;
 
-    const sections: { title: string; items: string[] }[] = [];
-    let current = { title: "Dàn ý", items: [] as string[] };
+    type SeoBlock = { title: string; subitems: string[] };
+    type SeoSection = { title: string; blocks: SeoBlock[] };
+
+    const sections: SeoSection[] = [];
+    let currentSection: SeoSection = { title: "Dàn ý", blocks: [] };
+    let currentBlock: SeoBlock | null = null;
 
     const pushSection = () => {
-      if (current.items.length) sections.push(current);
-      current = { title: "Dàn ý", items: [] };
+      if (currentSection.blocks.length) sections.push(currentSection);
+      currentSection = { title: "Dàn ý", blocks: [] };
+      currentBlock = null;
     };
 
-    lines.forEach((line) => {
+    const pushBlock = (title: string) => {
+      currentBlock = { title, subitems: [] };
+      currentSection.blocks.push(currentBlock);
+    };
+
+    lines.forEach((rawLine) => {
+      const line = rawLine.replace(/^#{1,6}\s+/, "");
       const heading = line.match(/^(H1|H2|H3|Tiêu đề|Title|Meta|Keyword|Từ khóa|Mô tả)\s*[:：-]?\s*(.*)$/i);
       if (heading) {
         const label = heading[1].toUpperCase();
         const content = heading[2] || "";
         if (label === "H1" || label === "TIÊU ĐỀ" || label === "TITLE") {
           pushSection();
-          current.title = content || "Tiêu đề chính";
-        } else {
-          current.items.push(`${label}: ${content || line}`);
+          currentSection.title = content || "Tiêu đề chính";
+          return;
         }
-      } else {
-        current.items.push(line);
+        if (label === "H2") {
+          pushBlock(content || line);
+          return;
+        }
+        if (label === "H3") {
+          if (!currentBlock) pushBlock("H2 chính");
+          currentBlock.subitems.push(content || line);
+          return;
+        }
+        if (label === "META" || label === "MÔ TẢ") {
+          pushBlock(`${label}: ${content || line}`);
+          return;
+        }
+        if (label === "KEYWORD" || label === "TỪ KHÓA") {
+          if (!currentBlock) pushBlock("Từ khóa");
+          currentBlock.subitems.push(content || line);
+          return;
+        }
       }
+
+      if (!currentBlock) pushBlock(line);
+      else currentBlock.subitems.push(line);
     });
+
     pushSection();
 
     return (
-      <div className="ai-seo-layout">
+      <div className="ai-seo-outline">
         {sections.map((section, idx) => (
-          <div key={`${section.title}-${idx}`} className="ai-seo-card">
-            <h4>{section.title}</h4>
-            <ul>
-              {section.items.map((item, itemIdx) => (
-                <li key={`${item}-${itemIdx}`}>{item}</li>
+          <section key={`${section.title}-${idx}`} className="ai-seo-section">
+            <header className="ai-seo-section__header">
+              <span className="ai-seo-section__label">Dàn ý</span>
+              <h4 className="ai-seo-section__title">{section.title}</h4>
+            </header>
+            <div className="ai-seo-section__body">
+              {section.blocks.map((block, blockIdx) => (
+                <div key={`${block.title}-${blockIdx}`} className="ai-seo-block">
+                  <div className="ai-seo-h2">{block.title}</div>
+                  {block.subitems.length > 0 && (
+                    <div className="ai-seo-h3">
+                      {block.subitems.map((item, itemIdx) => (
+                        <span key={`${item}-${itemIdx}`} className="ai-seo-chip">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-            </ul>
-          </div>
+            </div>
+          </section>
         ))}
       </div>
     );

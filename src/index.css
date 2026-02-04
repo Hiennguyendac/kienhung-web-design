@@ -873,45 +873,74 @@
     padding-left: 1.1rem;
   }
 
-  .ai-seo-layout {
+  .ai-seo-outline {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .ai-seo-section {
+    border-radius: 16px;
+    border: 1px solid hsla(210 30% 30% / 0.35);
+    background: linear-gradient(160deg, hsla(210 35% 10% / 0.8), hsla(215 40% 8% / 0.7));
+    padding: 0.9rem 1rem 0.8rem;
+    box-shadow: 0 16px 32px hsla(215 55% 6% / 0.45);
+  }
+
+  .ai-seo-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .ai-seo-section__label {
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 0.55rem;
+    color: hsla(210 18% 75% / 0.8);
+  }
+
+  .ai-seo-section__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: hsl(0 0% 98%);
+    line-height: 1.45;
+  }
+
+  .ai-seo-section__body {
     display: grid;
     gap: 0.75rem;
   }
 
-  .ai-seo-card {
+  .ai-seo-block {
     border-radius: 12px;
-    border: 1px solid hsla(210 30% 30% / 0.35);
-    background: hsla(210 35% 10% / 0.75);
+    border: 1px solid hsla(210 30% 30% / 0.28);
+    background: hsla(210 35% 12% / 0.7);
     padding: 0.7rem 0.8rem;
   }
 
-  .ai-seo-card h4 {
+  .ai-seo-h2 {
     font-size: 0.85rem;
+    font-weight: 600;
     color: hsl(45 80% 85%);
-    margin-bottom: 0.4rem;
   }
 
-  .ai-seo-card ul {
-    display: grid;
-    gap: 0.35rem;
-    font-size: 0.8rem;
-    color: hsla(210 20% 96% / 0.95);
+  .ai-seo-h3 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
   }
 
-  .ai-seo-card li {
-    position: relative;
-    padding-left: 0.9rem;
-  }
-
-  .ai-seo-card li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    width: 0.35rem;
-    height: 0.35rem;
+  .ai-seo-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.55rem;
     border-radius: 999px;
-    background: hsl(45 80% 60%);
+    border: 1px solid hsla(45 80% 55% / 0.45);
+    color: hsl(0 0% 97%);
+    background: hsla(215 40% 12% / 0.8);
+    font-size: 0.72rem;
   }
 
   .ai-output-list li::before {
