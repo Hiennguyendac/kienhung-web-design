@@ -608,6 +608,26 @@ export default function AIToolsPage() {
     );
   };
 
+  const renderSeoOutput = (value: string) => {
+    const lines = value
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    if (lines.length === 0) return null;
+    return (
+      <ul className="ai-output-list ai-output-list--seo">
+        {lines.map((line, idx) => {
+          const isKey = /^(H1|H2|H3|Tiêu đề|Title|Meta|Keyword|Từ khóa|Mô tả)/i.test(line);
+          return (
+            <li key={`${line}-${idx}`} className={isKey ? "ai-output-key" : undefined}>
+              {line.replace(/^[-*•]\s+|^\d+\.\s+/, "")}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
   const filteredHistory = useMemo(() => {
     if (historyFilter === "all") return historyItems;
     return historyItems.filter((item) => item.tool === historyFilter);
@@ -1206,15 +1226,19 @@ export default function AIToolsPage() {
                     {loading === "rag" ? "Đang xử lý..." : "Gửi RAG"}
                   </button>
                   {ragAnswer && (
-                    <div className="mt-4 rounded-lg bg-slate-950/70 p-3 text-sm text-slate-100 whitespace-pre-wrap ai-output">
-                      {ragAnswer}
+                    <div className="mt-4 rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-100 ai-output ai-output--rag">
+                      <div className="ai-output-header">
+                        <span>RAG Answer</span>
+                        <span className="ai-output-tag">Có nguồn</span>
+                      </div>
+                      {renderOutput(ragAnswer)}
                     </div>
                   )}
                   {ragCitations.length > 0 && (
-                    <div className="mt-4 space-y-2 text-xs text-slate-300">
+                    <div className="mt-4 space-y-2 text-xs text-slate-300 ai-citations">
                       <p className="font-semibold uppercase text-slate-400">Citations</p>
                       {ragCitations.map((cite, idx) => (
-                        <div key={`${cite.url || cite.title}-${idx}`} className="rounded-md border border-white/10 p-2">
+                        <div key={`${cite.url || cite.title}-${idx}`} className="ai-citation-card">
                           <p className="font-medium text-white">{cite.title || "Nguồn tham chiếu"}</p>
                           {cite.url && (
                             <a className="text-gold underline" href={cite.url} target="_blank" rel="noreferrer">
@@ -1606,7 +1630,7 @@ export default function AIToolsPage() {
                         <span>SEO Draft</span>
                         <span className="ai-output-tag">Chuyên nghiệp</span>
                       </div>
-                      {renderOutput(seoOutput)}
+                      {renderSeoOutput(seoOutput)}
                     </div>
                   )}
                 </div>

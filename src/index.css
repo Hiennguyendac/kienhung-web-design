@@ -873,6 +873,15 @@
     padding-left: 1.1rem;
   }
 
+  .ai-output-list--seo li {
+    padding-left: 0.9rem;
+  }
+
+  .ai-output-key {
+    color: hsl(45 80% 85%);
+    font-weight: 600;
+  }
+
   .ai-output-list li::before {
     content: "";
     position: absolute;
@@ -891,6 +900,18 @@
     color: hsla(210 15% 70% / 0.8);
     border-top: 1px dashed hsla(210 30% 40% / 0.4);
     padding-top: 0.5rem;
+  }
+
+  .ai-citations {
+    border-top: 1px dashed hsla(210 30% 40% / 0.4);
+    padding-top: 0.6rem;
+  }
+
+  .ai-citation-card {
+    border-radius: 10px;
+    border: 1px solid hsla(210 30% 30% / 0.35);
+    background: hsla(210 35% 10% / 0.75);
+    padding: 0.55rem 0.65rem;
   }
 
   .ai-history-item {
