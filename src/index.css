@@ -981,9 +981,31 @@
     background: hsla(210 35% 10% / 0.8);
   }
 
+  .ai-history-row--active {
+    border-color: hsla(45 80% 55% / 0.6);
+    color: hsl(45 80% 85%);
+    box-shadow: 0 0 0 1px hsla(45 80% 55% / 0.25);
+  }
+
   .ai-history-row span:last-child {
     text-transform: none;
     letter-spacing: 0.02em;
     color: hsla(210 15% 70% / 0.8);
+  }
+
+  .ai-history-detail {
+    margin-top: 0.75rem;
+    border-radius: 14px;
+    border: 1px solid hsla(210 30% 30% / 0.4);
+    background: hsla(210 40% 12% / 0.8);
+    padding: 0.75rem;
+  }
+
+  .ai-history-detail__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 }

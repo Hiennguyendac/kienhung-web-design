@@ -117,6 +117,7 @@ export default function AIToolsPage() {
   const [historyLoading, setHistoryLoading] = useState(false);
   const [historyFilter, setHistoryFilter] = useState("all");
   const [historyError, setHistoryError] = useState<string | null>(null);
+  const [selectedHistoryId, setSelectedHistoryId] = useState<string | null>(null);
 
   const periodKey = useMemo(() => getPeriodKey(), []);
   const authToken = session?.access_token ?? null;
@@ -612,9 +613,17 @@ export default function AIToolsPage() {
     return historyItems.filter((item) => item.tool === historyFilter);
   }, [historyFilter, historyItems]);
 
+  const selectedHistory = useMemo(() => {
+    if (!selectedHistoryId) return null;
+    return historyItems.find((item) => item.id === selectedHistoryId) || null;
+  }, [historyItems, selectedHistoryId]);
+
   const handleDeleteHistory = async (id: string) => {
     await supabase.from("ai_history").delete().eq("id", id);
     setHistoryItems((prev) => prev.filter((item) => item.id !== id));
+    if (selectedHistoryId === id) {
+      setSelectedHistoryId(null);
+    }
   };
 
   const handleRag = async () => {
@@ -867,14 +876,46 @@ export default function AIToolsPage() {
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => handleDeleteHistory(item.id)}
-                        className="ai-history-row"
-                        title="Bấm để xoá"
+                        onClick={() => setSelectedHistoryId(item.id)}
+                        className={`ai-history-row ${selectedHistoryId === item.id ? "ai-history-row--active" : ""}`}
+                        title="Xem chi tiết"
                       >
                         <span>{item.tool}</span>
                         <span>{new Date(item.created_at).toLocaleDateString("vi-VN")}</span>
                       </button>
                     ))}
+                  </div>
+                )}
+
+                {selectedHistory && (
+                  <div className="ai-history-detail">
+                    <div className="ai-history-detail__head">
+                      <div>
+                        <span className="ai-history-tool">{selectedHistory.tool}</span>
+                        <span className="ai-history-time">
+                          {new Date(selectedHistory.created_at).toLocaleString("vi-VN")}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteHistory(selectedHistory.id)}
+                        className="ai-history-delete"
+                      >
+                        Xoá
+                      </button>
+                    </div>
+                    {selectedHistory.input && (
+                      <div className="ai-history-block">
+                        <p className="ai-history-label">Input</p>
+                        <pre>{selectedHistory.input}</pre>
+                      </div>
+                    )}
+                    {selectedHistory.output && (
+                      <div className="ai-history-block">
+                        <p className="ai-history-label">Output</p>
+                        <pre>{selectedHistory.output}</pre>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
