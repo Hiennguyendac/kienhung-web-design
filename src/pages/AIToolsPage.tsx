@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useMemo, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -307,32 +307,33 @@ export default function AIToolsPage() {
     loadUsage();
   }, [periodKey, session]);
 
-  useEffect(() => {
+  const refreshHistory = useCallback(async () => {
     if (!session) {
       setHistoryItems([]);
       return;
     }
-    const loadHistory = async () => {
-      setHistoryLoading(true);
-      const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-      const { data, error } = await supabase
-        .from("ai_history")
-        .select("*")
-        .eq("user_id", session.user.id)
-        .gte("created_at", cutoff)
-        .order("created_at", { ascending: false })
-        .limit(100);
-      if (error) {
-        console.error("history load failed", error);
-        setHistoryError("Không thể tải lịch sử.");
-      } else if (data) {
-        setHistoryItems(data as HistoryRecord[]);
-        setHistoryError(null);
-      }
-      setHistoryLoading(false);
-    };
-    loadHistory();
+    setHistoryLoading(true);
+    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const { data, error } = await supabase
+      .from("ai_history")
+      .select("*")
+      .eq("user_id", session.user.id)
+      .gte("created_at", cutoff)
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) {
+      console.error("history load failed", error);
+      setHistoryError("Không thể tải lịch sử.");
+    } else if (data) {
+      setHistoryItems(data as HistoryRecord[]);
+      setHistoryError(null);
+    }
+    setHistoryLoading(false);
   }, [session]);
+
+  useEffect(() => {
+    refreshHistory();
+  }, [refreshHistory]);
 
   useEffect(() => {
     if (!session) {
@@ -571,8 +572,8 @@ export default function AIToolsPage() {
       return;
     }
     if (data) {
-      setHistoryItems((prev) => [data as HistoryRecord, ...prev]);
       setHistoryError(null);
+      await refreshHistory();
     }
   };
 
@@ -820,7 +821,13 @@ export default function AIToolsPage() {
               <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/80 p-5 ai-panel ai-sidebar-card ai-history-panel">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-400">History</p>
-                  <span className="text-[10px] uppercase tracking-widest text-slate-500">30 ngày</span>
+                  <button
+                    type="button"
+                    onClick={refreshHistory}
+                    className="text-[10px] uppercase tracking-widest text-slate-500 hover:text-gold"
+                  >
+                    Refresh
+                  </button>
                 </div>
                 <div className="flex flex-wrap gap-2 mb-3">
                   {[
