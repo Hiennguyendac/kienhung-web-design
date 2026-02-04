@@ -25,24 +25,28 @@ begin
 end;
 $$;
 
+drop trigger if exists cleanup_ai_history on public.ai_history;
 create trigger cleanup_ai_history
 after insert on public.ai_history
 for each row execute function public.cleanup_ai_history();
 
 alter table public.ai_history enable row level security;
 
+drop policy if exists "ai_history_read_own" on public.ai_history;
 create policy "ai_history_read_own"
   on public.ai_history
   for select
   to authenticated
   using (auth.uid() = user_id);
 
+drop policy if exists "ai_history_insert_own" on public.ai_history;
 create policy "ai_history_insert_own"
   on public.ai_history
   for insert
   to authenticated
   with check (auth.uid() = user_id);
 
+drop policy if exists "ai_history_delete_own" on public.ai_history;
 create policy "ai_history_delete_own"
   on public.ai_history
   for delete
