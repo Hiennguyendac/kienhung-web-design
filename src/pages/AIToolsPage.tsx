@@ -116,6 +116,7 @@ export default function AIToolsPage() {
   const [historyItems, setHistoryItems] = useState<HistoryRecord[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [historyFilter, setHistoryFilter] = useState("all");
+  const [historyError, setHistoryError] = useState<string | null>(null);
 
   const periodKey = useMemo(() => getPeriodKey(), []);
   const authToken = session?.access_token ?? null;
@@ -314,14 +315,20 @@ export default function AIToolsPage() {
     const loadHistory = async () => {
       setHistoryLoading(true);
       const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("ai_history")
         .select("*")
         .eq("user_id", session.user.id)
         .gte("created_at", cutoff)
         .order("created_at", { ascending: false })
         .limit(100);
-      if (data) setHistoryItems(data as HistoryRecord[]);
+      if (error) {
+        console.error("history load failed", error);
+        setHistoryError("Không thể tải lịch sử.");
+      } else if (data) {
+        setHistoryItems(data as HistoryRecord[]);
+        setHistoryError(null);
+      }
       setHistoryLoading(false);
     };
     loadHistory();
@@ -547,7 +554,7 @@ export default function AIToolsPage() {
     meta: Record<string, unknown> = {}
   ) => {
     if (!session) return;
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("ai_history")
       .insert({
         user_id: session.user.id,
@@ -558,8 +565,14 @@ export default function AIToolsPage() {
       })
       .select("*")
       .single();
+    if (error) {
+      console.error("history insert failed", error);
+      setHistoryError("Không thể lưu lịch sử.");
+      return;
+    }
     if (data) {
       setHistoryItems((prev) => [data as HistoryRecord, ...prev]);
+      setHistoryError(null);
     }
   };
 
@@ -837,6 +850,8 @@ export default function AIToolsPage() {
                 </div>
                 {historyLoading ? (
                   <p className="text-xs text-slate-300">Đang tải...</p>
+                ) : historyError ? (
+                  <p className="text-xs text-rose-300">{historyError}</p>
                 ) : filteredHistory.length === 0 ? (
                   <p className="text-xs text-slate-400">Chưa có lịch sử.</p>
                 ) : (
