@@ -949,7 +949,11 @@
 
   .ai-history-block pre {
     white-space: pre-wrap;
-    font-size: 0.75rem;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-height: 120px;
+    overflow: auto;
+    font-size: 0.7rem;
     color: hsla(210 20% 96% / 0.95);
   }
 
@@ -957,6 +961,7 @@
     max-height: 520px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .ai-history-list {
@@ -999,6 +1004,8 @@
     border: 1px solid hsla(210 30% 30% / 0.4);
     background: hsla(210 40% 12% / 0.8);
     padding: 0.75rem;
+    max-height: 260px;
+    overflow: auto;
   }
 
   .ai-history-detail__head {
