@@ -892,4 +892,64 @@
     border-top: 1px dashed hsla(210 30% 40% / 0.4);
     padding-top: 0.5rem;
   }
+
+  .ai-history-item {
+    border-radius: 16px;
+    border: 1px solid hsla(210 30% 30% / 0.4);
+    background: hsla(210 40% 12% / 0.7);
+    padding: 0.85rem;
+  }
+
+  .ai-history-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+
+  .ai-history-tool {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: hsl(45 80% 70%);
+  }
+
+  .ai-history-time {
+    font-size: 0.7rem;
+    color: hsla(210 15% 75% / 0.8);
+  }
+
+  .ai-history-delete {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: hsla(0 70% 70% / 0.9);
+    border: 1px solid hsla(0 70% 50% / 0.4);
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  .ai-history-block {
+    margin-top: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid hsla(210 30% 30% / 0.4);
+    background: hsla(210 35% 10% / 0.8);
+    padding: 0.6rem 0.75rem;
+  }
+
+  .ai-history-label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: hsla(210 15% 70% / 0.8);
+    margin-bottom: 0.35rem;
+  }
+
+  .ai-history-block pre {
+    white-space: pre-wrap;
+    font-size: 0.75rem;
+    color: hsla(210 20% 96% / 0.95);
+  }
 }
