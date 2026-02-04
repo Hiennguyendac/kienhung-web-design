@@ -734,7 +734,6 @@ export default function AIToolsPage() {
                     { label: "RAG Chat", href: "#rag", icon: Bot },
                     { label: "Data Visualization", href: "#data-viz", icon: BarChart3, badge: "New" },
                     { label: "Investment Advisor", href: "#advisor", icon: Sparkles },
-                    { label: "History", href: "#history", icon: LayoutGrid },
                     { label: "Tóm tắt nhanh", href: "#summarize", icon: Sparkles },
                     { label: "SEO Draft", href: "#seo", icon: FileText, badge: "New" },
                   ].map((item) => (
@@ -802,6 +801,59 @@ export default function AIToolsPage() {
                   </div>
                 ) : (
                   <p className="text-sm text-slate-400">Vui lòng đăng nhập để sử dụng AI Tools.</p>
+                )}
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/80 p-5 ai-panel ai-sidebar-card ai-history-panel">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">History</p>
+                  <span className="text-[10px] uppercase tracking-widest text-slate-500">30 ngày</span>
+                </div>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {[
+                    { label: "All", value: "all" },
+                    { label: "Chat", value: "chat" },
+                    { label: "RAG", value: "rag" },
+                    { label: "Image", value: "image" },
+                    { label: "Edit", value: "image-edit" },
+                    { label: "SEO", value: "seo" },
+                    { label: "Sum", value: "summarize" },
+                    { label: "Viz", value: "data-viz" },
+                    { label: "Adv", value: "investment" },
+                  ].map((filter) => (
+                    <button
+                      key={filter.value}
+                      type="button"
+                      onClick={() => setHistoryFilter(filter.value)}
+                      className={`rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-widest ${
+                        historyFilter === filter.value
+                          ? "border-gold/60 text-gold bg-white/5"
+                          : "border-white/10 text-slate-400 hover:text-slate-200"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+                {historyLoading ? (
+                  <p className="text-xs text-slate-300">Đang tải...</p>
+                ) : filteredHistory.length === 0 ? (
+                  <p className="text-xs text-slate-400">Chưa có lịch sử.</p>
+                ) : (
+                  <div className="ai-history-list">
+                    {filteredHistory.slice(0, 10).map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleDeleteHistory(item.id)}
+                        className="ai-history-row"
+                        title="Bấm để xoá"
+                      >
+                        <span>{item.tool}</span>
+                        <span>{new Date(item.created_at).toLocaleDateString("vi-VN")}</span>
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
             </aside>
@@ -1425,82 +1477,6 @@ export default function AIToolsPage() {
                     <p className="ai-output-note">
                       Lưu ý: Thông tin chỉ mang tính giáo dục, không phải lời khuyên tài chính bắt buộc.
                     </p>
-                  </div>
-                )}
-              </div>
-
-              <div
-                id="history"
-                className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)] ai-panel"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                  <div>
-                    <h2 className="text-lg font-semibold text-white">Lịch sử sử dụng</h2>
-                    <p className="text-sm text-slate-300">Lưu 30 ngày gần nhất. Bạn có thể xoá lịch sử.</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { label: "Tất cả", value: "all" },
-                      { label: "Chat", value: "chat" },
-                      { label: "RAG", value: "rag" },
-                      { label: "Image", value: "image" },
-                      { label: "Image Edit", value: "image-edit" },
-                      { label: "SEO", value: "seo" },
-                      { label: "Summarize", value: "summarize" },
-                      { label: "Data Viz", value: "data-viz" },
-                      { label: "Advisor", value: "investment" },
-                    ].map((filter) => (
-                      <button
-                        key={filter.value}
-                        type="button"
-                        onClick={() => setHistoryFilter(filter.value)}
-                        className={`rounded-full border px-3 py-1 text-xs uppercase tracking-widest ${
-                          historyFilter === filter.value
-                            ? "border-gold/60 text-gold bg-white/5"
-                            : "border-white/10 text-slate-400 hover:text-slate-200"
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {historyLoading ? (
-                  <p className="text-sm text-slate-300">Đang tải lịch sử...</p>
-                ) : filteredHistory.length === 0 ? (
-                  <p className="text-sm text-slate-400">Chưa có lịch sử trong 30 ngày gần nhất.</p>
-                ) : (
-                  <div className="space-y-3">
-                    {filteredHistory.map((item) => (
-                      <div key={item.id} className="ai-history-item">
-                        <div className="ai-history-meta">
-                          <span className="ai-history-tool">{item.tool}</span>
-                          <span className="ai-history-time">
-                            {new Date(item.created_at).toLocaleString("vi-VN")}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteHistory(item.id)}
-                            className="ai-history-delete"
-                          >
-                            Xoá
-                          </button>
-                        </div>
-                        {item.input && (
-                          <div className="ai-history-block">
-                            <p className="ai-history-label">Input</p>
-                            <pre>{item.input}</pre>
-                          </div>
-                        )}
-                        {item.output && (
-                          <div className="ai-history-block">
-                            <p className="ai-history-label">Output</p>
-                            <pre>{item.output}</pre>
-                          </div>
-                        )}
-                      </div>
-                    ))}
                   </div>
                 )}
               </div>

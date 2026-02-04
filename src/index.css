@@ -952,4 +952,38 @@
     font-size: 0.75rem;
     color: hsla(210 20% 96% / 0.95);
   }
+
+  .ai-history-panel {
+    max-height: 520px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-history-list {
+    display: grid;
+    gap: 0.45rem;
+    overflow: auto;
+    padding-right: 4px;
+  }
+
+  .ai-history-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+    border: 1px solid hsla(210 30% 30% / 0.4);
+    border-radius: 12px;
+    padding: 0.4rem 0.55rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: hsla(210 20% 85% / 0.9);
+    background: hsla(210 35% 10% / 0.8);
+  }
+
+  .ai-history-row span:last-child {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: hsla(210 15% 70% / 0.8);
+  }
 }
