@@ -69,19 +69,19 @@ const EducationPage = () => {
                     khung này.
                   </p>
                 </div>
-                <div className="grid w-full sm:w-auto sm:grid-cols-2 gap-3">
+                <div className="flex w-full flex-col sm:flex-row gap-3">
                   <Button
                     variant="heroSolid"
                     size="lg"
                     asChild
-                    className="w-full sm:min-w-[260px] shadow-lg shadow-gold/25 hover:-translate-y-0.5 transition-transform"
+                    className="w-full sm:w-[280px] shadow-lg shadow-gold/25 hover:-translate-y-0.5 transition-transform"
                   >
                     <Link to="/dat-lich-hen">Đặt lịch tư vấn học thuật</Link>
                   </Button>
                   <Button
                     size="lg"
                     asChild
-                    className="w-full sm:min-w-[260px] bg-white text-navy-dark border border-white/90 hover:bg-gold hover:text-navy-dark hover:border-gold shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-all"
+                    className="w-full sm:w-[280px] bg-white text-navy-dark border border-white/90 hover:bg-gold hover:text-navy-dark hover:border-gold shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-all"
                   >
                     <a href={consultingHref}>Nhận brochure chương trình</a>
                   </Button>
