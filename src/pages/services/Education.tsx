@@ -69,19 +69,19 @@ const EducationPage = () => {
                     khung này.
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid w-full sm:w-auto sm:grid-cols-2 gap-3">
                   <Button
                     variant="heroSolid"
                     size="lg"
                     asChild
-                    className="shadow-lg shadow-gold/25 hover:-translate-y-0.5 transition-transform"
+                    className="w-full sm:min-w-[260px] shadow-lg shadow-gold/25 hover:-translate-y-0.5 transition-transform"
                   >
                     <Link to="/dat-lich-hen">Đặt lịch tư vấn học thuật</Link>
                   </Button>
                   <Button
                     size="lg"
                     asChild
-                    className="bg-white text-navy-dark border border-white/90 hover:bg-gold hover:text-navy-dark hover:border-gold shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-all"
+                    className="w-full sm:min-w-[260px] bg-white text-navy-dark border border-white/90 hover:bg-gold hover:text-navy-dark hover:border-gold shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-all"
                   >
                     <a href={consultingHref}>Nhận brochure chương trình</a>
                   </Button>
@@ -140,7 +140,7 @@ const EducationPage = () => {
                 >
                   <div className="p-6 border-b border-border bg-gradient-to-r from-secondary/45 via-card to-card">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                      <div>
+                      <div className="max-w-3xl">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-navy/15 to-gold/25 flex items-center justify-center">
                             <domain.icon className="w-5 h-5 text-navy" />
@@ -152,9 +152,14 @@ const EducationPage = () => {
                           <span className="font-semibold text-foreground">Đối tượng:</span> {domain.audience}
                         </p>
                       </div>
-                      <Button asChild variant="outline" className="hover:-translate-y-0.5 transition-transform">
-                        <Link to={`/dat-lich-hen?linh-vuc=${encodeURIComponent(domain.title)}`}>Tư vấn lĩnh vực này</Link>
-                      </Button>
+                      <div className="lg:max-w-[290px] w-full space-y-3">
+                        <div className="rounded-xl overflow-hidden border border-border bg-background/70">
+                          <img src={domain.coverImage} alt={domain.title} className="w-full h-36 object-cover" loading="lazy" />
+                        </div>
+                        <Button asChild variant="outline" className="w-full hover:-translate-y-0.5 transition-transform">
+                          <Link to={`/dat-lich-hen?linh-vuc=${encodeURIComponent(domain.title)}`}>Tư vấn lĩnh vực này</Link>
+                        </Button>
+                      </div>
                     </div>
                   </div>
 
@@ -164,6 +169,9 @@ const EducationPage = () => {
                         key={program.id}
                         className="group h-full p-4 rounded-xl border border-border bg-background/60 hover:bg-background hover:border-gold/35 hover:-translate-y-1 transition-all"
                       >
+                        <div className="rounded-lg overflow-hidden border border-border/70 bg-secondary/50 mb-3">
+                          <img src={program.image} alt={program.name} className="w-full h-32 object-cover" loading="lazy" />
+                        </div>
                         <p className="font-heading text-base font-semibold text-foreground leading-snug">{program.name}</p>
                         <div className="mt-3 flex flex-wrap gap-2 text-xs">
                           <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground border border-border/50">{program.level}</span>

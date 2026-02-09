@@ -8,6 +8,7 @@ export type TrainingProgram = {
   duration: string;
   format: string;
   outcome: string;
+  image: string;
 };
 
 export type TrainingDomain = {
@@ -15,6 +16,7 @@ export type TrainingDomain = {
   title: string;
   summary: string;
   audience: string;
+  coverImage: string;
   icon: LucideIcon;
   programs: TrainingProgram[];
 };
@@ -25,6 +27,7 @@ export const trainingDomains: TrainingDomain[] = [
     title: "AI & Khoa học dữ liệu",
     summary: "Đào tạo năng lực xây dựng, đánh giá và ứng dụng mô hình AI trong bài toán doanh nghiệp.",
     audience: "Kỹ sư, nhân sự phân tích dữ liệu, đội vận hành chuyển đổi số",
+    coverImage: "/news/attention-architecture.svg",
     icon: BrainCircuit,
     programs: [
       {
@@ -34,6 +37,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Hybrid",
         outcome: "Hiểu kiến trúc AI hiện đại và xây dựng được quy trình ứng dụng trong phòng ban.",
+        image: "/news/attention-conversation.svg",
       },
       {
         id: "computer-vision-voi-yolo-va-bai-toan-giam-sat",
@@ -42,6 +46,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "08 tuần",
         format: "Offline + Lab",
         outcome: "Triển khai pipeline nhận diện vật thể và đánh giá hiệu năng theo ngữ cảnh vận hành thực tế.",
+        image: "/news/attention-heatmap.svg",
       },
       {
         id: "mlops-va-van-hanh-mo-hinh-trong-san-xuat",
@@ -50,6 +55,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "08 tuần",
         format: "Workshop chuyên đề",
         outcome: "Thiết lập vòng đời mô hình từ huấn luyện đến theo dõi drift và tối ưu liên tục.",
+        image: "/news/attention-links.svg",
       },
     ],
   },
@@ -58,6 +64,7 @@ export const trainingDomains: TrainingDomain[] = [
     title: "Chuyển đổi số & Tự động hóa",
     summary: "Thiết kế quy trình số, tự động hóa tác vụ và nâng cao năng suất vận hành doanh nghiệp.",
     audience: "Quản lý vận hành, PM, đội CNTT nội bộ",
+    coverImage: "/news/active-learning.svg",
     icon: Building2,
     programs: [
       {
@@ -67,6 +74,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "05 tuần",
         format: "Online Live",
         outcome: "Xây được bản đồ quy trình số và lộ trình triển khai theo ưu tiên kinh doanh.",
+        image: "/news/active-learning.svg",
       },
       {
         id: "tu-dong-hoa-quy-trinh-voi-cong-cu-no-code",
@@ -75,6 +83,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Hybrid",
         outcome: "Thiết kế được workflow tự động cho tác vụ báo cáo, CRM và vận hành nội bộ.",
+        image: "/news/bayesian-efficiency.svg",
       },
       {
         id: "quan-tri-du-lieu-cho-doanh-nghiep-so",
@@ -83,6 +92,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Offline + Case Study",
         outcome: "Chuẩn hóa dữ liệu và xây dashboard phục vụ ra quyết định quản trị.",
+        image: "/news/bayes-factor-jeffreys-scale.png",
       },
     ],
   },
@@ -91,6 +101,7 @@ export const trainingDomains: TrainingDomain[] = [
     title: "Tài chính, Đầu tư & Phân tích kinh doanh",
     summary: "Nâng cao năng lực phân tích tài chính và ra quyết định đầu tư dựa trên dữ liệu.",
     audience: "Chuyên viên tài chính, nhà quản lý, chủ doanh nghiệp",
+    coverImage: "/news/bayes-factor-table.png",
     icon: BriefcaseBusiness,
     programs: [
       {
@@ -100,6 +111,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Offline",
         outcome: "Đọc và phân tích báo cáo tài chính để đánh giá hiệu quả hoạt động doanh nghiệp.",
+        image: "/news/bayes-factor-table.png",
       },
       {
         id: "quan-tri-danh-muc-dau-tu-theo-chu-ky-thi-truong",
@@ -108,6 +120,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Hybrid",
         outcome: "Xây khung phân bổ tài sản và quản trị rủi ro theo mục tiêu lợi nhuận.",
+        image: "/news/bayes-factor-jeffreys-scale.png",
       },
       {
         id: "business-analytics-cho-lanh-dao",
@@ -116,6 +129,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "05 tuần",
         format: "Workshop",
         outcome: "Ứng dụng mô hình phân tích để tối ưu doanh thu, chi phí và dòng tiền.",
+        image: "/news/bayesian-efficiency.svg",
       },
     ],
   },
@@ -124,6 +138,7 @@ export const trainingDomains: TrainingDomain[] = [
     title: "Quản trị điều hành & Phát triển đội ngũ",
     summary: "Tập trung kỹ năng lãnh đạo, quản trị hiệu suất và xây hệ thống học tập cho tổ chức.",
     audience: "Trưởng nhóm, quản lý trung cấp, lãnh đạo đơn vị",
+    coverImage: "/news/attention-conversation.svg",
     icon: Users,
     programs: [
       {
@@ -133,6 +148,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "05 tuần",
         format: "Offline",
         outcome: "Nâng năng lực lập kế hoạch, giao việc, theo dõi KPI và phản hồi hiệu quả.",
+        image: "/news/attention-conversation.svg",
       },
       {
         id: "coaching-noi-bo-va-phat-trien-nhan-su-ke-thua",
@@ -141,6 +157,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Hybrid",
         outcome: "Thiết kế chương trình coaching để phát triển đội ngũ và giữ chân nhân sự chủ chốt.",
+        image: "/news/attention-links.svg",
       },
       {
         id: "van-hoa-hieu-suat-va-quan-tri-thay-doi",
@@ -149,6 +166,7 @@ export const trainingDomains: TrainingDomain[] = [
         duration: "06 tuần",
         format: "Workshop + Mentoring",
         outcome: "Xây cơ chế vận hành thay đổi phù hợp quy mô doanh nghiệp và mục tiêu tăng trưởng.",
+        image: "/news/active-learning.svg",
       },
     ],
   },
@@ -164,4 +182,3 @@ export const findProgramByIds = (domainId?: string, programId?: string) => {
   if (!program) return undefined;
   return { domain, program };
 };
-
