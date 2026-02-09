@@ -33,7 +33,7 @@ const EducationPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
       <Seo
         title="Giáo dục & Đào tạo | Kiến Hưng Investment"
         description="Trang học thuật theo lĩnh vực với danh mục chương trình đào tạo, lộ trình học rõ ràng và đăng ký học sau mỗi chương trình."
@@ -42,58 +42,81 @@ const EducationPage = () => {
         image="https://kienhunginvest.com/favicon.jpg"
       />
       <Header />
-      <main>
+      <main className="relative overflow-hidden">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <img src={heroImage} alt="Trang học thuật Giáo dục và Đào tạo" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/45" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/50" />
+          </div>
+          <div className="absolute inset-0 opacity-70 pointer-events-none">
+            <div className="absolute -top-24 -left-20 w-80 h-80 rounded-full bg-gold/20 blur-3xl" />
+            <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-sky-300/20 blur-3xl" />
+            <div className="absolute -bottom-24 left-1/4 w-72 h-72 rounded-full bg-navy-light/25 blur-3xl" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">
-            <p className="text-gold font-body text-sm tracking-[0.18em] uppercase mb-3">Education Hub</p>
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-4xl">
-                <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight">Trang Học thuật Giáo dục & Đào tạo</h1>
-                <p className="mt-4 font-body text-lg text-primary-foreground/85 leading-relaxed">
-                  Thiết kế theo cấu trúc khoa học: <strong>Lĩnh vực</strong> - <strong>Chương trình đào tạo</strong> -
-                  <strong> Đăng ký học</strong>. Khi bạn gửi danh mục chính thức, đội ngũ có thể cập nhật nhanh theo đúng
-                  khung này.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <Button variant="heroSolid" size="lg" asChild>
-                  <Link to="/dat-lich-hen">Đặt lịch tư vấn học thuật</Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <a href={consultingHref}>Nhận brochure chương trình</a>
-                </Button>
-              </div>
-            </div>
-            <div className="mt-8 grid sm:grid-cols-3 gap-4">
-              {[
-                { label: "Lĩnh vực đào tạo", value: String(trainingDomains.length) },
-                { label: "Chương trình", value: String(trainingDomains.reduce((acc, item) => acc + item.programs.length, 0)) },
-                { label: "Mô hình", value: "Academic-first" },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="p-4 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 backdrop-blur-sm"
-                >
-                  <p className="font-heading text-2xl font-semibold">{item.value}</p>
-                  <p className="font-body text-sm text-primary-foreground/70">{item.label}</p>
+            <div className="max-w-5xl rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-2xl shadow-black/20">
+              <p className="inline-flex items-center rounded-full border border-gold/35 bg-gold/15 px-3 py-1 text-gold font-body text-xs tracking-[0.2em] uppercase mb-4">
+                Education Hub
+              </p>
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-4xl">
+                  <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight">
+                    Trang Học thuật Giáo dục & Đào tạo
+                  </h1>
+                  <p className="mt-4 font-body text-lg text-primary-foreground/90 leading-relaxed">
+                    Thiết kế theo cấu trúc khoa học: <strong>Lĩnh vực</strong> - <strong>Chương trình đào tạo</strong> -
+                    <strong> Đăng ký học</strong>. Khi bạn gửi danh mục chính thức, đội ngũ có thể cập nhật nhanh theo đúng
+                    khung này.
+                  </p>
                 </div>
-              ))}
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    variant="heroSolid"
+                    size="lg"
+                    asChild
+                    className="shadow-lg shadow-gold/25 hover:-translate-y-0.5 transition-transform"
+                  >
+                    <Link to="/dat-lich-hen">Đặt lịch tư vấn học thuật</Link>
+                  </Button>
+                  <Button
+                    size="lg"
+                    asChild
+                    className="bg-white text-navy-dark border border-white/90 hover:bg-gold hover:text-navy-dark hover:border-gold shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-all"
+                  >
+                    <a href={consultingHref}>Nhận brochure chương trình</a>
+                  </Button>
+                </div>
+              </div>
+              <div className="mt-8 grid sm:grid-cols-3 gap-4">
+                {[
+                  { label: "Lĩnh vực đào tạo", value: String(trainingDomains.length) },
+                  { label: "Chương trình", value: String(trainingDomains.reduce((acc, item) => acc + item.programs.length, 0)) },
+                  { label: "Mô hình", value: "Academic-first" },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="p-4 rounded-xl bg-white/10 border border-white/25 backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all"
+                  >
+                    <p className="font-heading text-2xl font-semibold">{item.value}</p>
+                    <p className="font-body text-sm text-primary-foreground/80">{item.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 lg:py-20 bg-secondary/35 border-y border-border">
+        <section className="py-16 lg:py-20 bg-secondary/45 border-y border-border relative">
           <div className="container mx-auto px-6 lg:px-12">
             <p className="text-gold font-body text-sm tracking-[0.18em] uppercase mb-3">Academic Framework</p>
             <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">Nguyên tắc thiết kế chương trình</h2>
             <div className="mt-8 grid md:grid-cols-3 gap-4">
               {academicFramework.map((item) => (
-                <article key={item.title} className="p-5 rounded-2xl border border-border bg-card shadow-soft">
-                  <div className="w-10 h-10 rounded-lg bg-navy/10 flex items-center justify-center mb-3">
+                <article
+                  key={item.title}
+                  className="p-5 rounded-2xl border border-border bg-card shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-navy/15 to-gold/25 flex items-center justify-center mb-3">
                     <item.icon className="w-5 h-5 text-navy" />
                   </div>
                   <h3 className="font-heading text-lg font-semibold text-foreground">{item.title}</h3>
@@ -111,12 +134,15 @@ const EducationPage = () => {
 
             <div className="mt-8 space-y-6">
               {trainingDomains.map((domain) => (
-                <article key={domain.id} className="rounded-2xl border border-border bg-card shadow-soft overflow-hidden">
-                  <div className="p-6 border-b border-border bg-gradient-to-r from-secondary/35 to-card">
+                <article
+                  key={domain.id}
+                  className="rounded-2xl border border-border/80 bg-card shadow-soft overflow-hidden hover:shadow-elevated transition-shadow"
+                >
+                  <div className="p-6 border-b border-border bg-gradient-to-r from-secondary/45 via-card to-card">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div>
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-lg bg-navy/10 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-navy/15 to-gold/25 flex items-center justify-center">
                             <domain.icon className="w-5 h-5 text-navy" />
                           </div>
                           <h3 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{domain.title}</h3>
@@ -126,7 +152,7 @@ const EducationPage = () => {
                           <span className="font-semibold text-foreground">Đối tượng:</span> {domain.audience}
                         </p>
                       </div>
-                      <Button asChild variant="outline">
+                      <Button asChild variant="outline" className="hover:-translate-y-0.5 transition-transform">
                         <Link to={`/dat-lich-hen?linh-vuc=${encodeURIComponent(domain.title)}`}>Tư vấn lĩnh vực này</Link>
                       </Button>
                     </div>
@@ -134,19 +160,22 @@ const EducationPage = () => {
 
                   <div className="p-6 grid md:grid-cols-3 gap-4">
                     {domain.programs.map((program) => (
-                      <div key={program.id} className="h-full p-4 rounded-xl border border-border bg-background/60">
+                      <div
+                        key={program.id}
+                        className="group h-full p-4 rounded-xl border border-border bg-background/60 hover:bg-background hover:border-gold/35 hover:-translate-y-1 transition-all"
+                      >
                         <p className="font-heading text-base font-semibold text-foreground leading-snug">{program.name}</p>
                         <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground">{program.level}</span>
-                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground">{program.duration}</span>
-                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground">{program.format}</span>
+                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground border border-border/50">{program.level}</span>
+                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground border border-border/50">{program.duration}</span>
+                          <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground border border-border/50">{program.format}</span>
                         </div>
                         <p className="font-body text-sm text-muted-foreground mt-3 leading-relaxed">{program.outcome}</p>
                         <div className="mt-4 flex flex-wrap gap-2">
                           <Button asChild variant="outline" className="flex-1 min-w-[160px]">
                             <Link to={`/dich-vu/giao-duc-dao-tao/linh-vuc/${domain.id}/chuong-trinh/${program.id}`}>Xem chi tiết</Link>
                           </Button>
-                          <Button asChild className="flex-1 min-w-[160px]">
+                          <Button asChild className="flex-1 min-w-[160px] shadow-md shadow-navy/10">
                             <Link
                               to={`/dat-lich-hen?linh-vuc=${encodeURIComponent(domain.title)}&chuong-trinh=${encodeURIComponent(program.name)}`}
                             >
