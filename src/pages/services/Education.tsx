@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Clock3, FileText, GraduationCap, Lightbulb, Microscope, Presentation } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import { Seo } from "@/components/Seo";
+import { getAllPosts, type Post } from "@/lib/posts";
 
 const offerings = [
   "Đào tạo kỹ năng mềm, kỹ năng kinh doanh và chăm sóc khách hàng cho đội ngũ sale/service.",
@@ -28,33 +29,83 @@ const aiOfficeModules = [
   { code: "MĐ 05", name: "AI FOR OFFICE MANAGEMENT & LEADERSHIP", time: "21", theory: "7.8", practice: "12.2", exam: "1" },
 ];
 
-const yoloHighlights = [
+const academicPillars = [
   {
-    title: "Kiến trúc YOLOv10",
-    desc: "Làm rõ cách backbone-neck-head phối hợp để nhận diện vật thể thời gian thực với chi phí tính toán thấp hơn thế hệ trước.",
+    title: "Chuẩn học thuật",
+    desc: "Mỗi chuyên đề đều có mục tiêu học tập, khung kiến thức, ví dụ thực hành và tiêu chí đánh giá rõ ràng.",
   },
   {
-    title: "Huấn luyện end-to-end",
-    desc: "Tiếp cận one-to-many và one-to-one assignment để giảm phụ thuộc NMS, tăng độ ổn định ở giai đoạn suy luận.",
+    title: "Liên ngành",
+    desc: "Không chỉ AI, trang đào tạo có thể mở rộng sang dữ liệu, công nghệ, tài chính, vận hành và quản trị.",
   },
   {
-    title: "Đánh giá thực nghiệm",
-    desc: "So sánh mAP, latency, FPS và khả năng triển khai trên môi trường biên như camera thông minh hoặc dây chuyền sản xuất.",
+    title: "Học xong có lộ trình",
+    desc: "Sau mỗi chuyên đề, người học có thể đăng ký khóa học chuyên sâu hoặc lộ trình coaching theo nhu cầu.",
   },
 ];
 
-const yoloUseCases = [
-  "Giám sát an toàn lao động theo thời gian thực tại nhà máy, công trình.",
-  "Nhận diện lỗi sản phẩm và phân loại tự động trong kiểm định chất lượng.",
-  "Theo dõi lưu lượng giao thông, nhận diện sự kiện bất thường tại đô thị.",
-  "Nền tảng nghiên cứu AI cho học viên CNTT, Data và kỹ sư triển khai.",
+const academicKeywords = [
+  "ai",
+  "trí tuệ nhân tạo",
+  "machine learning",
+  "deep learning",
+  "data",
+  "thuật toán",
+  "học thuật",
+  "nghiên cứu",
+  "khoa học",
+  "phân tích",
+  "mô hình",
+  "đào tạo",
+  "công nghệ",
 ];
+
+const topicRules = [
+  { label: "AI ứng dụng", keywords: ["ai", "yolo", "machine learning", "deep learning", "mô hình"] },
+  { label: "Dữ liệu & phân tích", keywords: ["data", "bayes", "thống kê", "phân tích", "report", "visualization"] },
+  { label: "Công nghệ & chuyển đổi số", keywords: ["công nghệ", "chuyển đổi số", "hạ tầng", "tự động hóa"] },
+  { label: "Tài chính & quản trị", keywords: ["tài chính", "đầu tư", "quản trị", "kinh tế", "doanh nghiệp"] },
+];
+
+const normalizeText = (value: string) => value.toLowerCase();
+
+const isAcademicPost = (post: Post) => {
+  const text = normalizeText(`${post.title} ${post.description || ""} ${post.excerpt}`);
+  return academicKeywords.some((keyword) => text.includes(keyword));
+};
+
+const detectTopic = (post: Post) => {
+  const text = normalizeText(`${post.title} ${post.description || ""} ${post.excerpt}`);
+  const matched = topicRules.find((rule) => rule.keywords.some((keyword) => text.includes(keyword)));
+  return matched?.label ?? "Chuyên đề tổng hợp";
+};
+
+const formatDate = (value?: string) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
 
 const EducationPage = () => {
   const subscribeHref = useMemo(
     () => "mailto:contact@kienhunginvest.com?subject=Tu%20van%20chuong%20trinh%20AI%20Office",
     [],
   );
+  const academicPosts = useMemo(() => {
+    return getAllPosts()
+      .filter(isAcademicPost)
+      .sort((a, b) => {
+        const da = new Date(a.date || "1970-01-01").getTime();
+        const db = new Date(b.date || "1970-01-01").getTime();
+        return db - da;
+      })
+      .slice(0, 12);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -252,53 +303,93 @@ const EducationPage = () => {
 
         <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 lg:px-12 space-y-8">
-            <div className="grid lg:grid-cols-[1.3fr,1fr] gap-8 items-start">
-              <div className="p-6 lg:p-8 rounded-2xl border border-border bg-gradient-to-br from-card via-card to-secondary/40 shadow-elevated">
-                <p className="text-gold font-body text-sm tracking-widest uppercase mb-2">Học thuật ứng dụng AI</p>
-                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Bài viết chuyên sâu: YOLOv10 từ lý thuyết đến triển khai
-                </h3>
-                <p className="font-body text-muted-foreground leading-relaxed mb-6">
-                  Nội dung đã được biên soạn lại theo định hướng học thuật thực hành, tập trung vào kiến trúc mô hình,
-                  quy trình huấn luyện, đánh giá hiệu năng và gợi ý áp dụng trong doanh nghiệp.
+            <div className="p-6 lg:p-8 rounded-2xl border border-border bg-gradient-to-br from-card via-card to-secondary/40 shadow-elevated">
+              <p className="text-gold font-body text-sm tracking-widest uppercase mb-2">Thư viện chuyên đề</p>
+              <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-3">
+                Không gian học thuật mở rộng cho AI và nhiều lĩnh vực khác
+              </h3>
+              <p className="font-body text-muted-foreground leading-relaxed">
+                Mỗi chuyên đề gồm bài viết nền tảng, ứng dụng thực tế và nút đăng ký học ngay sau khi đọc để chuyển hóa
+                kiến thức thành kỹ năng.
+              </p>
+              <div className="mt-6 grid md:grid-cols-3 gap-4">
+                {academicPillars.map((item) => (
+                  <div key={item.title} className="p-4 rounded-xl border border-border bg-background/70">
+                    <p className="font-heading text-base font-semibold text-foreground">{item.title}</p>
+                    <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {academicPosts.length ? (
+              <div className="grid lg:grid-cols-2 gap-5">
+                {academicPosts.map((post) => {
+                  const enrollHref = `mailto:contact@kienhunginvest.com?subject=${encodeURIComponent(
+                    `Dang ky hoc chuyen de: ${post.title}`,
+                  )}&body=${encodeURIComponent(
+                    `Toi muon dang ky hoc sau khi doc chuyen de \"${post.title}\". Nho lien he tu van lo trinh phu hop.`,
+                  )}`;
+                  return (
+                    <article
+                      key={post.slug}
+                      className="p-5 rounded-2xl border border-border bg-card shadow-soft hover:-translate-y-1 hover:shadow-elevated transition-all"
+                    >
+                      <div className="flex items-center gap-2 flex-wrap text-xs">
+                        <span className="px-2.5 py-1 rounded-full bg-navy/10 text-navy font-semibold">
+                          {detectTopic(post)}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-secondary text-muted-foreground">
+                          {post.category || "Chuyên đề"}
+                        </span>
+                        <span className="text-muted-foreground">{formatDate(post.date)}</span>
+                      </div>
+                      <h4 className="font-heading text-xl font-semibold text-foreground mt-3 leading-snug">{post.title}</h4>
+                      <p className="font-body text-sm text-muted-foreground mt-3 leading-relaxed">
+                        {post.description?.trim() || post.excerpt}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <Button asChild>
+                          <Link to={`/tin-tuc/${encodeURIComponent(post.slug)}`}>Đọc chuyên đề</Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <a href={enrollHref}>Đăng ký học ngay</a>
+                        </Button>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl border border-dashed border-border bg-card text-center">
+                <Microscope className="w-6 h-6 text-navy mx-auto mb-3" />
+                <h4 className="font-heading text-lg font-semibold text-foreground">Chưa có chuyên đề học thuật phù hợp</h4>
+                <p className="font-body text-sm text-muted-foreground mt-2">
+                  Khi bạn thêm bài viết mới vào thư viện nội dung, trang này sẽ tự hiển thị để người học truy cập và đăng ký học.
                 </p>
-                <div className="space-y-4">
-                  {yoloHighlights.map((item) => (
-                    <div key={item.title} className="p-4 rounded-xl border border-border bg-background/70">
-                      <p className="font-heading text-base font-semibold text-foreground">{item.title}</p>
-                      <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Button asChild>
-                    <Link to="/tin-tuc/yolov10-tu-ly-thuyet-den-thuc-hanh-thi-giac-may-tinh">Đọc bài học thuật</Link>
-                  </Button>
+                <div className="mt-4">
                   <Button asChild variant="outline">
-                    <Link to="/dat-lich-hen">Đặt lịch tư vấn lộ trình học AI</Link>
+                    <Link to="/yeu-cau-bao-gia">Yêu cầu mở chuyên đề mới</Link>
                   </Button>
                 </div>
               </div>
+            )}
 
-              <div className="p-6 rounded-2xl border border-border bg-card shadow-soft">
-                <div className="flex items-center gap-3 mb-4">
-                  <Microscope className="w-5 h-5 text-navy" />
-                  <h4 className="font-heading text-lg font-semibold text-foreground">Ứng dụng trong đào tạo</h4>
-                </div>
-                <ul className="space-y-3">
-                  {yoloUseCases.map((item) => (
-                    <li key={item} className="font-body text-sm text-muted-foreground leading-relaxed">
-                      • {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6 p-4 rounded-xl bg-secondary/60 border border-border">
-                  <p className="font-heading text-sm font-semibold text-foreground mb-1">Mục tiêu đầu ra</p>
-                  <p className="font-body text-sm text-muted-foreground">
-                    Học viên có thể đọc hiểu pipeline thị giác máy tính, huấn luyện mô hình phát hiện vật thể và xây
-                    dựng PoC phục vụ vận hành thực tế.
-                  </p>
-                </div>
+            <div className="p-6 rounded-2xl border border-gold/30 bg-gradient-to-r from-gold/10 via-transparent to-navy/10">
+              <h4 className="font-heading text-xl font-semibold text-foreground">Đăng ký học sau mỗi chuyên đề</h4>
+              <p className="font-body text-muted-foreground mt-2 leading-relaxed">
+                Kiến Hưng thiết kế lộ trình cá nhân hóa theo từng chủ đề bạn vừa đọc: từ lớp nền tảng, workshop thực
+                hành đến coaching 1-1 cho đội ngũ.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Button asChild>
+                  <Link to="/dat-lich-hen">Đặt lịch tư vấn học tập</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <a href="mailto:contact@kienhunginvest.com?subject=Dang%20ky%20lo%20trinh%20hoc%20sau%20chuyen%20de">
+                    Gửi yêu cầu qua email
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
