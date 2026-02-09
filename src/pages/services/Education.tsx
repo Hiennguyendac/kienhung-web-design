@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Clock3, FileText, GraduationCap, Lightbulb, Presentation } from "lucide-react";
+import { BookOpen, Clock3, FileText, GraduationCap, Lightbulb, Microscope, Presentation } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import { Seo } from "@/components/Seo";
 
@@ -26,6 +26,28 @@ const aiOfficeModules = [
   { code: "MĐ 03", name: "AI FOR REPORTING & DATA VISUALIZATION", time: "21", theory: "8", practice: "12", exam: "1" },
   { code: "MĐ 04", name: "AI WORKFLOW & AUTOMATION", time: "21", theory: "7.8", practice: "12.2", exam: "1" },
   { code: "MĐ 05", name: "AI FOR OFFICE MANAGEMENT & LEADERSHIP", time: "21", theory: "7.8", practice: "12.2", exam: "1" },
+];
+
+const yoloHighlights = [
+  {
+    title: "Kiến trúc YOLOv10",
+    desc: "Làm rõ cách backbone-neck-head phối hợp để nhận diện vật thể thời gian thực với chi phí tính toán thấp hơn thế hệ trước.",
+  },
+  {
+    title: "Huấn luyện end-to-end",
+    desc: "Tiếp cận one-to-many và one-to-one assignment để giảm phụ thuộc NMS, tăng độ ổn định ở giai đoạn suy luận.",
+  },
+  {
+    title: "Đánh giá thực nghiệm",
+    desc: "So sánh mAP, latency, FPS và khả năng triển khai trên môi trường biên như camera thông minh hoặc dây chuyền sản xuất.",
+  },
+];
+
+const yoloUseCases = [
+  "Giám sát an toàn lao động theo thời gian thực tại nhà máy, công trình.",
+  "Nhận diện lỗi sản phẩm và phân loại tự động trong kiểm định chất lượng.",
+  "Theo dõi lưu lượng giao thông, nhận diện sự kiện bất thường tại đô thị.",
+  "Nền tảng nghiên cứu AI cho học viên CNTT, Data và kỹ sư triển khai.",
 ];
 
 const EducationPage = () => {
@@ -223,6 +245,60 @@ const EducationPage = () => {
                   <li>Đánh giá cuối mô đun 50%: Communication Handbook + thuyết trình nhóm.</li>
                   <li>Tiêu chí: chuẩn mực thông điệp (40%), áp dụng công cụ AI (40%), trình bày & phối hợp nhóm (20%).</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto px-6 lg:px-12 space-y-8">
+            <div className="grid lg:grid-cols-[1.3fr,1fr] gap-8 items-start">
+              <div className="p-6 lg:p-8 rounded-2xl border border-border bg-gradient-to-br from-card via-card to-secondary/40 shadow-elevated">
+                <p className="text-gold font-body text-sm tracking-widest uppercase mb-2">Học thuật ứng dụng AI</p>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  Bài viết chuyên sâu: YOLOv10 từ lý thuyết đến triển khai
+                </h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-6">
+                  Nội dung đã được biên soạn lại theo định hướng học thuật thực hành, tập trung vào kiến trúc mô hình,
+                  quy trình huấn luyện, đánh giá hiệu năng và gợi ý áp dụng trong doanh nghiệp.
+                </p>
+                <div className="space-y-4">
+                  {yoloHighlights.map((item) => (
+                    <div key={item.title} className="p-4 rounded-xl border border-border bg-background/70">
+                      <p className="font-heading text-base font-semibold text-foreground">{item.title}</p>
+                      <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Button asChild>
+                    <Link to="/tin-tuc/yolov10-tu-ly-thuyet-den-thuc-hanh-thi-giac-may-tinh">Đọc bài học thuật</Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link to="/dat-lich-hen">Đặt lịch tư vấn lộ trình học AI</Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="p-6 rounded-2xl border border-border bg-card shadow-soft">
+                <div className="flex items-center gap-3 mb-4">
+                  <Microscope className="w-5 h-5 text-navy" />
+                  <h4 className="font-heading text-lg font-semibold text-foreground">Ứng dụng trong đào tạo</h4>
+                </div>
+                <ul className="space-y-3">
+                  {yoloUseCases.map((item) => (
+                    <li key={item} className="font-body text-sm text-muted-foreground leading-relaxed">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 p-4 rounded-xl bg-secondary/60 border border-border">
+                  <p className="font-heading text-sm font-semibold text-foreground mb-1">Mục tiêu đầu ra</p>
+                  <p className="font-body text-sm text-muted-foreground">
+                    Học viên có thể đọc hiểu pipeline thị giác máy tính, huấn luyện mô hình phát hiện vật thể và xây
+                    dựng PoC phục vụ vận hành thực tế.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
