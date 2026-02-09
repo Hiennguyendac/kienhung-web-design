@@ -1,0 +1,11 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1200" y2="720"><stop stop-color="#0F3E64"/><stop offset="1" stop-color="#2C7DA0"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#b)"/>
+  <rect x="120" y="150" width="960" height="420" rx="28" fill="#FFFFFF" fill-opacity=".08" stroke="#FFFFFF" stroke-opacity=".3"/>
+  <rect x="190" y="220" width="260" height="210" rx="18" fill="#FFFFFF" fill-opacity=".14"/>
+  <rect x="510" y="220" width="220" height="90" rx="14" fill="#F2C14E"/>
+  <rect x="510" y="340" width="220" height="90" rx="14" fill="#8EC5FF"/>
+  <rect x="760" y="220" width="230" height="210" rx="18" fill="#FFFFFF" fill-opacity=".14"/>
+  <path d="M450 325H510M730 265H760M730 385H760" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <text x="120" y="640" fill="#FFFFFF" font-size="56" font-family="Arial, sans-serif" font-weight="700">Digital Transformation</text>
+</svg>

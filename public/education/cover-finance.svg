@@ -1,0 +1,13 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="c" x1="0" y1="0" x2="1200" y2="720"><stop stop-color="#132A45"/><stop offset="1" stop-color="#1D4E89"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#c)"/>
+  <circle cx="1020" cy="140" r="160" fill="#F2C14E" fill-opacity=".22"/>
+  <rect x="140" y="170" width="920" height="360" rx="24" fill="#FFFFFF" fill-opacity=".08" stroke="#FFFFFF" stroke-opacity=".28"/>
+  <rect x="220" y="410" width="90" height="80" rx="10" fill="#DDEBFF"/>
+  <rect x="340" y="360" width="90" height="130" rx="10" fill="#BFD8FF"/>
+  <rect x="460" y="320" width="90" height="170" rx="10" fill="#8EC5FF"/>
+  <rect x="580" y="270" width="90" height="220" rx="10" fill="#5AA9E6"/>
+  <path d="M700 420L790 330L860 360L980 250" stroke="#F2C14E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="700" cy="420" r="10" fill="#F2C14E"/><circle cx="790" cy="330" r="10" fill="#F2C14E"/><circle cx="860" cy="360" r="10" fill="#F2C14E"/><circle cx="980" cy="250" r="10" fill="#F2C14E"/>
+  <text x="140" y="620" fill="#FFFFFF" font-size="56" font-family="Arial, sans-serif" font-weight="700">Finance &amp; Business Analytics</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="d" x1="0" y1="0" x2="1200" y2="720"><stop stop-color="#0D3556"/><stop offset="1" stop-color="#2F6690"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#d)"/>
+  <rect x="150" y="150" width="900" height="410" rx="26" fill="#FFFFFF" fill-opacity=".08" stroke="#FFFFFF" stroke-opacity=".26"/>
+  <circle cx="320" cy="300" r="54" fill="#F2C14E"/>
+  <circle cx="520" cy="300" r="54" fill="#8EC5FF"/>
+  <circle cx="720" cy="300" r="54" fill="#CFE6FF"/>
+  <path d="M260 410H380M460 410H580M660 410H780" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="12" stroke-linecap="round"/>
+  <rect x="830" y="230" width="170" height="220" rx="18" fill="#FFFFFF" fill-opacity=".12"/>
+  <rect x="860" y="270" width="110" height="14" rx="7" fill="#F2C14E"/>
+  <rect x="860" y="305" width="95" height="10" rx="5" fill="#D3E7FF"/>
+  <rect x="860" y="328" width="95" height="10" rx="5" fill="#D3E7FF"/>
+  <text x="150" y="640" fill="#FFFFFF" font-size="56" font-family="Arial, sans-serif" font-weight="700">Management &amp; People Development</text>
+</svg>
