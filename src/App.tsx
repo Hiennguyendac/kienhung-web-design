@@ -20,6 +20,7 @@ import ITPage from "./pages/services/IT";
 import MarketingPage from "./pages/services/Marketing";
 import LogisticsPage from "./pages/services/Logistics";
 import EducationPage from "./pages/services/Education";
+import TrainingProgramDetailPage from "./pages/services/TrainingProgramDetail";
 import TermsPage from "./pages/policies/Terms";
 import PrivacyPage from "./pages/policies/Privacy";
 import GeneralRulesPage from "./pages/policies/GeneralRules";
@@ -44,6 +45,10 @@ const App = () => (
           <Route path="/dich-vu/quang-cao-marketing" element={<MarketingPage />} />
           <Route path="/dich-vu/logistics-cho-thue-xe" element={<LogisticsPage />} />
           <Route path="/dich-vu/giao-duc-dao-tao" element={<EducationPage />} />
+          <Route
+            path="/dich-vu/giao-duc-dao-tao/linh-vuc/:domainId/chuong-trinh/:programId"
+            element={<TrainingProgramDetailPage />}
+          />
           <Route path="/chinh-sach/dieu-khoan-su-dung" element={<TermsPage />} />
           <Route path="/chinh-sach/chinh-sach-bao-mat" element={<PrivacyPage />} />
           <Route path="/chinh-sach/quy-dinh-chung" element={<GeneralRulesPage />} />
