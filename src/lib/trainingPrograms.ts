@@ -15,11 +15,13 @@ export type TrainingProgram = {
   coreContent?: string[];
   deploymentFormat?: string[];
   roadmapPhases?: string[];
+  baseFeeIncludes?: string[];
   pricingTiers?: Array<{
     scale: string;
     price: string;
     note: string;
   }>;
+  pricingFootnote?: string;
 };
 
 export type TrainingDomain = {
@@ -106,6 +108,62 @@ export const trainingDomains: TrainingDomain[] = [
           { scale: "50", price: "80 - 90 triệu", note: "Workshop chuẩn doanh nghiệp" },
           { scale: "100", price: "100 - 120 triệu", note: "Enterprise workshop" },
         ],
+      },
+      {
+        id: "ai-training-consultant-applied-ai-for-business",
+        name: "AI Training - Consultant",
+        tagline: "Applied AI for Business",
+        level: "Doanh nghiệp",
+        duration: "3-5 buổi (3-4h/buổi)",
+        format: "Hands-on + case thực tế + customize theo phòng ban/ngành",
+        outcome:
+          "Đội ngũ ứng dụng AI trực tiếp vào công việc hằng ngày, xây workflow dùng thật trong nội bộ doanh nghiệp.",
+        image: "/education/program-ai.svg",
+        audience: "Nhân sự non-tech, lần đầu tiếp cận AI: văn phòng, marketing, ops, HR, admin.",
+        objectives: [
+          "Giúp đội ngũ ứng dụng AI trực tiếp vào công việc hằng ngày, không dừng ở mức biết công cụ.",
+          "Chuẩn hóa cách sử dụng AI theo phòng ban và nghiệp vụ cụ thể.",
+          "Tạo ra workflow AI có thể dùng lại trong nội bộ doanh nghiệp.",
+          "Giảm thời gian xử lý công việc thủ công, tăng hiệu suất và chất lượng đầu ra.",
+        ],
+        coreContent: [
+          "Tổng quan AI ứng dụng theo ngành và phòng ban (Marketing, Ops, HR, Sales, Data...).",
+          "Hướng dẫn sử dụng AI tools nâng cao (ChatGPT, Copilot, automation tools) theo ngữ cảnh công việc.",
+          "Thiết kế và thực hành workflow AI thực tế (viết - phân tích - tổng hợp - báo cáo - ra quyết định).",
+          "Xây dựng Prompt Library và hướng dẫn sử dụng nội bộ.",
+          "Phân tích các sai lầm thường gặp khi triển khai AI trong doanh nghiệp.",
+          "Q&A và tối ưu workflow theo tình huống thực tế của doanh nghiệp.",
+        ],
+        deploymentFormat: [
+          "Cấp certificate.",
+          "3-5 buổi (3-4h/buổi).",
+          "Hands-on + case thực tế.",
+          "Customize theo phòng ban/ngành.",
+          "Có workflow AI áp dụng thật và deliverable rõ ràng: Prompt Library, quy trình AI, demo/prototype.",
+          "Oral test.",
+          "Hỗ trợ hỏi - đáp sau training trong 4 tuần (hoặc tổng 28 ngày làm việc) từ 8:00 - 17:00.",
+        ],
+        roadmapPhases: [
+          "Discovery & Alignment",
+          "Strategy & Roadmap Design",
+          "Pilot / Applied Execution",
+          "Enablement & Change Adoption",
+          "Impact Review & Scale-up",
+        ],
+        baseFeeIncludes: [
+          "Phân tích nhu cầu và quy trình nghiệp vụ.",
+          "Thiết kế nội dung theo ngành và phòng ban.",
+          "Hands-on (online/offline).",
+          "Xây dựng workflow AI áp dụng thực tế.",
+          "Prompt Library và tài liệu nội bộ.",
+          "Tổng kết và đề xuất hướng triển khai tiếp.",
+        ],
+        pricingTiers: [
+          { scale: "Pilot / 1 phòng ban", price: "300 triệu", note: "10-20 người" },
+          { scale: "Multi-team / 2-3 phòng ban", price: "300 - 400 triệu", note: "20-30 người" },
+          { scale: "Enterprise Applied AI", price: "400 - 500 triệu", note: "30-40 người" },
+        ],
+        pricingFootnote: "Mở rộng quy mô vượt mức tham chiếu sẽ được đánh giá và báo giá lại theo phạm vi triển khai.",
       },
     ],
   },

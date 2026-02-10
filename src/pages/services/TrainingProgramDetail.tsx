@@ -181,6 +181,16 @@ const TrainingProgramDetailPage = () => {
         {program.pricingTiers?.length ? (
           <section className="rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-soft">
             <h3 className="font-heading text-xl font-semibold text-foreground">Bảng giá theo quy mô</h3>
+            {program.baseFeeIncludes?.length ? (
+              <div className="mt-4 rounded-xl border border-border bg-background/70 p-4">
+                <p className="font-heading text-base font-semibold text-foreground">Base fee bao gồm</p>
+                <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                  {program.baseFeeIncludes.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
             <div className="mt-4 overflow-x-auto rounded-xl border border-border">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-secondary/60">
@@ -201,6 +211,9 @@ const TrainingProgramDetailPage = () => {
                 </tbody>
               </table>
             </div>
+            {program.pricingFootnote ? (
+              <p className="mt-4 text-sm font-semibold text-foreground">{program.pricingFootnote}</p>
+            ) : null}
           </section>
         ) : null}
 
