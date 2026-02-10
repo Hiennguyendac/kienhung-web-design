@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, ClipboardCheck, GraduationCap, Search, SlidersHorizontal } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -32,6 +32,17 @@ const EducationPage = () => {
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [titleIndex, setTitleIndex] = useState(0);
+  const dynamicHeroTitles = useMemo(
+    () => ["AI thực chiến cho doanh nghiệp", "Lộ trình đào tạo theo năng lực", "Chương trình học linh hoạt theo phòng ban"],
+    [],
+  );
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % dynamicHeroTitles.length);
+    }, 2600);
+    return () => window.clearInterval(timer);
+  }, [dynamicHeroTitles.length]);
 
   const consultingHref = useMemo(
     () => "mailto:contact@kienhunginvest.com?subject=Tu%20van%20chuong%20trinh%20dao%20tao",
@@ -98,6 +109,9 @@ const EducationPage = () => {
                 <div className="max-w-4xl">
                   <h1 className="edu-gradient-title font-heading text-3xl md:text-5xl font-bold leading-tight">
                     Trang Học thuật Giáo dục & Đào tạo
+                    <span key={titleIndex} className="edu-rotating-word">
+                      {dynamicHeroTitles[titleIndex]}
+                    </span>
                   </h1>
                   <p className="edu-hero-copy mt-4 font-body text-lg text-primary-foreground/90 leading-relaxed">
                     Thiết kế theo cấu trúc khoa học: <strong>Lĩnh vực</strong> - <strong>Chương trình đào tạo</strong> -
