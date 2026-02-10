@@ -4,11 +4,22 @@ import { BrainCircuit, BriefcaseBusiness, Building2, Users } from "lucide-react"
 export type TrainingProgram = {
   id: string;
   name: string;
+  tagline?: string;
   level: string;
   duration: string;
   format: string;
   outcome: string;
   image: string;
+  audience?: string;
+  objectives?: string[];
+  coreContent?: string[];
+  deploymentFormat?: string[];
+  roadmapPhases?: string[];
+  pricingTiers?: Array<{
+    scale: string;
+    price: string;
+    note: string;
+  }>;
 };
 
 export type TrainingDomain = {
@@ -56,6 +67,45 @@ export const trainingDomains: TrainingDomain[] = [
         format: "Workshop chuyên đề",
         outcome: "Thiết lập vòng đời mô hình từ huấn luyện đến theo dõi drift và tối ưu liên tục.",
         image: "/education/program-ai.svg",
+      },
+      {
+        id: "ai-training-consultant-awareness-tool-adoption",
+        name: "AI Training - Consultant",
+        tagline: "Awareness / Tool Adoption",
+        level: "Doanh nghiệp",
+        duration: "2 buổi tổng quan (3-4h/buổi)",
+        format: "Workshop + Demo + Q&A theo phòng ban",
+        outcome: "Giúp đội ngũ non-tech hiểu và ứng dụng AI ngay trong công việc văn phòng, marketing, ops, HR, admin.",
+        image: "/education/program-ai.svg",
+        audience: "Nhân sự non-tech, lần đầu tiếp cận AI; triển khai theo toàn công ty hoặc theo nhiều phòng ban.",
+        objectives: [
+          "Hiểu đúng AI là gì và dùng được ngay trong công việc.",
+          "Xóa bỏ tâm lý 'ảo tưởng' hoặc 'sợ AI' khi triển khai trong doanh nghiệp.",
+          "Tạo nền tảng nhận thức chung để các phòng ban cùng áp dụng.",
+        ],
+        coreContent: [
+          "Tổng quan AI và xu hướng ứng dụng trong doanh nghiệp.",
+          "Hướng dẫn sử dụng ChatGPT/Copilot hiệu quả theo vai trò.",
+          "Demo automation cơ bản: email, báo cáo, nội dung, research.",
+          "Best practices và các sai lầm thường gặp khi đưa AI vào vận hành.",
+        ],
+        deploymentFormat: [
+          "2 buổi tổng quan (3-4 giờ/buổi).",
+          "Có demo trực tiếp và Q&A theo từng phòng ban.",
+          "Không yêu cầu dữ liệu nội bộ chuyên sâu để bắt đầu.",
+        ],
+        roadmapPhases: [
+          "Discovery & Alignment",
+          "Strategy & Roadmap Design",
+          "Pilot / Applied Execution",
+          "Enablement & Change Adoption",
+          "Impact Review & Scale-up",
+        ],
+        pricingTiers: [
+          { scale: "10-30", price: "40 - 80 triệu", note: "Nhóm nhỏ, tương tác cao" },
+          { scale: "50", price: "80 - 90 triệu", note: "Workshop chuẩn doanh nghiệp" },
+          { scale: "100", price: "100 - 120 triệu", note: "Enterprise workshop" },
+        ],
       },
     ],
   },

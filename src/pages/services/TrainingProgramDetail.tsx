@@ -63,6 +63,7 @@ const TrainingProgramDetailPage = () => {
         <section className="rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-elevated">
           <p className="text-gold font-body text-sm tracking-[0.18em] uppercase mb-2">Chi tiết chương trình</p>
           <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground leading-tight">{program.name}</h1>
+          {program.tagline ? <p className="font-heading text-lg text-navy mt-2">{program.tagline}</p> : null}
           <p className="font-body text-muted-foreground mt-4 leading-relaxed">{program.outcome}</p>
 
           <div className="mt-6 grid md:grid-cols-3 gap-3">
@@ -95,7 +96,7 @@ const TrainingProgramDetailPage = () => {
               <UserRound className="w-5 h-5 text-navy" />
             </div>
             <h2 className="font-heading text-lg font-semibold text-foreground">Đối tượng phù hợp</h2>
-            <p className="font-body text-muted-foreground mt-2">{domain.audience}</p>
+            <p className="font-body text-muted-foreground mt-2">{program.audience || domain.audience}</p>
           </article>
 
           <article className="rounded-xl border border-border bg-card p-5 shadow-soft">
@@ -109,6 +110,23 @@ const TrainingProgramDetailPage = () => {
           </article>
         </section>
 
+        {program.roadmapPhases?.length ? (
+          <section className="rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-soft">
+            <h3 className="font-heading text-xl font-semibold text-foreground">Lộ trình triển khai</h3>
+            <div className="mt-5 grid md:grid-cols-5 gap-3">
+              {program.roadmapPhases.map((phase, idx) => (
+                <div
+                  key={phase}
+                  className="rounded-xl border border-border bg-background/70 p-4 hover:-translate-y-0.5 transition-transform"
+                >
+                  <p className="text-xs font-semibold text-navy mb-1">Giai đoạn {idx + 1}</p>
+                  <p className="font-body text-sm text-foreground">{phase}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="grid lg:grid-cols-2 gap-4">
           <article className="rounded-xl border border-border bg-card p-6 shadow-soft">
             <div className="flex items-center gap-2">
@@ -116,9 +134,16 @@ const TrainingProgramDetailPage = () => {
               <h3 className="font-heading text-xl font-semibold text-foreground">Nội dung cốt lõi</h3>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Nền tảng lý thuyết và khung tư duy theo chương trình.</li>
-              <li>• Thực hành theo bài toán thực tế của phòng ban/doanh nghiệp.</li>
-              <li>• Đánh giá đầu ra bằng sản phẩm hoặc đề án ứng dụng.</li>
+              {(program.coreContent?.length
+                ? program.coreContent
+                : [
+                    "Nền tảng lý thuyết và khung tư duy theo chương trình.",
+                    "Thực hành theo bài toán thực tế của phòng ban/doanh nghiệp.",
+                    "Đánh giá đầu ra bằng sản phẩm hoặc đề án ứng dụng.",
+                  ]
+              ).map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
             </ul>
           </article>
 
@@ -128,12 +153,56 @@ const TrainingProgramDetailPage = () => {
               <h3 className="font-heading text-xl font-semibold text-foreground">Đầu ra và năng lực</h3>
             </div>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Hoàn thiện năng lực chuyên môn theo cấp độ của chương trình.</li>
-              <li>• Có tài liệu và guideline để triển khai sau khóa học.</li>
-              <li>• Được tư vấn lộ trình học tiếp theo sau khi kết thúc.</li>
+              {(program.objectives?.length
+                ? program.objectives
+                : [
+                    "Hoàn thiện năng lực chuyên môn theo cấp độ của chương trình.",
+                    "Có tài liệu và guideline để triển khai sau khóa học.",
+                    "Được tư vấn lộ trình học tiếp theo sau khi kết thúc.",
+                  ]
+              ).map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
             </ul>
           </article>
         </section>
+
+        {program.deploymentFormat?.length ? (
+          <section className="rounded-xl border border-border bg-card p-6 shadow-soft">
+            <h3 className="font-heading text-xl font-semibold text-foreground">Format triển khai</h3>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {program.deploymentFormat.map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {program.pricingTiers?.length ? (
+          <section className="rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-soft">
+            <h3 className="font-heading text-xl font-semibold text-foreground">Bảng giá theo quy mô</h3>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-border">
+              <table className="min-w-full text-left text-sm">
+                <thead className="bg-secondary/60">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-foreground">Quy mô</th>
+                    <th className="px-4 py-3 font-semibold text-foreground">Giá</th>
+                    <th className="px-4 py-3 font-semibold text-foreground">Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border bg-background/80">
+                  {program.pricingTiers.map((tier) => (
+                    <tr key={`${tier.scale}-${tier.price}`}>
+                      <td className="px-4 py-3 text-foreground">{tier.scale}</td>
+                      <td className="px-4 py-3 text-foreground">{tier.price}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{tier.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ) : null}
 
         <section className="rounded-2xl border border-gold/30 bg-gradient-to-r from-gold/10 via-transparent to-navy/10 p-6 lg:p-8">
           <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
@@ -164,4 +233,3 @@ const TrainingProgramDetailPage = () => {
 };
 
 export default TrainingProgramDetailPage;
-
