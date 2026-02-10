@@ -109,8 +109,10 @@ const EducationPage = () => {
                 <div className="max-w-4xl">
                   <h1 className="edu-gradient-title font-heading text-3xl md:text-5xl font-bold leading-tight">
                     Trang Học thuật Giáo dục & Đào tạo
-                    <span key={titleIndex} className="edu-rotating-word">
-                      {dynamicHeroTitles[titleIndex]}
+                    <span className="edu-rotating-wrap" aria-live="polite">
+                      <span key={titleIndex} className="edu-rotating-word">
+                        {dynamicHeroTitles[titleIndex]}
+                      </span>
                     </span>
                   </h1>
                   <p className="edu-hero-copy mt-4 font-body text-lg text-primary-foreground/90 leading-relaxed">

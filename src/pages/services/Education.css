@@ -29,15 +29,30 @@
   animation: edu-shimmer 5s linear infinite;
 }
 
-.edu-rotating-word {
+.edu-rotating-wrap {
+  position: relative;
   display: block;
   margin-top: 0.35rem;
+  min-height: 2.1em;
+  overflow: hidden;
+}
+
+.edu-rotating-word {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
   font-size: clamp(1rem, 1.7vw, 1.55rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   color: #f2c14e;
   text-shadow: 0 6px 24px rgba(242, 193, 78, 0.18);
   animation: edu-word-reveal 560ms ease both;
+}
+
+@media (max-width: 767px) {
+  .edu-rotating-wrap {
+    min-height: 2.8em;
+  }
 }
 
 .edu-hero-copy {
