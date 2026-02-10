@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import { trainingDomains } from "@/lib/trainingPrograms";
+import "./Education.css";
 
 const academicFramework = [
   {
@@ -68,7 +69,7 @@ const EducationPage = () => {
   const hasMore = visiblePrograms.length < filteredPrograms.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
+    <div className="edu-page min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
       <Seo
         title="Giáo dục & Đào tạo | Kiến Hưng Investment"
         description="Trang học thuật theo lĩnh vực với danh mục chương trình đào tạo, lộ trình học rõ ràng và đăng ký học sau mỗi chương trình."
@@ -89,16 +90,16 @@ const EducationPage = () => {
             <div className="absolute -bottom-24 left-1/4 w-72 h-72 rounded-full bg-navy-light/25 blur-3xl" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">
-            <div className="max-w-5xl rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-2xl shadow-black/20">
-              <p className="inline-flex items-center rounded-full border border-gold/35 bg-gold/15 px-3 py-1 text-gold font-body text-xs tracking-[0.2em] uppercase mb-4">
+            <div className="edu-hero-shell max-w-5xl rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-2xl shadow-black/20">
+              <p className="edu-kicker inline-flex items-center rounded-full border border-gold/35 bg-gold/15 px-3 py-1 text-gold font-body text-xs tracking-[0.2em] uppercase mb-4">
                 Education Hub
               </p>
               <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div className="max-w-4xl">
-                  <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight">
+                  <h1 className="edu-gradient-title font-heading text-3xl md:text-5xl font-bold leading-tight">
                     Trang Học thuật Giáo dục & Đào tạo
                   </h1>
-                  <p className="mt-4 font-body text-lg text-primary-foreground/90 leading-relaxed">
+                  <p className="edu-hero-copy mt-4 font-body text-lg text-primary-foreground/90 leading-relaxed">
                     Thiết kế theo cấu trúc khoa học: <strong>Lĩnh vực</strong> - <strong>Chương trình đào tạo</strong> -
                     <strong> Đăng ký học</strong>. Khi bạn gửi danh mục chính thức, đội ngũ có thể cập nhật nhanh theo đúng
                     khung này.
@@ -130,7 +131,7 @@ const EducationPage = () => {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="p-4 rounded-xl bg-white/10 border border-white/25 backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all"
+                    className="edu-stat-card p-4 rounded-xl bg-white/10 border border-white/25 backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all"
                   >
                     <p className="font-heading text-2xl font-semibold">{item.value}</p>
                     <p className="font-body text-sm text-primary-foreground/80">{item.label}</p>
@@ -144,12 +145,12 @@ const EducationPage = () => {
         <section className="py-16 lg:py-20 bg-secondary/45 border-y border-border relative">
           <div className="container mx-auto px-6 lg:px-12">
             <p className="text-gold font-body text-sm tracking-[0.18em] uppercase mb-3">Academic Framework</p>
-            <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">Nguyên tắc thiết kế chương trình</h2>
+            <h2 className="edu-section-title font-heading text-2xl md:text-3xl font-bold text-foreground">Nguyên tắc thiết kế chương trình</h2>
             <div className="mt-8 grid md:grid-cols-3 gap-4">
               {academicFramework.map((item) => (
                 <article
                   key={item.title}
-                  className="p-5 rounded-2xl border border-border bg-card shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
+                  className="edu-framework-card p-5 rounded-2xl border border-border bg-card shadow-soft hover:shadow-elevated transition-all"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-navy/15 to-gold/25 flex items-center justify-center mb-3">
                     <item.icon className="w-5 h-5 text-navy" />
@@ -165,13 +166,13 @@ const EducationPage = () => {
         <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 lg:px-12">
             <p className="text-gold font-body text-sm tracking-[0.18em] uppercase mb-3">Program Finder</p>
-            <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">Tìm chương trình đào tạo nhanh</h2>
+            <h2 className="edu-section-title font-heading text-2xl md:text-3xl font-bold text-foreground">Tìm chương trình đào tạo nhanh</h2>
             <p className="font-body text-muted-foreground mt-3 max-w-3xl">
               Dùng thanh tìm kiếm và bộ lọc để chọn đúng chương trình theo nhu cầu. Cách này giúp trang vẫn gọn khi số chương
               trình tăng lên.
             </p>
 
-            <div className="mt-6 rounded-2xl border border-border bg-card p-4 md:p-5 shadow-soft space-y-4">
+            <div className="edu-finder-panel mt-6 rounded-2xl border border-border bg-card p-4 md:p-5 shadow-soft space-y-4">
               <div className="relative">
                 <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
@@ -182,7 +183,7 @@ const EducationPage = () => {
                     setVisibleCount(6);
                   }}
                   placeholder="Tìm theo tên chương trình, lĩnh vực, nội dung..."
-                  className="w-full h-11 rounded-lg border border-border bg-background pl-10 pr-3 text-sm outline-none focus:ring-2 focus:ring-navy/35"
+                  className="edu-search-input w-full h-11 rounded-lg border border-border bg-background pl-10 pr-3 text-sm outline-none focus:ring-2 focus:ring-navy/35"
                 />
               </div>
               <div className="flex flex-col md:flex-row gap-3 md:items-center">
@@ -245,10 +246,10 @@ const EducationPage = () => {
                 {visiblePrograms.map((program) => (
                   <article
                     key={program.id}
-                    className="group h-full rounded-xl border border-border bg-card overflow-hidden shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
+                    className="edu-program-card group h-full rounded-xl border border-border bg-card overflow-hidden shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
                   >
                     <div className="h-32 overflow-hidden border-b border-border">
-                      <img src={program.image} alt={program.name} className="w-full h-full object-cover" loading="lazy" />
+                      <img src={program.image} alt={program.name} className="edu-program-image w-full h-full object-cover" loading="lazy" />
                     </div>
                     <div className="p-4">
                       <p className="text-xs text-navy font-semibold mb-1">{program.domainTitle}</p>
