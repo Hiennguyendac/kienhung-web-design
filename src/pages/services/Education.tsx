@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, ClipboardCheck, GraduationCap, Search, SlidersHorizontal } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Bot,
+  ClipboardCheck,
+  GraduationCap,
+  Search,
+  SlidersHorizontal,
+  Sparkles,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -29,11 +40,15 @@ const academicFramework = [
 
 const EducationPage = () => {
   const heroSpotlightRef = useRef<HTMLDivElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioGainRef = useRef<GainNode | null>(null);
+  const audioNodesRef = useRef<OscillatorNode[]>([]);
   const [query, setQuery] = useState("");
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [visibleCount, setVisibleCount] = useState(6);
   const [titleIndex, setTitleIndex] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
   const dynamicHeroTitles = useMemo(
     () => ["AI thực chiến cho doanh nghiệp", "Lộ trình đào tạo theo năng lực", "Chương trình học linh hoạt theo phòng ban"],
     [],
@@ -58,6 +73,17 @@ const EducationPage = () => {
     );
     revealItems.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    return () => {
+      audioNodesRef.current.forEach((node) => node.stop());
+      audioNodesRef.current = [];
+      if (audioContextRef.current) {
+        void audioContextRef.current.close();
+      }
+      audioContextRef.current = null;
+      audioGainRef.current = null;
+    };
   }, []);
 
   const consultingHref = useMemo(
@@ -94,6 +120,65 @@ const EducationPage = () => {
   }, [allPrograms, query, selectedDomain, selectedLevel]);
   const visiblePrograms = filteredPrograms.slice(0, visibleCount);
   const hasMore = visiblePrograms.length < filteredPrograms.length;
+  const heroBadges = useMemo(
+    () => [
+      { icon: Sparkles, label: "AI Search" },
+      { icon: Bot, label: "Smart Learning" },
+      { icon: BadgeCheck, label: "Skill Verified" },
+    ],
+    [],
+  );
+
+  const startAmbientAudio = async () => {
+    if (!audioContextRef.current) {
+      const context = new window.AudioContext();
+      const masterGain = context.createGain();
+      masterGain.gain.value = 0.035;
+      masterGain.connect(context.destination);
+      const freqs = [174.61, 220, 261.63];
+      const nodes = freqs.map((freq, index) => {
+        const osc = context.createOscillator();
+        const gain = context.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        osc.detune.value = index === 1 ? 4 : index === 2 ? -6 : 0;
+        gain.gain.value = 0.18;
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start();
+        return osc;
+      });
+      const lfo = context.createOscillator();
+      const lfoGain = context.createGain();
+      lfo.frequency.value = 0.09;
+      lfoGain.gain.value = 0.012;
+      lfo.connect(lfoGain);
+      lfoGain.connect(masterGain.gain);
+      lfo.start();
+      audioContextRef.current = context;
+      audioGainRef.current = masterGain;
+      audioNodesRef.current = [...nodes, lfo];
+    }
+    if (audioContextRef.current.state === "suspended") {
+      await audioContextRef.current.resume();
+    }
+  };
+  const toggleBannerAudio = async () => {
+    if (isMuted) {
+      try {
+        await startAmbientAudio();
+        setIsMuted(false);
+      } catch {
+        setIsMuted(true);
+      }
+      return;
+    }
+    if (audioContextRef.current?.state === "running") {
+      await audioContextRef.current.suspend();
+    }
+    setIsMuted(true);
+  };
+
   const handleHeroSpotlight = (event: MouseEvent<HTMLDivElement>) => {
     const target = heroSpotlightRef.current;
     if (!target) return;
@@ -117,10 +202,16 @@ const EducationPage = () => {
       <main className="relative overflow-hidden">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt="Trang học thuật Giáo dục và Đào tạo" className="h-full w-full object-cover" />
+            <img src={heroImage} alt="Trang học thuật Giáo dục và Đào tạo" className="h-full w-full object-cover opacity-55" />
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/50" />
           </div>
           <div className="absolute inset-0 opacity-70 pointer-events-none">
+            <div className="edu-motion-bg absolute inset-0">
+              <div className="edu-motion-orb edu-motion-orb-a" />
+              <div className="edu-motion-orb edu-motion-orb-b" />
+              <div className="edu-motion-orb edu-motion-orb-c" />
+              <div className="edu-motion-sweep" />
+            </div>
             <div className="edu-tech-grid absolute inset-0" />
             <div className="absolute -top-24 -left-20 w-80 h-80 rounded-full bg-gold/20 blur-3xl" />
             <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-sky-300/20 blur-3xl" />
@@ -135,6 +226,20 @@ const EducationPage = () => {
               <p className="edu-kicker inline-flex items-center rounded-full border border-gold/35 bg-gold/15 px-3 py-1 text-gold font-body text-xs tracking-[0.2em] uppercase mb-4">
                 Education Hub
               </p>
+              <div className="mb-4 flex flex-wrap items-center gap-2.5">
+                {heroBadges.map((badge) => (
+                  <span key={badge.label} className="edu-badge-chip">
+                    <span className="edu-badge-icon-wrap">
+                      <badge.icon className="edu-badge-icon" />
+                    </span>
+                    {badge.label}
+                  </span>
+                ))}
+                <button type="button" onClick={() => void toggleBannerAudio()} className="edu-audio-toggle">
+                  {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  {isMuted ? "Bật nhạc banner" : "Tắt nhạc banner"}
+                </button>
+              </div>
               <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div className="max-w-4xl">
                   <h1 className="edu-gradient-title font-heading text-3xl md:text-5xl font-bold leading-tight">
