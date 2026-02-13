@@ -32,8 +32,8 @@
 .edu-rotating-wrap {
   position: relative;
   display: block;
-  margin-top: 0.35rem;
-  min-height: 2.1em;
+  margin-top: 0.15rem;
+  min-height: 1.45em;
   overflow: hidden;
 }
 
@@ -51,7 +51,7 @@
 
 @media (max-width: 767px) {
   .edu-rotating-wrap {
-    min-height: 2.8em;
+    min-height: 1.75em;
   }
 }
 
