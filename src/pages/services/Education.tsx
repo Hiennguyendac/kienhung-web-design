@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, ClipboardCheck, GraduationCap, Search, SlidersHorizontal } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -28,6 +28,7 @@ const academicFramework = [
 ];
 
 const EducationPage = () => {
+  const heroSpotlightRef = useRef<HTMLDivElement | null>(null);
   const [query, setQuery] = useState("");
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
@@ -43,6 +44,21 @@ const EducationPage = () => {
     }, 2600);
     return () => window.clearInterval(timer);
   }, [dynamicHeroTitles.length]);
+  useEffect(() => {
+    const revealItems = document.querySelectorAll<HTMLElement>(".edu-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" },
+    );
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
 
   const consultingHref = useMemo(
     () => "mailto:contact@kienhunginvest.com?subject=Tu%20van%20chuong%20trinh%20dao%20tao",
@@ -78,6 +94,15 @@ const EducationPage = () => {
   }, [allPrograms, query, selectedDomain, selectedLevel]);
   const visiblePrograms = filteredPrograms.slice(0, visibleCount);
   const hasMore = visiblePrograms.length < filteredPrograms.length;
+  const handleHeroSpotlight = (event: MouseEvent<HTMLDivElement>) => {
+    const target = heroSpotlightRef.current;
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    target.style.setProperty("--mx", `${x}px`);
+    target.style.setProperty("--my", `${y}px`);
+  };
 
   return (
     <div className="edu-page min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
@@ -96,12 +121,17 @@ const EducationPage = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/50" />
           </div>
           <div className="absolute inset-0 opacity-70 pointer-events-none">
+            <div className="edu-tech-grid absolute inset-0" />
             <div className="absolute -top-24 -left-20 w-80 h-80 rounded-full bg-gold/20 blur-3xl" />
             <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-sky-300/20 blur-3xl" />
             <div className="absolute -bottom-24 left-1/4 w-72 h-72 rounded-full bg-navy-light/25 blur-3xl" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">
-            <div className="edu-hero-shell max-w-5xl rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-2xl shadow-black/20">
+            <div
+              ref={heroSpotlightRef}
+              onMouseMove={handleHeroSpotlight}
+              className="edu-hero-shell edu-reveal max-w-5xl rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-6 md:p-8 shadow-2xl shadow-black/20"
+            >
               <p className="edu-kicker inline-flex items-center rounded-full border border-gold/35 bg-gold/15 px-3 py-1 text-gold font-body text-xs tracking-[0.2em] uppercase mb-4">
                 Education Hub
               </p>
@@ -147,7 +177,7 @@ const EducationPage = () => {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="edu-stat-card p-4 rounded-xl bg-white/10 border border-white/25 backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all"
+                    className="edu-stat-card edu-reveal p-4 rounded-xl bg-white/10 border border-white/25 backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all"
                   >
                     <p className="font-heading text-2xl font-semibold">{item.value}</p>
                     <p className="font-body text-sm text-primary-foreground/80">{item.label}</p>
@@ -166,7 +196,7 @@ const EducationPage = () => {
               {academicFramework.map((item) => (
                 <article
                   key={item.title}
-                  className="edu-framework-card p-5 rounded-2xl border border-border bg-card shadow-soft hover:shadow-elevated transition-all"
+                  className="edu-framework-card edu-reveal p-5 rounded-2xl border border-border bg-card shadow-soft hover:shadow-elevated transition-all"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-navy/15 to-gold/25 flex items-center justify-center mb-3">
                     <item.icon className="w-5 h-5 text-navy" />
@@ -188,7 +218,7 @@ const EducationPage = () => {
               trình tăng lên.
             </p>
 
-            <div className="edu-finder-panel mt-6 rounded-2xl border border-border bg-card p-4 md:p-5 shadow-soft space-y-4">
+            <div className="edu-finder-panel edu-reveal mt-6 rounded-2xl border border-border bg-card p-4 md:p-5 shadow-soft space-y-4">
               <div className="relative">
                 <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
@@ -262,7 +292,7 @@ const EducationPage = () => {
                 {visiblePrograms.map((program) => (
                   <article
                     key={program.id}
-                    className="edu-program-card group h-full rounded-xl border border-border bg-card overflow-hidden shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
+                    className="edu-program-card edu-reveal group h-full rounded-xl border border-border bg-card overflow-hidden shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all"
                   >
                     <div className="h-32 overflow-hidden border-b border-border">
                       <img src={program.image} alt={program.name} className="edu-program-image w-full h-full object-cover" loading="lazy" />
@@ -317,7 +347,7 @@ const EducationPage = () => {
               </div>
             ) : null}
 
-            <div className="mt-10 rounded-2xl border border-border bg-card p-5 shadow-soft">
+            <div className="edu-reveal mt-10 rounded-2xl border border-border bg-card p-5 shadow-soft">
               <h3 className="font-heading text-lg font-semibold text-foreground">Cấu trúc lĩnh vực đào tạo</h3>
               <div className="mt-4 grid md:grid-cols-2 gap-3">
                 {trainingDomains.map((domain) => (

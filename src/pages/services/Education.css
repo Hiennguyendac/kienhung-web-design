@@ -1,5 +1,6 @@
 .edu-page {
   position: relative;
+  overflow: hidden;
 }
 
 .edu-page::before {
@@ -13,7 +14,31 @@
 }
 
 .edu-hero-shell {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: 50%;
+  border-color: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06)),
+    radial-gradient(circle at top right, rgba(242, 193, 78, 0.17), transparent 45%);
   animation: edu-fade-up 700ms ease-out both;
+}
+
+.edu-hero-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.2), transparent 55%);
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.edu-hero-shell:hover::after {
+  opacity: 1;
 }
 
 .edu-kicker {
@@ -59,6 +84,15 @@
   animation: edu-fade-up 900ms ease-out both;
 }
 
+.edu-tech-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.11) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 15%, black, transparent 78%);
+  animation: edu-grid-drift 18s linear infinite;
+}
+
 .edu-stat-card {
   animation: edu-fade-up 700ms ease-out both;
 }
@@ -102,6 +136,7 @@
 .edu-program-card {
   position: relative;
   isolation: isolate;
+  transform-style: preserve-3d;
 }
 
 .edu-program-card::before {
@@ -119,12 +154,46 @@
   opacity: 1;
 }
 
+.edu-program-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, rgba(79, 142, 195, 0.42), rgba(242, 193, 78, 0.42)) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;
+}
+
+.edu-program-card:hover::after {
+  opacity: 1;
+}
+
 .edu-program-image {
-  transition: transform 300ms ease;
+  transition: transform 420ms ease;
 }
 
 .edu-program-card:hover .edu-program-image {
-  transform: scale(1.04);
+  transform: scale(1.07);
+}
+
+.edu-reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition:
+    opacity 650ms ease,
+    transform 650ms ease;
+}
+
+.edu-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .edu-section-title {
@@ -161,6 +230,15 @@
   }
 }
 
+@keyframes edu-grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -46px, 0);
+  }
+}
+
 @keyframes edu-pulse-glow {
   0%,
   100% {
@@ -192,6 +270,14 @@
   .edu-stat-card,
   .edu-hero-shell {
     animation: none !important;
+  }
+  .edu-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .edu-tech-grid {
+    animation: none;
   }
   .edu-program-image {
     transition: none;
