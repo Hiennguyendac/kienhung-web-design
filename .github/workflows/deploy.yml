@@ -30,7 +30,20 @@ jobs:
           VITE_AI_API_BASE: "https://ai.kienhunginvest.com"
 
       # Deploy dist/ to cPanel public_html via FTP/FTPS
-      - name: Deploy to FTP
+      - name: Deploy to FTP root
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: dist/
+          server-dir: /
+          dangerous-clean-slate: false
+
+      - name: Deploy to FTP public_html (fallback)
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
