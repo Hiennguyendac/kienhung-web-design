@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Code2, Cpu, Shield, Server, Workflow } from "lucide-react";
+import { ArrowRight, Bot, Code2, Cpu, Shield, Server, Workflow } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import { Seo } from "@/components/Seo";
 
@@ -107,6 +107,17 @@ const ITPage = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="border-y border-border bg-navy py-14 text-primary-foreground lg:py-18">
+          <div className="container mx-auto flex flex-col gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+            <div className="max-w-3xl">
+              <div className="mb-4 flex items-center gap-3 text-gold"><Bot className="h-6 w-6" /><span className="text-sm font-semibold uppercase tracking-widest">Sản phẩm do Kiến Hưng phát triển</span></div>
+              <h2 className="font-heading text-3xl font-bold">Beacon — Nền tảng quản trị tri thức bằng AI</h2>
+              <p className="mt-4 leading-relaxed text-primary-foreground/75">Tập trung tài liệu, tìm kiếm tiếng Việt, hỏi đáp có trích dẫn và kiểm soát nội dung qua quy trình phê duyệt.</p>
+            </div>
+            <Button variant="heroSolid" size="lg" asChild><Link to="/san-pham/beacon">Khám phá Beacon <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
           </div>
         </section>
 

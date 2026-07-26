@@ -7,6 +7,7 @@ const footerLinks = {
     { label: "Lĩnh vực hoạt động", href: "/linh-vuc-hoat-dong#services" },
     { label: "Case study", href: "/case-studies" },
     { label: "Tin tức", href: "/tin-tuc#news" },
+    { label: "Beacon", href: "/san-pham/beacon" },
     { label: "AI Tools", href: "/ai-tools" },
     { label: "Tuyển dụng", href: "/tin-tuc#news" },
   ],

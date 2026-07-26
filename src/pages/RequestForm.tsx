@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,8 @@ import { Progress } from "@/components/ui/progress";
 import { submitContact } from "@/lib/contactApi";
 
 const RequestForm = () => {
+  const [searchParams] = useSearchParams();
+  const isBeaconRequest = searchParams.get("san-pham") === "beacon";
   const steps = ["Nhu cầu", "Chi tiết", "Thông tin liên hệ"];
   const [step, setStep] = useState(0);
   const [stepError, setStepError] = useState("");
@@ -22,8 +25,8 @@ const RequestForm = () => {
     phone: "",
     email: "",
     company: "",
-    service: "Thương mại & Phân phối",
-    detail: "",
+    service: isBeaconRequest ? "Beacon — Yêu cầu dùng thử" : "Thương mại & Phân phối",
+    detail: isBeaconRequest ? "Tôi muốn nhận tài khoản dùng thử Beacon và tư vấn cách áp dụng cho tổ chức." : "",
   });
 
   const onChange = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -177,6 +180,7 @@ const RequestForm = () => {
                     <SelectContent>
                       <SelectItem value="Thương mại & Phân phối">Thương mại & Phân phối</SelectItem>
                       <SelectItem value="Công nghệ thông tin & Phần mềm">Công nghệ thông tin & Phần mềm</SelectItem>
+                      <SelectItem value="Beacon — Yêu cầu dùng thử">Beacon — Yêu cầu dùng thử</SelectItem>
                       <SelectItem value="Quảng cáo & Nghiên cứu thị trường">Quảng cáo & Nghiên cứu thị trường</SelectItem>
                       <SelectItem value="Vận tải - Logistics - Cho thuê xe">Vận tải - Logistics - Cho thuê xe</SelectItem>
                       <SelectItem value="Giáo dục & Đào tạo">Giáo dục & Đào tạo</SelectItem>

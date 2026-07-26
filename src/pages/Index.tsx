@@ -9,6 +9,7 @@ import { CaseStudiesSection } from "@/components/CaseStudiesSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { BookingSection } from "@/components/BookingSection";
 import { SocialHighlightsSection } from "@/components/SocialHighlightsSection";
+import { BeaconProductSection } from "@/components/BeaconProductSection";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 
@@ -77,6 +78,7 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <ServicesSection />
+        <BeaconProductSection />
         <LeadCaptureSection />
         <CaseStudiesSection />
         <NewsletterSection />
