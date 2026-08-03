@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Be Vietnam Pro', 'sans-serif'],
-        body: ['Be Vietnam Pro', 'sans-serif'],
+        display: [['Be Vietnam Pro', 'var(--font-heading)', 'sans-serif'], { lineHeight: '1.12' }],
+        heading: ['Be Vietnam Pro', 'var(--font-heading)', 'sans-serif'],
+        body: ['Be Vietnam Pro', 'var(--font-body)', 'sans-serif'],
+        mono: ['JetBrains Mono', 'var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -103,6 +105,19 @@ export default {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        blob: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(24px, -18px) scale(1.04)" },
+          "66%": { transform: "translate(-18px, 16px) scale(0.96)" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -111,6 +126,9 @@ export default {
         "fade-in-left": "fade-in-left 0.6s ease-out forwards",
         "slide-up": "slide-up 0.8s ease-out forwards",
         "count-up": "count-up 0.5s ease-out forwards",
+        marquee: "marquee 28s linear infinite",
+        blob: "blob 12s ease-in-out infinite",
+        "fade-up": "fade-up 0.7s ease-out forwards",
       },
     },
   },
