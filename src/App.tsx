@@ -24,6 +24,7 @@ import TrainingProgramDetailPage from "./pages/services/TrainingProgramDetail";
 import TermsPage from "./pages/policies/Terms";
 import PrivacyPage from "./pages/policies/Privacy";
 import GeneralRulesPage from "./pages/policies/GeneralRules";
+import BeaconProduct from "./pages/BeaconProduct";
 import NotFound from "./pages/NotFound";
 import { AIChatWidget } from "./components/AIChatWidget";
 import { AIChatWidget as AIToolsWidget } from "./components/ai/AIChatWidget";
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/tin-tuc" element={<NewsPage />} />
           <Route path="/ai-tools" element={<AIToolsPage />} />
           <Route path="/ai-tools/pro" element={<ProUpgradePage />} />
+          <Route path="/san-pham/beacon" element={<BeaconProduct />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/lien-he" element={<ContactPage />} />
