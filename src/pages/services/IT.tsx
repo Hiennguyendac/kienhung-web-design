@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, Code2, Cpu, Shield, Server, Workflow } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const offerings = [
   "Tư vấn chuyển đổi số, đánh giá hiện trạng hệ thống, lộ trình và ngân sách.",

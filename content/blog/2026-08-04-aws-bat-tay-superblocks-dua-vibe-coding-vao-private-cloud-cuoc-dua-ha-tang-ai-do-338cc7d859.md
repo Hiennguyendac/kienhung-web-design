@@ -1,6 +1,6 @@
 ---
 title: "AWS bắt tay Superblocks đưa “vibe coding” vào private cloud: cuộc đua mới ở lớp hạ tầng AI doanh nghiệp"
-slug: "aws-bat-tay-superblocks-dua-vibe-coding-vao-private-cloud-cuoc-dua-hạ-tang-ai-doanh-nghiep"
+slug: "aws-bat-tay-superblocks-dua-vibe-coding-vao-private-cloud-cuoc-dua-ha-tang-ai-doanh-nghiep"
 date: "2026-08-04"
 category: "Trí tuệ nhân tạo"
 description: "Thỏa thuận đồng tiếp thị nhiều năm giữa AWS và Superblocks cho phép nhúng công cụ vibe-coding vào private cloud của khách hàng AWS, giữ dữ liệu trong tài khoản AWS và đặt ứng dụng dưới quản trị IT. Đây là tín hiệu rõ về chiến lược hyperscaler: chiếm “lớp scaffolding” (orchestration, bảo mật, gateway) khi mô hình AI ngày càng đa dạng và dễ thay thế."

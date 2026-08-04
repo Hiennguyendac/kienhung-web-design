@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { Seo } from "../components/Seo";
+import { SEO } from "../components/SEO";
 import { getAllPosts } from "../lib/posts";
 import { fetchPostViews, subscribePostViews } from "../lib/postViews";
 import { SectionReveal } from "../components/effects";
@@ -119,11 +119,11 @@ export default function News() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo
-        title="Tin tức | Kiến Hưng Investment"
-        description="Tin tức mới nhất từ Kiến Hưng Investment."
-        keywords="tin tức, kiến hưng investment, bài viết, cập nhật"
-        canonical="https://kienhunginvest.com/tin-tuc"
+      <SEO
+        title="Tin tức và cập nhật thị trường từ Kiến Hưng Investment"
+        description="Theo dõi tin tức, bài viết và cập nhật mới từ Kiến Hưng Investment về hoạt động kinh doanh, thị trường, công nghệ và hợp tác doanh nghiệp Việt."
+        canonicalPath="/tin-tuc"
+        ogImage="/logo-512.png"
         type="website"
         jsonLd={{
           "@context": "https://schema.org",

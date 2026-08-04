@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarDays, GaugeCircle, ShieldCheck, Zap, TriangleAlert, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const highlights = [
   {

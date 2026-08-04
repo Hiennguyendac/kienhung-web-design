@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarDays, Brain, Sparkles, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const keyPoints = [
   {

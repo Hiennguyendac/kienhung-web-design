@@ -4,6 +4,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { MapPin, PhoneCall, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 import { SectionReveal } from "@/components/effects";
 
 const quickContacts = [
@@ -30,6 +31,12 @@ const quickContacts = [
 const ContactPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Liên hệ Kiến Hưng Investment và văn phòng tại TP.HCM"
+        description="Liên hệ Kiến Hưng Investment qua hotline 0903 103 198, email và văn phòng MP2-3.11 Mizuki Park, Bình Hưng, TP.HCM để trao đổi hợp tác hôm nay."
+        canonicalPath="/lien-he"
+        ogImage="/logo-512.png"
+      />
       <Header />
       <main>
         <section className="bg-secondary/50 border-b border-border">

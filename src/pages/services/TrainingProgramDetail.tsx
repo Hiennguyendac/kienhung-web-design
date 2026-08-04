@@ -3,7 +3,7 @@ import { ArrowLeft, BadgeCheck, BookOpen, CalendarClock, GraduationCap, LayoutGr
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { findProgramByIds } from "@/lib/trainingPrograms";
 
 const TrainingProgramDetailPage = () => {

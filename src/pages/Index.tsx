@@ -11,7 +11,7 @@ import { BookingSection } from "@/components/BookingSection";
 import { SocialHighlightsSection } from "@/components/SocialHighlightsSection";
 import { BeaconProductSection } from "@/components/BeaconProductSection";
 import { Footer } from "@/components/Footer";
-import { Seo } from "@/components/Seo";
+import { SEO } from "@/components/SEO";
 import { SectionReveal } from "@/components/effects";
 
 const faqItems = [
@@ -55,12 +55,11 @@ const faqItems = [
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Seo
-        title="Kiến Hưng Investment | Đầu tư, thương mại, dịch vụ tại Việt Nam"
-        description="Kiến Hưng Investment cung cấp giải pháp đầu tư, thương mại, logistics, CNTT, marketing và đào tạo nghề. Hợp tác linh hoạt, tập trung hiệu quả."
-        keywords="đầu tư, thương mại, dịch vụ, logistics, CNTT, marketing, đào tạo nghề, học AI, học lái xe, thiết bị"
-        canonical="https://kienhunginvest.com/"
-        image="https://kienhunginvest.com/favicon.jpg"
+      <SEO
+        title="Kiến Hưng Investment - Công ty đầu tư đa ngành uy tín"
+        description="Kiến Hưng Investment là công ty đầu tư đa ngành trong thương mại, CNTT, quảng cáo, logistics và giáo dục, đồng hành cùng doanh nghiệp Việt Nam."
+        canonicalPath="/"
+        ogImage="/logo-512.png"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "FAQPage",

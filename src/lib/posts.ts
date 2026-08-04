@@ -9,6 +9,7 @@ export type Post = {
   category?: string;
   description?: string;
   image?: string;
+  author?: string;
   excerpt: string;
   body: string; // markdown body (no frontmatter)
   raw: string;  // full raw content
@@ -41,8 +42,19 @@ function parseFrontmatter(raw: string): { meta: any; body: string } {
   return { meta, body };
 }
 
+export function slugifyVietnamese(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[đĐ]/g, "d")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+}
+
 function normalizeSlug(value: string): string {
-  return value.trim().toLowerCase();
+  return slugifyVietnamese(value.trim());
 }
 
 function deriveDateFromFilename(filename: string): string | undefined {
@@ -114,7 +126,7 @@ export function getAllPosts(): Post[] {
       const fileSlug = file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
       const fileDate = deriveDateFromFilename(file);
 
-      const slug = (meta.slug || fileSlug).trim();
+      const slug = slugifyVietnamese(meta.slug || fileSlug);
       const normalizedTitleSource = cleanSlugForTitle(slug || fileSlug);
       const derivedTitle = toTitleCase(normalizedTitleSource);
       const excerpt = makeExcerpt(body, 200);
@@ -129,6 +141,7 @@ export function getAllPosts(): Post[] {
         category: meta.category || "Tin tức",
         description: meta.description || "",
         image: meta.image || "",
+        author: meta.author || "",
         excerpt,
         body,
         raw: text,

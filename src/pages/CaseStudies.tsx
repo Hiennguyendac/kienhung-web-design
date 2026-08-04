@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Seo } from "@/components/Seo";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
@@ -63,10 +63,11 @@ const CaseStudies = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo
-        title="Case Study | Kiến Hưng Investment"
-        description="Tổng hợp các dự án tiêu biểu và kết quả đo lường từ Kiến Hưng Investment."
-        canonical="https://kienhunginvest.com/case-studies"
+      <SEO
+        title="Case study Kiến Hưng Investment với kết quả đo lường"
+        description="Xem các case study tiêu biểu của Kiến Hưng Investment với phạm vi triển khai, kết quả đo lường và tác động vận hành rõ ràng cho từng dự án thực tế."
+        canonicalPath="/case-studies"
+        ogImage="/logo-512.png"
       />
       <Header />
       <main className="container mx-auto px-6 lg:px-12 py-12 lg:py-16">

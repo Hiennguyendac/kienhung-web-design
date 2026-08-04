@@ -1,6 +1,6 @@
 ---
 title: "Hạ tầng và đô thị xanh tạo cú huých cho bất động sản Nha Trang"
-slug: "ha-tang-va-do-thi-xanh-tao-cu-huých-cho-bat-dong-san-nha-trang"
+slug: "ha-tang-va-do-thi-xanh-tao-cu-huych-cho-bat-dong-san-nha-trang"
 date: "2026-02-03"
 category: "Kinh tế & Đầu tư"
 meta: "Thị trường bất động sản Nha Trang phục hồi mạnh nhờ hạ tầng trọng điểm và du lịch tăng trưởng, tạo sức hút với nhà đầu tư dài hạn."

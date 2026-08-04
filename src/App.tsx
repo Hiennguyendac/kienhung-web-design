@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index";
 import AboutPage from "./pages/About";
@@ -31,6 +32,59 @@ import { AIChatWidget } from "./components/AIChatWidget";
 import { AIChatWidget as AIToolsWidget } from "./components/ai/AIChatWidget";
 
 const queryClient = new QueryClient();
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Công ty TNHH Thương mại Dịch vụ Đầu tư Kiến Hưng",
+  "alternateName": "Kiến Hưng Investment",
+  "url": "https://kienhunginvest.com",
+  "logo": "https://kienhunginvest.com/logo-512.png",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "MP2-3.11 Mizuki Park, Bình Hưng",
+    "addressLocality": "TP.HCM",
+    "addressCountry": "VN",
+  },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Công ty TNHH Thương mại Dịch vụ Đầu tư Kiến Hưng",
+  "url": "https://kienhunginvest.com",
+  "logo": "https://kienhunginvest.com/logo-512.png",
+  "image": "https://kienhunginvest.com/logo-512.png",
+  "telephone": "+84 903 103 198",
+  "openingHours": ["Mo-Fr 08:00-17:30", "Sa 08:00-12:00"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "MP2-3.11 Mizuki Park, Bình Hưng",
+    "addressLocality": "TP.HCM",
+    "addressCountry": "VN",
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:00",
+      "closes": "17:30",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "12:00",
+    },
+  ],
+};
+
+const RootStructuredData = () => (
+  <Helmet>
+    <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
+    <script type="application/ld+json">{JSON.stringify(localBusinessJsonLd)}</script>
+  </Helmet>
+);
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -82,6 +136,7 @@ const AnimatedRoutes = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <RootStructuredData />
       <Toaster />
       <Sonner />
       <BrowserRouter>

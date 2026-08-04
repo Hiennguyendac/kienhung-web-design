@@ -46,6 +46,17 @@ function deriveDateFromFilename(filename) {
   return match ? match[1] : undefined;
 }
 
+function slugifyVietnamese(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[đĐ]/g, "d")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+}
+
 async function loadPostRoutes() {
   let files = [];
   try {
@@ -61,7 +72,7 @@ async function loadPostRoutes() {
     const raw = String(await fs.readFile(filePath, "utf8"));
     const { meta } = parseFrontmatter(raw.replace(/^\uFEFF/, ""));
     const fileSlug = file.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
-    const slug = (meta.slug || fileSlug).trim();
+    const slug = slugifyVietnamese(meta.slug || fileSlug);
     const lastmod = meta.date || deriveDateFromFilename(file) || undefined;
     if (!slug) continue;
     posts.push({ loc: `/tin-tuc/${encodeURIComponent(slug)}`, lastmod });

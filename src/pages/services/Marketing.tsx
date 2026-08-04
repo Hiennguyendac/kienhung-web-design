@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BarChart2, Megaphone, PenTool, Target, Users } from "lucide-react";
 import heroImage from "@/assets/hero-building.jpg";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const offerings = [
   "Chiến lược truyền thông đa kênh (digital, PR, offline) gắn với mục tiêu kinh doanh.",
