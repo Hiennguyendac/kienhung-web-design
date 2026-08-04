@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Monitor, Megaphone, Truck, GraduationCap, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const services = [
   {
@@ -36,15 +37,21 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
   return (
     <section id="services" className="py-20 lg:py-28 bg-secondary/50">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+          whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={hasHydrated ? { once: true } : undefined}
           className="text-center mb-16"
         >
           <p className="text-gold font-body text-sm tracking-widest uppercase mb-4">
@@ -64,10 +71,10 @@ export const ServicesSection = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasHydrated ? { opacity: 0, y: 30 } : false}
+              whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={hasHydrated ? { once: true } : undefined}
               className="group p-8 rounded-xl bg-card border border-border hover:border-gold/30 hover:shadow-elevated transition-all duration-300"
             >
               <div className="w-14 h-14 rounded-xl bg-navy/10 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">

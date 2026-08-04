@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -32,6 +32,7 @@ const contactInfo = [
 ];
 
 export const ContactSection = () => {
+  const [hasHydrated, setHasHydrated] = useState(false);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -41,6 +42,10 @@ export const ContactSection = () => {
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
 
   const onChange = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
@@ -76,10 +81,10 @@ export const ContactSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={hasHydrated ? { opacity: 0, x: -20 } : false}
+            whileInView={hasHydrated ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            viewport={hasHydrated ? { once: true } : undefined}
           >
             <p className="text-gold font-body text-sm tracking-widest uppercase mb-4">
               Liên hệ
@@ -96,10 +101,10 @@ export const ContactSection = () => {
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+                  whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  viewport={hasHydrated ? { once: true } : undefined}
                   className="flex items-start gap-4"
                 >
                   <div className="w-12 h-12 rounded-lg bg-navy/10 flex items-center justify-center flex-shrink-0">
@@ -123,10 +128,10 @@ export const ContactSection = () => {
 
           {/* Right Column - Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={hasHydrated ? { opacity: 0, x: 20 } : false}
+            whileInView={hasHydrated ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            viewport={hasHydrated ? { once: true } : undefined}
             className="p-8 rounded-2xl bg-card border border-border shadow-elevated"
           >
             <h3 className="font-heading text-xl font-semibold text-foreground mb-6">

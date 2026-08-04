@@ -154,3 +154,7 @@ export function getPostBySlug(slug: string): Post | undefined {
   const target = normalizeSlug(decodeURIComponent(slug));
   return getAllPosts().find((p) => normalizeSlug(p.slug) === target);
 }
+
+export function getPostStaticPaths(): string[] {
+  return getAllPosts().map((post) => `tin-tuc/${post.slug}`);
+}
