@@ -25,20 +25,42 @@ const stats = [
   { value: 50, suffix: "+", label: "Đối tác" },
 ];
 
-const donutSeparator = "hsl(var(--navy-dark))";
+const DonutChart = () => {
+  let cumulativeValue = 0;
 
-const donutGradient = `conic-gradient(
-  ${sectors[0].color} 0deg 98deg,
-  ${donutSeparator} 98deg 101deg,
-  ${sectors[1].color} 101deg 177deg,
-  ${donutSeparator} 177deg 180deg,
-  ${sectors[2].color} 180deg 242deg,
-  ${donutSeparator} 242deg 245deg,
-  ${sectors[3].color} 245deg 303deg,
-  ${donutSeparator} 303deg 306deg,
-  ${sectors[4].color} 306deg 357deg,
-  ${donutSeparator} 357deg 360deg
-)`;
+  return (
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox="0 0 100 100"
+      role="img"
+      aria-label="Tỉ trọng hoạt động theo 5 lĩnh vực"
+    >
+      <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(var(--navy-dark))" strokeWidth="14" />
+      <g transform="rotate(-90 50 50)">
+        {sectors.map((sector) => {
+          const dashOffset = -cumulativeValue;
+          cumulativeValue += sector.value;
+
+          return (
+            <circle
+              key={sector.name}
+              cx="50"
+              cy="50"
+              r="42"
+              fill="none"
+              pathLength="100"
+              stroke={sector.color}
+              strokeDasharray={`${sector.value} ${100 - sector.value}`}
+              strokeDashoffset={dashOffset}
+              strokeLinecap="butt"
+              strokeWidth="14"
+            />
+          );
+        })}
+      </g>
+    </svg>
+  );
+};
 
 export const HeroSection = () => {
   return (
@@ -125,8 +147,9 @@ export const HeroSection = () => {
                 </div>
 
                 <div className="grid items-center gap-5 md:grid-cols-[0.88fr_1.12fr]">
-                  <div className="relative mx-auto aspect-square w-full max-w-[200px] rounded-full p-3" style={{ background: donutGradient }}>
-                    <div className="flex h-full w-full flex-col items-center justify-center rounded-full border border-primary-foreground/10 bg-navy-dark/95 text-center shadow-inner">
+                  <div className="relative mx-auto aspect-square w-full max-w-[200px]">
+                    <DonutChart />
+                    <div className="absolute inset-[14%] flex flex-col items-center justify-center rounded-full border border-primary-foreground/10 bg-navy-dark/95 text-center shadow-inner">
                       <span className="font-mono text-4xl font-bold text-primary-foreground">5</span>
                       <span className="mt-1 max-w-28 text-sm text-primary-foreground/70">lĩnh vực hoạt động</span>
                     </div>
