@@ -69,6 +69,7 @@
   box-shadow: 0 10px 24px -18px hsla(210 70% 25% / 0.45);
 }
 
+.filter-pill.active,
 .filter-pill.is-active {
   background: hsl(var(--navy));
   color: hsl(var(--background));
@@ -150,6 +151,7 @@
 }
 
 .news-card-media {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 14px;
@@ -163,6 +165,23 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.45s ease;
+}
+
+.news-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, hsla(210 80% 15% / 0.55));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.news-card:hover .news-card-media img {
+  transform: scale(1.05);
+}
+
+.news-card:hover .news-card-overlay {
+  opacity: 1;
 }
 
 .news-card h3 {

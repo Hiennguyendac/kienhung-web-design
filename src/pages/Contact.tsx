@@ -4,6 +4,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { MapPin, PhoneCall, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SectionReveal } from "@/components/effects";
 
 const quickContacts = [
   {
@@ -34,11 +35,11 @@ const ContactPage = () => {
         <section className="bg-secondary/50 border-b border-border">
           <div className="container mx-auto px-6 lg:px-12 py-14 lg:py-20">
             <div className="grid lg:grid-cols-[1.6fr,1fr] gap-10 items-center">
-              <div>
+              <SectionReveal>
                 <p className="text-gold font-body text-sm tracking-widest uppercase mb-3">
                   Liên hệ
                 </p>
-                <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
                   Kết nối với Kiến Hưng Investment
                 </h1>
                 <p className="font-body text-lg text-muted-foreground leading-relaxed">
@@ -53,11 +54,12 @@ const ContactPage = () => {
                     <Link to="/yeu-cau-bao-gia">Đặt lịch hẹn</Link>
                   </Button>
                 </div>
-              </div>
+              </SectionReveal>
               <div className="grid gap-4">
-                {quickContacts.map((item) => (
-                  <div
+                {quickContacts.map((item, index) => (
+                  <SectionReveal
                     key={item.title}
+                    delay={index * 0.06}
                     className="p-5 rounded-xl bg-card border border-border shadow-soft flex gap-3"
                   >
                     <div className="w-11 h-11 rounded-lg bg-navy/10 flex items-center justify-center flex-shrink-0">
@@ -70,14 +72,16 @@ const ContactPage = () => {
                       <p className="font-body text-sm text-foreground">{item.content}</p>
                       <p className="font-body text-xs text-muted-foreground">{item.note}</p>
                     </div>
-                  </div>
+                  </SectionReveal>
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        <ContactSection />
+        <SectionReveal>
+          <ContactSection />
+        </SectionReveal>
       </main>
       <Footer />
     </div>

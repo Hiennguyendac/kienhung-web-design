@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { Seo } from "../components/Seo";
 import { getAllPosts } from "../lib/posts";
 import { fetchPostViews, subscribePostViews } from "../lib/postViews";
+import { SectionReveal } from "../components/effects";
 import "./News.css";
 
 export default function News() {
@@ -139,7 +140,7 @@ export default function News() {
       <Header />
       <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
         <div className="news-wrap">
-          <section className="news-hero-banner">
+          <SectionReveal className="news-hero-banner">
             <div>
               <p className="news-kicker">Tin tức &amp; sự kiện</p>
               <h1>Cập nhật mới nhất từ Kiến Hưng</h1>
@@ -154,8 +155,8 @@ export default function News() {
             >
               Đăng ký nhận tin
             </a>
-          </section>
-          <div className="news-filters" role="tablist" aria-label="Chọn chủ đề tin tức">
+          </SectionReveal>
+          <SectionReveal delay={0.08} className="news-filters" role="tablist" aria-label="Chọn chủ đề tin tức">
             <button
               type="button"
               className={`filter-pill ${category ? "" : "active"}`}
@@ -183,23 +184,24 @@ export default function News() {
                 {item}
               </button>
             ))}
-          </div>
+          </SectionReveal>
 
           {filteredPosts.length === 0 ? (
-            <div className="news-empty">
+            <SectionReveal className="news-empty">
               <h3>Chưa có bài viết nào</h3>
               <p>Vui lòng quay lại sau để xem các cập nhật mới nhất.</p>
-            </div>
+            </SectionReveal>
           ) : (
             <>
               <div className="news-grid">
-                {pagedPosts.map((p) => {
+                {pagedPosts.map((p, index) => {
                   const summary = p.description?.trim() || p.excerpt;
                   return (
-                    <article key={p.slug} className="news-card">
+                    <SectionReveal key={p.slug} delay={index * 0.06} className="news-card">
                       {p.image ? (
                         <div className="news-card-media">
                           <img src={p.image} alt={p.title} loading="lazy" />
+                          <div className="news-card-overlay" aria-hidden="true" />
                         </div>
                       ) : null}
                       <div className="news-meta">
@@ -231,7 +233,7 @@ export default function News() {
                       >
                         Đọc thêm
                       </Link>
-                    </article>
+                    </SectionReveal>
                   );
                 })}
               </div>
@@ -247,7 +249,7 @@ export default function News() {
                   }}
                   disabled={page === 1}
                 >
-                  Previous
+                  Trước
                 </button>
                 <span className="news-page-indicator">
                   {page} / {totalPages}
@@ -262,7 +264,7 @@ export default function News() {
                   }}
                   disabled={page === totalPages}
                 >
-                  Next
+                  Sau
                 </button>
               </div>
             </>
