@@ -84,11 +84,12 @@ async function loadPostRoutes() {
 async function loadStaticRoutesFromApp() {
   try {
     const source = await fs.readFile(appRoutesPath, "utf8");
-    const matches = Array.from(source.matchAll(/<Route\s+path="([^"]+)"/g));
-    const routes = matches
+    const jsxMatches = Array.from(source.matchAll(/<Route\s+path="([^"]+)"/g));
+    const objectMatches = Array.from(source.matchAll(/path:\s*"([^"]+)"/g));
+    const routes = [...jsxMatches, ...objectMatches]
       .map((match) => match[1])
       .filter((route) => route && !route.includes(":") && route !== "*")
-      .filter((route) => route.startsWith("/"));
+      .map((route) => (route.startsWith("/") ? route : `/${route}`));
     return Array.from(new Set(routes)).sort();
   } catch {
     return fallbackStaticRoutes;

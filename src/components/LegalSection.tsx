@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, MapPin, Phone, Mail, Globe, Building } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const legalInfo = [
   {
@@ -35,15 +36,21 @@ const legalInfo = [
 ];
 
 export const LegalSection = () => {
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
   return (
     <section id="legal" className="py-20 lg:py-28 bg-navy">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+          whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={hasHydrated ? { once: true } : undefined}
           className="text-center mb-16"
         >
           <p className="text-gold font-body text-sm tracking-widest uppercase mb-4">
@@ -63,10 +70,10 @@ export const LegalSection = () => {
           {legalInfo.map((info, index) => (
             <motion.div
               key={info.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+              whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={hasHydrated ? { once: true } : undefined}
               className="p-6 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10"
             >
               <div className="flex items-start gap-4">
@@ -88,10 +95,10 @@ export const LegalSection = () => {
 
         {/* Certificate Note */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+          whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          viewport={hasHydrated ? { once: true } : undefined}
           className="mt-12 text-center"
         >
           <p className="font-body text-sm text-primary-foreground/60">

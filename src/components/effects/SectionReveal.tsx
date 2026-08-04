@@ -10,15 +10,20 @@ type SectionRevealProps = Omit<HTMLMotionProps<"div">, "children"> & {
 
 export function SectionReveal({ children, className, delay = 0, ...props }: SectionRevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
+  const [hasHydrated, setHasHydrated] = React.useState(false);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -12% 0px" });
   const shouldReduceMotion = useReducedMotion();
+
+  React.useEffect(() => {
+    setHasHydrated(true);
+  }, []);
 
   return (
     <motion.div
       ref={ref}
       className={cn(className)}
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
-      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+      initial={!hasHydrated ? false : shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+      animate={!hasHydrated ? false : shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1], delay }}
       {...props}
     >

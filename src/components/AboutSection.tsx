@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Heart, CheckCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const values = [
   "Uy tín trong kinh doanh",
@@ -9,16 +10,22 @@ const values = [
 ];
 
 export const AboutSection = () => {
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
   return (
     <section id="about" className="py-20 lg:py-28 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={hasHydrated ? { opacity: 0, x: -20 } : false}
+            whileInView={hasHydrated ? { opacity: 1, x: 0 } : undefined}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            viewport={hasHydrated ? { once: true } : undefined}
           >
             <p className="text-gold font-body text-sm tracking-widest uppercase mb-4">
               Về chúng tôi
@@ -42,10 +49,10 @@ export const AboutSection = () => {
               {values.map((value, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={hasHydrated ? { opacity: 0, y: 10 } : false}
+                  whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  viewport={hasHydrated ? { once: true } : undefined}
                   className="flex items-center gap-3"
                 >
                   <CheckCircle className="w-5 h-5 text-gold flex-shrink-0" />
@@ -58,10 +65,10 @@ export const AboutSection = () => {
           {/* Right Column - Vision, Mission, Values */}
           <div className="grid gap-6">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+              whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={hasHydrated ? { once: true } : undefined}
               className="p-6 rounded-xl border border-border bg-card shadow-soft"
             >
               <div className="flex items-start gap-4">
@@ -81,10 +88,10 @@ export const AboutSection = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+              whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
+              viewport={hasHydrated ? { once: true } : undefined}
               className="p-6 rounded-xl border border-border bg-card shadow-soft"
             >
               <div className="flex items-start gap-4">
@@ -104,10 +111,10 @@ export const AboutSection = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasHydrated ? { opacity: 0, y: 20 } : false}
+              whileInView={hasHydrated ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              viewport={hasHydrated ? { once: true } : undefined}
               className="p-6 rounded-xl border border-border bg-card shadow-soft"
             >
               <div className="flex items-start gap-4">
