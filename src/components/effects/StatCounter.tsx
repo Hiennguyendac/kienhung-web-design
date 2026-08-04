@@ -12,24 +12,23 @@ type StatCounterProps = {
 };
 
 const formatValue = (value: number) => {
-  const hasDecimal = !Number.isInteger(value);
   return new Intl.NumberFormat("vi-VN", {
-    maximumFractionDigits: hasDecimal ? 1 : 0,
-    minimumFractionDigits: hasDecimal ? 1 : 0,
-  }).format(value);
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(Math.round(value));
 };
 
 export function StatCounter({ value, suffix = "", label, className, duration = 1200 }: StatCounterProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
   const shouldReduceMotion = useReducedMotion();
-  const [displayValue, setDisplayValue] = React.useState(shouldReduceMotion ? value : 0);
+  const [displayValue, setDisplayValue] = React.useState(shouldReduceMotion ? Math.round(value) : 0);
 
   React.useEffect(() => {
     if (!isInView) return;
 
     if (shouldReduceMotion) {
-      setDisplayValue(value);
+      setDisplayValue(Math.round(value));
       return;
     }
 
@@ -40,7 +39,7 @@ export function StatCounter({ value, suffix = "", label, className, duration = 1
       const progress = Math.min((time - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
 
-      setDisplayValue(value * eased);
+      setDisplayValue(Math.round(value * eased));
 
       if (progress < 1) {
         frameId = requestAnimationFrame(tick);
