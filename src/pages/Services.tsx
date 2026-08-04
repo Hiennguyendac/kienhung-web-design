@@ -126,7 +126,7 @@ const ServicesPage = () => {
             <SectionReveal className="max-w-3xl mb-10">
               <p className="text-gold font-mono text-sm font-semibold uppercase tracking-normal mb-3">Danh mục dịch vụ</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Lưới bento theo trọng tâm triển khai
+                5 lĩnh vực cốt lõi, một hệ sinh thái đồng bộ
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Các lĩnh vực được sắp xếp theo vai trò trong chuỗi giá trị, giúp khách hàng nhìn nhanh đâu là năng lực chủ lực và đâu là nhóm hỗ trợ mở rộng.
