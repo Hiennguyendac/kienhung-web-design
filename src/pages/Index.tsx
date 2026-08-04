@@ -12,6 +12,7 @@ import { SocialHighlightsSection } from "@/components/SocialHighlightsSection";
 import { BeaconProductSection } from "@/components/BeaconProductSection";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
+import { SectionReveal } from "@/components/effects";
 
 const faqItems = [
   {
@@ -76,15 +77,31 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <BeaconProductSection />
-        <LeadCaptureSection />
-        <CaseStudiesSection />
-        <NewsletterSection />
-        <BookingSection />
-        <SocialHighlightsSection />
-        <section className="py-16 lg:py-20 bg-secondary/30">
+        <SectionReveal>
+          <AboutSection />
+        </SectionReveal>
+        <SectionReveal delay={0.06}>
+          <ServicesSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <BeaconProductSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <LeadCaptureSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <CaseStudiesSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <NewsletterSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <BookingSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <SocialHighlightsSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08} className="py-16 lg:py-20 bg-secondary/30">
           <div className="container mx-auto px-6 lg:px-12">
             <div className="max-w-3xl">
               <p className="text-gold text-sm font-semibold uppercase tracking-widest mb-3">Hỏi đáp</p>
@@ -96,17 +113,21 @@ const Index = () => {
               </p>
             </div>
             <div className="mt-10 grid gap-4 lg:grid-cols-2">
-              {faqItems.map((item) => (
-                <div key={item.question} className="rounded-xl border border-border bg-card p-6 shadow-soft">
+              {faqItems.map((item, index) => (
+                <SectionReveal key={item.question} delay={index * 0.04} className="rounded-xl border border-border bg-card p-6 shadow-soft">
                   <h3 className="font-heading text-lg font-semibold text-foreground mb-3">{item.question}</h3>
                   <p className="text-muted-foreground leading-relaxed">{item.answer}</p>
-                </div>
+                </SectionReveal>
               ))}
             </div>
           </div>
-        </section>
-        <LegalSection />
-        <ContactSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <LegalSection />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <ContactSection />
+        </SectionReveal>
       </main>
       <Footer />
     </div>
