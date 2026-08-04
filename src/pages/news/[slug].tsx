@@ -7,6 +7,7 @@ import { Footer } from "../../components/Footer";
 import { Seo } from "../../components/Seo";
 import { getPostBySlug } from "../../lib/posts";
 import { fetchPostViews, incrementPostView, subscribePostViews } from "../../lib/postViews";
+import { SectionReveal } from "../../components/effects";
 import "../News.css";
 
 export default function NewsDetail() {
@@ -131,21 +132,57 @@ export default function NewsDetail() {
             ← Quay lại Tin tức
           </button>
           <article className="news-detail">
-            <header className="news-detail-header">
+            <SectionReveal className="news-detail-header">
               <h1>{post.title}</h1>
               <div className="news-meta">
                 <span className="badge">{post.category || "Tin tức"}</span>
                 <span>{formatDate(post.date)}</span>
                 <span className="news-views">{formatViews(views)} lượt xem</span>
               </div>
-            </header>
+            </SectionReveal>
             {post.image ? (
-              <div className="news-hero-media">
+              <SectionReveal delay={0.08} className="news-hero-media">
                 <img src={post.image} alt={post.title} loading="lazy" />
-              </div>
+              </SectionReveal>
             ) : null}
             <div className="prose">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h2: ({ children }) => (
+                    <SectionReveal>
+                      <h2>{children}</h2>
+                    </SectionReveal>
+                  ),
+                  h3: ({ children }) => (
+                    <SectionReveal>
+                      <h3>{children}</h3>
+                    </SectionReveal>
+                  ),
+                  p: ({ children }) => (
+                    <SectionReveal>
+                      <p>{children}</p>
+                    </SectionReveal>
+                  ),
+                  ul: ({ children }) => (
+                    <SectionReveal>
+                      <ul>{children}</ul>
+                    </SectionReveal>
+                  ),
+                  ol: ({ children }) => (
+                    <SectionReveal>
+                      <ol>{children}</ol>
+                    </SectionReveal>
+                  ),
+                  blockquote: ({ children }) => (
+                    <SectionReveal>
+                      <blockquote>{children}</blockquote>
+                    </SectionReveal>
+                  ),
+                }}
+              >
+                {post.body}
+              </ReactMarkdown>
             </div>
           </article>
         </div>
