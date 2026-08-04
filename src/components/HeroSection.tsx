@@ -12,9 +12,9 @@ const highlights = [
 const sectors = [
   { icon: ShoppingCart, name: "Thương mại", value: 28, color: "hsl(var(--gold))" },
   { icon: Monitor, name: "Công nghệ thông tin", value: 22, color: "hsl(var(--navy-light))" },
-  { icon: Megaphone, name: "Quảng cáo", value: 18, color: "hsl(200 70% 58%)" },
-  { icon: Truck, name: "Logistics", value: 17, color: "hsl(160 45% 46%)" },
-  { icon: GraduationCap, name: "Giáo dục", value: 15, color: "hsl(265 38% 58%)" },
+  { icon: Megaphone, name: "Quảng cáo", value: 18, color: "hsl(var(--gold-deep))" },
+  { icon: Truck, name: "Logistics", value: 17, color: "hsl(var(--navy-deep))" },
+  { icon: GraduationCap, name: "Giáo dục", value: 15, color: "hsl(var(--gold-soft))" },
 ];
 
 const tickerItems = ["Thương mại", "Công nghệ thông tin", "Quảng cáo", "Logistics", "Giáo dục đào tạo"];
@@ -25,12 +25,19 @@ const stats = [
   { value: 50, suffix: "+", label: "Đối tác" },
 ];
 
+const donutSeparator = "hsl(var(--navy-dark))";
+
 const donutGradient = `conic-gradient(
-  ${sectors[0].color} 0deg 101deg,
-  ${sectors[1].color} 101deg 180deg,
-  ${sectors[2].color} 180deg 245deg,
-  ${sectors[3].color} 245deg 306deg,
-  ${sectors[4].color} 306deg 360deg
+  ${sectors[0].color} 0deg 98deg,
+  ${donutSeparator} 98deg 101deg,
+  ${sectors[1].color} 101deg 177deg,
+  ${donutSeparator} 177deg 180deg,
+  ${sectors[2].color} 180deg 242deg,
+  ${donutSeparator} 242deg 245deg,
+  ${sectors[3].color} 245deg 303deg,
+  ${donutSeparator} 303deg 306deg,
+  ${sectors[4].color} 306deg 357deg,
+  ${donutSeparator} 357deg 360deg
 )`;
 
 export const HeroSection = () => {
