@@ -3,7 +3,7 @@ import type { Session } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 
 export default function ProUpgradePage() {

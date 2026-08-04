@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarDays, ArrowLeft, Sparkles, Target, Brain, Layers, Shield, BarChart4 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const highlightBlocks = [
   {

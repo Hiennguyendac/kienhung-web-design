@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { Seo } from "../../components/Seo";
+import { SEO, absoluteUrl, normalizeDescription } from "../../components/SEO";
 import { getPostBySlug } from "../../lib/posts";
 import { fetchPostViews, incrementPostView, subscribePostViews } from "../../lib/postViews";
 import { SectionReveal } from "../../components/effects";
@@ -60,9 +60,11 @@ export default function NewsDetail() {
   if (!post) {
     return (
       <div className="min-h-screen bg-background">
-        <Seo
+        <SEO
           title="Không tìm thấy | Kiến Hưng Investment"
           description="Không tìm thấy bài viết yêu cầu."
+          canonicalPath="/tin-tuc"
+          noindex
         />
         <Header />
         <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
@@ -81,36 +83,39 @@ export default function NewsDetail() {
     );
   }
 
+  const articleDescription = normalizeDescription(post.description?.trim() || post.excerpt);
+  const articleCanonicalPath = `/tin-tuc/${encodeURIComponent(post.slug)}`;
+  const articleImage = post.image || "/logo-512.png";
+
   return (
     <div className="min-h-screen bg-background">
-      <Seo
-        title={`${post.title} | Kiến Hưng Investment`}
-        description={post.description?.trim() || post.excerpt}
-        keywords={`${post.category || "Tin tức"}, Kiến Hưng Investment`}
-        canonical={`https://kienhunginvest.com/tin-tuc/${encodeURIComponent(post.slug)}`}
-        image={post.image || undefined}
+      <SEO
+        title={post.title}
+        description={articleDescription}
+        canonicalPath={articleCanonicalPath}
+        ogImage={articleImage}
         type="article"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "NewsArticle",
+          "@type": "Article",
           "headline": post.title,
           "datePublished": post.date || undefined,
           "dateModified": post.date || undefined,
-          "description": post.description?.trim() || post.excerpt,
+          "description": articleDescription,
           "author": {
-            "@type": "Organization",
-            "name": "Kiến Hưng Investment",
+            "@type": post.author ? "Person" : "Organization",
+            "name": post.author || "Kiến Hưng Investment",
           },
           "publisher": {
             "@type": "Organization",
-            "name": "Kiến Hưng Investment",
+            "name": "Công ty TNHH Thương mại Dịch vụ Đầu tư Kiến Hưng",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://kienhunginvest.com/favicon.jpg",
+              "url": "https://kienhunginvest.com/logo-512.png",
             },
           },
-          "image": post.image ? [post.image] : undefined,
-          "mainEntityOfPage": `https://kienhunginvest.com/tin-tuc/${encodeURIComponent(post.slug)}`,
+          "image": [absoluteUrl(articleImage)],
+          "mainEntityOfPage": absoluteUrl(articleCanonicalPath),
           "inLanguage": "vi-VN",
         }}
       />
@@ -149,6 +154,11 @@ export default function NewsDetail() {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
+                  h1: ({ children }) => (
+                    <SectionReveal>
+                      <h2>{children}</h2>
+                    </SectionReveal>
+                  ),
                   h2: ({ children }) => (
                     <SectionReveal>
                       <h2>{children}</h2>

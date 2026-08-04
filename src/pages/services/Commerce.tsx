@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Building2, Box, Globe2, Handshake, ShieldCheck } from "lucide-react";
 import heroBuilding from "@/assets/hero-building.jpg";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const offerings = [
   "Phân phối hàng hóa B2B, xây dựng kênh đại lý và đối tác chiến lược.",

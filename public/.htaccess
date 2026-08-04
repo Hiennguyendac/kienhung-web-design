@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  RewriteCond %{REQUEST_URI} ^/tin-tuc/ha-tang-va-do-thi-xanh-tao-cu-hu%C3%BDch-cho-bat-dong-san-nha-trang$ [NC]
+  RewriteRule ^ /tin-tuc/ha-tang-va-do-thi-xanh-tao-cu-huych-cho-bat-dong-san-nha-trang [R=301,L]
+  RewriteCond %{REQUEST_URI} ^/tin-tuc/aws-bat-tay-superblocks-dua-vibe-coding-vao-private-cloud-cuoc-dua-h%E1%BA%A1-tang-ai-doanh-nghiep$ [NC]
+  RewriteRule ^ /tin-tuc/aws-bat-tay-superblocks-dua-vibe-coding-vao-private-cloud-cuoc-dua-ha-tang-ai-doanh-nghiep [R=301,L]
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

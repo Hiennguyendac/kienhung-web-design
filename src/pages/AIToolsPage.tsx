@@ -2,7 +2,7 @@ import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react
 import type { Session } from "@supabase/supabase-js";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { aiClient } from "@/lib/aiClient";
 import type { AiMode, ChatMessage, RagCitation, DataUploadResponse } from "@/lib/aiTypes";
 import { ModelSelector } from "@/components/ai/ModelSelector";

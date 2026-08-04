@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Clock4, Navigation, Route, Truck, Warehouse } from "lucide-react";
 import heroImage from "@/assets/hero-building.jpg";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 
 const offerings = [
   "Vận tải hàng hóa nội địa, giao nhận nhanh, tối ưu chi phí tuyến cố định.",

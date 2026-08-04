@@ -15,7 +15,7 @@ import {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import { trainingDomains } from "@/lib/trainingPrograms";
 import "./Education.css";

@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { AboutSection } from "@/components/AboutSection";
 import { LegalSection } from "@/components/LegalSection";
 import { ServicesSection } from "@/components/ServicesSection";
+import { SEO } from "@/components/SEO";
 import { SectionReveal, StatCounter } from "@/components/effects";
 import { ShieldCheck, Sparkles, Users2 } from "lucide-react";
 
@@ -15,6 +16,12 @@ const stats = [
 const AboutPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Giới thiệu Kiến Hưng Investment và lĩnh vực uy tín"
+        description="Tìm hiểu Kiến Hưng Investment, doanh nghiệp uy tín hoạt động trong thương mại, CNTT, quảng cáo, logistics và giáo dục với định hướng hợp tác bền vững."
+        canonicalPath="/gioi-thieu"
+        ogImage="/logo-512.png"
+      />
       <Header />
       <main>
         <section className="relative overflow-hidden bg-navy text-primary-foreground">

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Bot, CheckCircle2, FileCheck2, FileSearch, Network, ShieldCheck, UploadCloud } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 
 const features = [
