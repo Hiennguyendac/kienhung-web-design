@@ -5,7 +5,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, GraduationCap, Handshake, Megaphone, Monitor, ShoppingCart, Target, Truck } from "lucide-react";
 import { Seo } from "@/components/Seo";
-import { CursorGlow, SectionReveal } from "@/components/effects";
+import { SectionReveal } from "@/components/effects";
 
 const highlights = [
   {
@@ -26,35 +26,35 @@ const serviceAreas = [
     title: "Thương mại & Phân phối",
     description: "Phân phối hàng hóa, kết nối nguồn cung và xây dựng kênh bán hàng B2B.",
     to: "/dich-vu/thuong-mai-phan-phoi",
-    className: "lg:col-span-2 lg:row-span-2",
+    layoutClassName: "lg:col-span-2 lg:row-span-2",
   },
   {
     icon: Monitor,
     title: "Công nghệ thông tin",
     description: "Giải pháp phần mềm, tự động hóa và tư vấn chuyển đổi số.",
     to: "/dich-vu/cong-nghe-thong-tin",
-    className: "lg:col-span-1",
+    layoutClassName: "lg:col-span-1",
   },
   {
     icon: Megaphone,
     title: "Quảng cáo & Marketing",
     description: "Nghiên cứu thị trường, truyền thông và tăng trưởng khách hàng.",
     to: "/dich-vu/quang-cao-marketing",
-    className: "lg:col-span-1",
+    layoutClassName: "lg:col-span-1",
   },
   {
     icon: Truck,
     title: "Logistics & Cho thuê xe",
     description: "Tối ưu vận chuyển, vận hành đội xe và hỗ trợ tuyến giao hàng.",
     to: "/dich-vu/logistics-cho-thue-xe",
-    className: "lg:col-span-1",
+    layoutClassName: "lg:col-span-1",
   },
   {
     icon: GraduationCap,
     title: "Giáo dục & Đào tạo",
     description: "Đào tạo kỹ năng, phát triển nhân lực và lộ trình học thực tế.",
     to: "/dich-vu/giao-duc-dao-tao",
-    className: "lg:col-span-1",
+    layoutClassName: "lg:col-span-1",
   },
 ];
 
@@ -134,24 +134,24 @@ const ServicesPage = () => {
               </p>
             </SectionReveal>
 
-            <div className="grid auto-rows-[minmax(210px,auto)] gap-5 lg:grid-cols-4">
+            <div className="grid auto-rows-[minmax(220px,auto)] gap-5 lg:grid-cols-4 lg:auto-rows-[280px]">
               {serviceAreas.map((service, index) => {
                 const isPrimary = index === 0;
                 const content = (
                   <Link
                     to={service.to}
-                    className={`group relative flex h-full min-h-[210px] flex-col justify-between overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${
+                    className={`group relative flex h-full min-h-[220px] flex-col justify-between overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated ${
                       isPrimary
                         ? "border-primary-foreground/15 bg-hero text-primary-foreground"
                         : "border-border bg-card text-foreground"
-                    } ${service.className}`}
+                    }`}
                   >
                     <div className="absolute inset-x-0 top-0 h-1 bg-gold" />
                     <div>
                       <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-lg ${isPrimary ? "bg-gold/20" : "bg-navy/10"}`}>
                         <service.icon className={`h-6 w-6 ${isPrimary ? "text-gold" : "text-navy"}`} />
                       </div>
-                      <h3 className={`font-display text-2xl font-bold ${isPrimary ? "text-primary-foreground" : "text-foreground"}`}>
+                      <h3 className={`font-display font-bold leading-snug ${isPrimary ? "text-2xl text-primary-foreground" : "text-xl text-foreground"}`}>
                         {service.title}
                       </h3>
                       <p className={`mt-3 max-w-lg leading-relaxed ${isPrimary ? "text-primary-foreground/78" : "text-muted-foreground"}`}>
@@ -166,8 +166,8 @@ const ServicesPage = () => {
                 );
 
                 return (
-                  <SectionReveal key={service.title} delay={index * 0.06} className={service.className}>
-                    {isPrimary ? <CursorGlow className="h-full">{content}</CursorGlow> : content}
+                  <SectionReveal key={service.title} delay={index * 0.06} className={`h-full ${service.layoutClassName}`}>
+                    {content}
                   </SectionReveal>
                 );
               })}
