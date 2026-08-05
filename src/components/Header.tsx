@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
+import kienHungLogoWebp from "@/assets/kien-hung-logo.webp";
 
 const navItems = [
   { label: "Trang chủ", to: "/" },
@@ -47,11 +48,17 @@ export const Header = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gold/40 shadow-[0_10px_24px_rgba(15,23,42,0.18)]">
-                <img 
-                  src={kienHungLogo} 
-                  alt="Kiến Hưng Investment Logo" 
-                  className="w-full h-full object-cover object-top scale-125"
-                />
+                <picture className="block h-full w-full">
+                  <source srcSet={kienHungLogoWebp} type="image/webp" />
+                  <img
+                    src={kienHungLogo}
+                    alt="Kiến Hưng Investment Logo"
+                    width={1078}
+                    height={1280}
+                    decoding="async"
+                    className="w-full h-full object-cover object-top scale-125"
+                  />
+                </picture>
               </div>
               <div className="hidden sm:block">
                 <div className="font-heading text-lg font-bold text-navy leading-tight">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BarChart2, Megaphone, PenTool, Target, Users } from "lucide-react";
 import heroImage from "@/assets/hero-building.jpg";
+import heroImageWebp from "@/assets/hero-building.webp";
 import { Seo } from "@/components/SEO";
 
 const offerings = [
@@ -33,7 +34,10 @@ const MarketingPage = () => {
       <main>
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt="Quảng cáo & Marketing" className="w-full h-full object-cover" />
+            <picture className="block h-full w-full">
+              <source srcSet={heroImageWebp} type="image/webp" />
+              <img src={heroImage} alt="Quảng cáo & Marketing" width={1920} height={1080} decoding="async" className="w-full h-full object-cover" />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-transparent" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">

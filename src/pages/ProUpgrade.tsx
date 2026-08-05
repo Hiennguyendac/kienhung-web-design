@@ -130,7 +130,10 @@ export default function ProUpgradePage() {
                   <p className="value">PRO + email đăng nhập</p>
                 </div>
                 <div className="pro-bank-qr">
-                  <img src="/qr-vietinbank.jpg" alt="QR thanh toán Vietin Bank" loading="lazy" />
+                  <picture>
+                    <source srcSet="/qr-vietinbank.webp" type="image/webp" />
+                    <img src="/qr-vietinbank.jpg" alt="QR thanh toán Vietin Bank" width={1125} height={2436} loading="lazy" decoding="async" />
+                  </picture>
                   <p>Quét QR để chuyển khoản nhanh</p>
                 </div>
               </div>

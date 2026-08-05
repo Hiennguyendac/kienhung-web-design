@@ -85,4 +85,37 @@ export default defineConfig(({ mode }) => ({
     dirStyle: "nested",
     includedRoutes: () => [...staticPrerenderRoutes, ...getBlogPrerenderRoutes()],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+
+          if (id.includes("/react/") || id.includes("/react-dom/") || id.includes("/scheduler/")) {
+            return "vendor-react";
+          }
+
+          if (id.includes("framer-motion")) {
+            return "vendor-motion";
+          }
+
+          if (id.includes("recharts") || id.includes("d3-") || id.includes("victory-vendor")) {
+            return "vendor-charts";
+          }
+
+          if (id.includes("@supabase")) {
+            return "vendor-supabase";
+          }
+
+          if (id.includes("@radix-ui")) {
+            return "vendor-radix";
+          }
+
+          if (id.includes("lucide-react")) {
+            return "vendor-icons";
+          }
+        },
+      },
+    },
+  },
 }));

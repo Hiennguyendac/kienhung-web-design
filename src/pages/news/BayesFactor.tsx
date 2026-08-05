@@ -114,13 +114,18 @@ const BayesFactorPage = () => {
         <section className="mt-8 space-y-4">
           <h2 className="font-heading text-2xl font-semibold text-foreground">3. Diễn giải theo thang Jeffrey</h2>
           <figure className="rounded-xl border border-border bg-card shadow-soft overflow-hidden">
-            <img
-              src="/news/bayes-factor-jeffreys-scale.png"
-              alt="Infographic thang Jeffrey cho Bayes Factor"
-              className="w-full"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcSet="/news/bayes-factor-jeffreys-scale.webp" type="image/webp" />
+              <img
+                src="/news/bayes-factor-jeffreys-scale.png"
+                alt="Infographic thang Jeffrey cho Bayes Factor"
+                width={359}
+                height={140}
+                className="w-full"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
               Jeffreys’s Scale: BF &gt; 1 ủng hộ H1, BF &lt; 1 ủng hộ H0; mức độ bằng chứng tăng dần theo thang.
             </figcaption>
@@ -154,13 +159,18 @@ const BayesFactorPage = () => {
             </div>
           </div>
           <figure className="rounded-xl border border-border bg-card shadow-soft overflow-hidden">
-            <img
-              src="/news/bayes-factor-table.png"
-              alt="Bảng diễn giải mức bằng chứng của Bayes Factor theo Jeffreys"
-              className="w-full"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcSet="/news/bayes-factor-table.webp" type="image/webp" />
+              <img
+                src="/news/bayes-factor-table.png"
+                alt="Bảng diễn giải mức bằng chứng của Bayes Factor theo Jeffreys"
+                width={850}
+                height={359}
+                className="w-full"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
               Bảng tham chiếu Jeffrey: đối chiếu BF và mức độ bằng chứng ủng hộ H1/H0.
             </figcaption>
