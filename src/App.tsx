@@ -1,4 +1,3 @@
-import NewsDetail from "./pages/news/[slug]";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,31 +7,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
 import * as React from "react";
 import type { RouteRecord } from "vite-react-ssg";
-import Index from "./pages/Index";
-import AboutPage from "./pages/About";
-import ServicesPage from "./pages/Services";
-import NewsPage from "./pages/News";
-import AIToolsPage from "./pages/AIToolsPage";
-import ProUpgradePage from "./pages/ProUpgrade";
-import AuthCallback from "./pages/AuthCallback";
-import ContactPage from "./pages/Contact";
-import RequestForm from "./pages/RequestForm";
-import CaseStudies from "./pages/CaseStudies";
-import Schedule from "./pages/Schedule";
-import CommercePage from "./pages/services/Commerce";
-import ITPage from "./pages/services/IT";
-import MarketingPage from "./pages/services/Marketing";
-import LogisticsPage from "./pages/services/Logistics";
-import EducationPage from "./pages/services/Education";
-import TrainingProgramDetailPage from "./pages/services/TrainingProgramDetail";
-import TermsPage from "./pages/policies/Terms";
-import PrivacyPage from "./pages/policies/Privacy";
-import GeneralRulesPage from "./pages/policies/GeneralRules";
-import BeaconProduct from "./pages/BeaconProduct";
-import NotFound from "./pages/NotFound";
 import { AIChatWidget } from "./components/AIChatWidget";
 import { AIChatWidget as AIToolsWidget } from "./components/ai/AIChatWidget";
-import { getPostStaticPaths } from "./lib/posts";
 
 const queryClient = new QueryClient();
 
@@ -106,7 +82,9 @@ const AnimatedOutlet = () => {
         exit={hasHydrated ? { opacity: 0 } : undefined}
         transition={{ duration: 0.22, ease: "easeOut" }}
       >
-        <Outlet />
+        <React.Suspense fallback={null}>
+          <Outlet />
+        </React.Suspense>
       </motion.div>
     </AnimatePresence>
   );
@@ -133,38 +111,50 @@ export const routes: RouteRecord[] = [
     element: <AppLayout />,
     entry: "src/App.tsx",
     children: [
-      { index: true, element: <Index />, entry: "src/pages/Index.tsx" },
-      { path: "gioi-thieu", element: <AboutPage />, entry: "src/pages/About.tsx" },
-      { path: "linh-vuc-hoat-dong", element: <ServicesPage />, entry: "src/pages/Services.tsx" },
-      { path: "dich-vu/thuong-mai-phan-phoi", element: <CommercePage />, entry: "src/pages/services/Commerce.tsx" },
-      { path: "dich-vu/cong-nghe-thong-tin", element: <ITPage />, entry: "src/pages/services/IT.tsx" },
-      { path: "dich-vu/quang-cao-marketing", element: <MarketingPage />, entry: "src/pages/services/Marketing.tsx" },
-      { path: "dich-vu/logistics-cho-thue-xe", element: <LogisticsPage />, entry: "src/pages/services/Logistics.tsx" },
-      { path: "dich-vu/giao-duc-dao-tao", element: <EducationPage />, entry: "src/pages/services/Education.tsx" },
+      { index: true, lazy: async () => ({ Component: (await import("./pages/Index")).default }), entry: "src/pages/Index.tsx" },
+      { path: "gioi-thieu", lazy: async () => ({ Component: (await import("./pages/About")).default }), entry: "src/pages/About.tsx" },
+      { path: "linh-vuc-hoat-dong", lazy: async () => ({ Component: (await import("./pages/Services")).default }), entry: "src/pages/Services.tsx" },
+      { path: "dich-vu/thuong-mai-phan-phoi", lazy: async () => ({ Component: (await import("./pages/services/Commerce")).default }), entry: "src/pages/services/Commerce.tsx" },
+      { path: "dich-vu/cong-nghe-thong-tin", lazy: async () => ({ Component: (await import("./pages/services/IT")).default }), entry: "src/pages/services/IT.tsx" },
+      { path: "dich-vu/quang-cao-marketing", lazy: async () => ({ Component: (await import("./pages/services/Marketing")).default }), entry: "src/pages/services/Marketing.tsx" },
+      { path: "dich-vu/logistics-cho-thue-xe", lazy: async () => ({ Component: (await import("./pages/services/Logistics")).default }), entry: "src/pages/services/Logistics.tsx" },
+      { path: "dich-vu/giao-duc-dao-tao", lazy: async () => ({ Component: (await import("./pages/services/Education")).default }), entry: "src/pages/services/Education.tsx" },
       {
         path: "dich-vu/giao-duc-dao-tao/linh-vuc/:domainId/chuong-trinh/:programId",
-        element: <TrainingProgramDetailPage />,
+        lazy: async () => ({ Component: (await import("./pages/services/TrainingProgramDetail")).default }),
         entry: "src/pages/services/TrainingProgramDetail.tsx",
       },
-      { path: "chinh-sach/dieu-khoan-su-dung", element: <TermsPage />, entry: "src/pages/policies/Terms.tsx" },
-      { path: "chinh-sach/chinh-sach-bao-mat", element: <PrivacyPage />, entry: "src/pages/policies/Privacy.tsx" },
-      { path: "chinh-sach/quy-dinh-chung", element: <GeneralRulesPage />, entry: "src/pages/policies/GeneralRules.tsx" },
-      { path: "tin-tuc", element: <NewsPage />, entry: "src/pages/News.tsx" },
-      { path: "ai-tools", element: <AIToolsPage />, entry: "src/pages/AIToolsPage.tsx" },
-      { path: "ai-tools/pro", element: <ProUpgradePage />, entry: "src/pages/ProUpgrade.tsx" },
-      { path: "san-pham/beacon", element: <BeaconProduct />, entry: "src/pages/BeaconProduct.tsx" },
-      { path: "auth/callback", element: <AuthCallback />, entry: "src/pages/AuthCallback.tsx" },
-      { path: "case-studies", element: <CaseStudies />, entry: "src/pages/CaseStudies.tsx" },
-      { path: "lien-he", element: <ContactPage />, entry: "src/pages/Contact.tsx" },
-      { path: "yeu-cau-bao-gia", element: <RequestForm />, entry: "src/pages/RequestForm.tsx" },
-      { path: "dat-lich-hen", element: <Schedule />, entry: "src/pages/Schedule.tsx" },
+      { path: "chinh-sach/dieu-khoan-su-dung", lazy: async () => ({ Component: (await import("./pages/policies/Terms")).default }), entry: "src/pages/policies/Terms.tsx" },
+      { path: "chinh-sach/chinh-sach-bao-mat", lazy: async () => ({ Component: (await import("./pages/policies/Privacy")).default }), entry: "src/pages/policies/Privacy.tsx" },
+      { path: "chinh-sach/quy-dinh-chung", lazy: async () => ({ Component: (await import("./pages/policies/GeneralRules")).default }), entry: "src/pages/policies/GeneralRules.tsx" },
+      {
+        path: "tin-tuc",
+        lazy: async () => {
+          const mod = await import("./pages/News");
+          return { Component: mod.default, loader: mod.loader };
+        },
+        entry: "src/pages/News.tsx",
+      },
+      { path: "ai-tools", lazy: async () => ({ Component: (await import("./pages/AIToolsPage")).default }), entry: "src/pages/AIToolsPage.tsx" },
+      { path: "ai-tools/pro", lazy: async () => ({ Component: (await import("./pages/ProUpgrade")).default }), entry: "src/pages/ProUpgrade.tsx" },
+      { path: "san-pham/beacon", lazy: async () => ({ Component: (await import("./pages/BeaconProduct")).default }), entry: "src/pages/BeaconProduct.tsx" },
+      { path: "auth/callback", lazy: async () => ({ Component: (await import("./pages/AuthCallback")).default }), entry: "src/pages/AuthCallback.tsx" },
+      { path: "case-studies", lazy: async () => ({ Component: (await import("./pages/CaseStudies")).default }), entry: "src/pages/CaseStudies.tsx" },
+      { path: "lien-he", lazy: async () => ({ Component: (await import("./pages/Contact")).default }), entry: "src/pages/Contact.tsx" },
+      { path: "yeu-cau-bao-gia", lazy: async () => ({ Component: (await import("./pages/RequestForm")).default }), entry: "src/pages/RequestForm.tsx" },
+      { path: "dat-lich-hen", lazy: async () => ({ Component: (await import("./pages/Schedule")).default }), entry: "src/pages/Schedule.tsx" },
       {
         path: "tin-tuc/:slug",
-        element: <NewsDetail />,
+        lazy: async () => {
+          const mod = await import("./pages/news/[slug]");
+          return { Component: mod.default, loader: mod.loader };
+        },
         entry: "src/pages/news/[slug].tsx",
-        getStaticPaths: getPostStaticPaths,
+        getStaticPaths: import.meta.env.SSR
+          ? async () => (await import("./lib/posts")).getPostStaticPaths()
+          : undefined,
       },
-      { path: "*", element: <NotFound />, entry: "src/pages/NotFound.tsx" },
+      { path: "*", lazy: async () => ({ Component: (await import("./pages/NotFound")).default }), entry: "src/pages/NotFound.tsx" },
     ],
   },
 ];

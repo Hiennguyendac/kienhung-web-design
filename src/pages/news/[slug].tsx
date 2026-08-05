@@ -1,20 +1,32 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { SEO, absoluteUrl, normalizeDescription } from "../../components/SEO";
-import { getPostBySlug } from "../../lib/posts";
+import type { Post } from "../../lib/posts";
 import { fetchPostViews, incrementPostView, subscribePostViews } from "../../lib/postViews";
 import { SectionReveal } from "../../components/effects";
 import "../News.css";
 
+type NewsDetailLoaderData = {
+  post?: Post;
+};
+
+export async function loader({ params }: { params: { slug?: string } }): Promise<NewsDetailLoaderData> {
+  if (!import.meta.env.SSR || !params.slug) {
+    return {};
+  }
+
+  const { getPostBySlug } = await import("../../lib/posts");
+  return { post: getPostBySlug(params.slug) };
+}
+
 export default function NewsDetail() {
-  const { slug } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const { post } = useLoaderData() as NewsDetailLoaderData;
   const [views, setViews] = useState<number | null>(null);
 
   const formatDate = (value?: string) => {
@@ -147,7 +159,7 @@ export default function NewsDetail() {
             </SectionReveal>
             {post.image ? (
               <SectionReveal delay={0.08} className="news-hero-media">
-                <img src={post.image} alt={post.title} loading="lazy" />
+                <img src={post.image} alt={post.title} width={1200} height={675} loading="lazy" decoding="async" />
               </SectionReveal>
             ) : null}
             <div className="prose">

@@ -1,5 +1,6 @@
 import { Facebook, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
+import kienHungLogoWebp from "@/assets/kien-hung-logo.webp";
 
 const footerLinks = {
   company: [
@@ -40,11 +41,18 @@ export const Footer = () => {
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-white/10 ring-2 ring-gold/40 shadow-[0_10px_24px_rgba(15,23,42,0.18)]">
-                <img 
-                  src={kienHungLogo} 
-                  alt="Kiến Hưng Investment Logo" 
-                  className="w-full h-full object-cover object-top scale-125"
-                />
+                <picture className="block h-full w-full">
+                  <source srcSet={kienHungLogoWebp} type="image/webp" />
+                  <img
+                    src={kienHungLogo}
+                    alt="Kiến Hưng Investment Logo"
+                    width={1078}
+                    height={1280}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top scale-125"
+                  />
+                </picture>
               </div>
               <div>
                 <div className="font-heading text-lg font-bold leading-tight">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Building2, Box, Globe2, Handshake, ShieldCheck } from "lucide-react";
 import heroBuilding from "@/assets/hero-building.jpg";
+import heroBuildingWebp from "@/assets/hero-building.webp";
 import { Seo } from "@/components/SEO";
 
 const offerings = [
@@ -33,7 +34,10 @@ const CommercePage = () => {
       <main>
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroBuilding} alt="Kiến Hưng commerce hero" className="w-full h-full object-cover" />
+            <picture className="block h-full w-full">
+              <source srcSet={heroBuildingWebp} type="image/webp" />
+              <img src={heroBuilding} alt="Kiến Hưng commerce hero" width={1920} height={1080} decoding="async" className="w-full h-full object-cover" />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-transparent" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">

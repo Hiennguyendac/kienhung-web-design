@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, Code2, Cpu, Shield, Server, Workflow } from "lucide-react";
 import heroImage from "@/assets/kien-hung-hero.jpg";
+import heroImageWebp from "@/assets/kien-hung-hero.webp";
 import { Seo } from "@/components/SEO";
 
 const offerings = [
@@ -33,7 +34,10 @@ const ITPage = () => {
       <main>
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt="Công nghệ thông tin" className="w-full h-full object-cover" />
+            <picture className="block h-full w-full">
+              <source srcSet={heroImageWebp} type="image/webp" />
+              <img src={heroImage} alt="Công nghệ thông tin" width={1920} height={1080} decoding="async" className="w-full h-full object-cover" />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-transparent" />
           </div>
           <div className="relative container mx-auto px-6 lg:px-12 py-16 lg:py-24 text-primary-foreground">

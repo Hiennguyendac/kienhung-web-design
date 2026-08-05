@@ -1,28 +1,47 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
-import { getAllPosts } from "../lib/posts";
+import type { Post } from "../lib/posts";
 import { fetchPostViews, subscribePostViews } from "../lib/postViews";
 import { SectionReveal } from "../components/effects";
 import "./News.css";
 
+type NewsListPost = Omit<Post, "body" | "raw">;
+
+type NewsLoaderData = {
+  posts: NewsListPost[];
+};
+
+const sortPostsByDateDesc = <T extends { date?: string }>(posts: T[]): T[] => {
+  return [...posts].sort((a, b) => {
+    const da = new Date(a.date || "1970-01-01").getTime();
+    const db = new Date(b.date || "1970-01-01").getTime();
+    return db - da;
+  });
+};
+
+export async function loader(): Promise<NewsLoaderData> {
+  if (!import.meta.env.SSR) {
+    return { posts: [] };
+  }
+
+  const { getAllPosts } = await import("../lib/posts");
+  const posts = sortPostsByDateDesc(getAllPosts()).map(({ body, raw, ...post }) => post);
+  return { posts };
+}
+
 export default function News() {
   const pageSize = 4;
+  const loaderData = useLoaderData() as NewsLoaderData;
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page") || "1");
   const initialCategory = (searchParams.get("category") || "").trim();
   const [page, setPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
   const [category, setCategory] = useState(initialCategory);
   const [viewsBySlug, setViewsBySlug] = useState<Record<string, number>>({});
-  const posts = useMemo(() => {
-    return getAllPosts().sort((a, b) => {
-      const da = new Date(a.date || "1970-01-01").getTime();
-      const db = new Date(b.date || "1970-01-01").getTime();
-      return db - da;
-    });
-  }, []);
+  const posts = useMemo(() => sortPostsByDateDesc(loaderData.posts), [loaderData.posts]);
   const categories = useMemo(() => {
     const set = new Set<string>();
     posts.forEach((post) => {
@@ -200,7 +219,7 @@ export default function News() {
                     <SectionReveal key={p.slug} delay={index * 0.06} className="news-card">
                       {p.image ? (
                         <div className="news-card-media">
-                          <img src={p.image} alt={p.title} loading="lazy" />
+                          <img src={p.image} alt={p.title} width={1200} height={675} loading="lazy" decoding="async" />
                           <div className="news-card-overlay" aria-hidden="true" />
                         </div>
                       ) : null}

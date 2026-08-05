@@ -17,6 +17,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/SEO";
 import heroImage from "@/assets/kien-hung-hero.jpg";
+import heroImageWebp from "@/assets/kien-hung-hero.webp";
 import { trainingDomains } from "@/lib/trainingPrograms";
 import "./Education.css";
 
@@ -213,7 +214,10 @@ const EducationPage = () => {
       <main className="relative overflow-hidden">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt="Trang học thuật Giáo dục và Đào tạo" className="h-full w-full object-cover opacity-55" />
+            <picture className="block h-full w-full">
+              <source srcSet={heroImageWebp} type="image/webp" />
+              <img src={heroImage} alt="Trang học thuật Giáo dục và Đào tạo" width={1920} height={1080} decoding="async" className="h-full w-full object-cover opacity-55" />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/50" />
           </div>
           <div className="absolute inset-0 opacity-70 pointer-events-none">

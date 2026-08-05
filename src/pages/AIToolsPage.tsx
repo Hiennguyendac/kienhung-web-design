@@ -1253,6 +1253,10 @@ export default function AIToolsPage() {
                           <img
                             src={imageUploadUrl}
                             alt="Uploaded"
+                            width={1024}
+                            height={1024}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full rounded-2xl border border-white/10 object-cover"
                           />
                         </div>
@@ -1263,6 +1267,10 @@ export default function AIToolsPage() {
                           <img
                             src={imageUrl}
                             alt="AI edited"
+                            width={1024}
+                            height={1024}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full rounded-2xl border border-white/10 object-cover"
                           />
                           <input
