@@ -9,6 +9,7 @@ import * as React from "react";
 import type { RouteRecord } from "vite-react-ssg";
 import { AIChatWidget } from "./components/AIChatWidget";
 import { AIChatWidget as AIToolsWidget } from "./components/ai/AIChatWidget";
+import { trackPageView } from "./lib/analytics";
 
 const queryClient = new QueryClient();
 
@@ -90,11 +91,22 @@ const AnimatedOutlet = () => {
   );
 };
 
+const AnalyticsRouteTracker = () => {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    trackPageView();
+  }, [location.pathname, location.search]);
+
+  return null;
+};
+
 const AppLayout = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <RootStructuredData />
+        <AnalyticsRouteTracker />
         <Toaster />
         <Sonner />
         <AnimatedOutlet />

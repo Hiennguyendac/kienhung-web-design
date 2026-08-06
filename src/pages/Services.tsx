@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, GraduationCap, Handshake, Megaphone, Monitor, ShoppingCart, Target, Truck } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { SectionReveal } from "@/components/effects";
+import { trackCtaClick } from "@/lib/analytics";
 
 const highlights = [
   {
@@ -86,7 +87,7 @@ const ServicesPage = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mt-6">
                   <Button variant="default" size="lg" className="group" asChild>
-                    <Link to="/lien-he">
+                    <Link to="/lien-he" onClick={() => trackCtaClick("Nhận tư vấn")}>
                       Nhận tư vấn
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>

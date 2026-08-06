@@ -7,6 +7,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { SectionReveal } from "@/components/effects";
+import { trackCtaClick } from "../lib/analytics";
 
 const studies = [
   {
@@ -130,7 +131,7 @@ const CaseStudies = () => {
             <Link to="/yeu-cau-bao-gia">
               <Button>Gửi yêu cầu</Button>
             </Link>
-            <Link to="/dat-lich-hen">
+            <Link to="/dat-lich-hen" onClick={() => trackCtaClick("Đặt lịch hẹn")}>
               <Button variant="outline">Đặt lịch hẹn</Button>
             </Link>
           </div>

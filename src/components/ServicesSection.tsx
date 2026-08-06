@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Monitor, Megaphone, Truck, GraduationCap, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { trackCtaClick } from "../lib/analytics";
 
 const services = [
   {
@@ -105,7 +106,7 @@ export const ServicesSection = () => {
             <Link to="/case-studies" className="text-sm font-semibold text-navy underline hover:text-navy/80">
               Xem case study
             </Link>
-            <Link to="/dat-lich-hen" className="text-sm font-semibold text-navy underline hover:text-navy/80">
+            <Link to="/dat-lich-hen" onClick={() => trackCtaClick("Đặt lịch hẹn")} className="text-sm font-semibold text-navy underline hover:text-navy/80">
               Đặt lịch hẹn
             </Link>
           </div>

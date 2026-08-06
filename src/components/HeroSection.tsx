@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Building2, GraduationCap, Megaphone, Monitor, Shield, ShoppingCart, Truck } from "lucide-react";
 import { CursorGlow, MagneticButton, SectionReveal, StatCounter } from "@/components/effects";
+import { trackCtaClick } from "@/lib/analytics";
 
 const highlights = [
   { icon: Building2, text: "Doanh nghiệp uy tín" },
@@ -113,7 +114,7 @@ export const HeroSection = () => {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </MagneticButton>
               <Button variant="hero" size="xl" asChild>
-                <Link to="/lien-he">Liên hệ hợp tác</Link>
+                <Link to="/lien-he" onClick={() => trackCtaClick("Liên hệ hợp tác")}>Liên hệ hợp tác</Link>
               </Button>
             </SectionReveal>
 

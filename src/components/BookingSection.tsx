@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { CalendarCheck, ShieldCheck, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackCtaClick } from "../lib/analytics";
 
 const points = [
   {
@@ -54,7 +55,7 @@ export const BookingSection = () => {
                 Chọn lịch trực tuyến hoặc gửi yêu cầu để chúng tôi chủ động liên hệ.
               </p>
               <div className="flex flex-col gap-3">
-                <Link to="/dat-lich-hen">
+                <Link to="/dat-lich-hen" onClick={() => trackCtaClick("Đặt lịch hẹn")}>
                   <Button size="lg" className="w-full">Đặt lịch hẹn</Button>
                 </Link>
                 <Link to="/yeu-cau-bao-gia">
