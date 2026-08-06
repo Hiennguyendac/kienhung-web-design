@@ -105,6 +105,16 @@ const AppLayout = () => (
   </HelmetProvider>
 );
 
+const newsLoader = async () => {
+  const { loader } = await import("./pages/News");
+  return loader();
+};
+
+const newsDetailLoader = async ({ params }: { params: { slug?: string } }) => {
+  const { loader } = await import("./pages/news/[slug]");
+  return loader({ params });
+};
+
 export const routes: RouteRecord[] = [
   {
     path: "/",
@@ -129,10 +139,8 @@ export const routes: RouteRecord[] = [
       { path: "chinh-sach/quy-dinh-chung", lazy: async () => ({ Component: (await import("./pages/policies/GeneralRules")).default }), entry: "src/pages/policies/GeneralRules.tsx" },
       {
         path: "tin-tuc",
-        lazy: async () => {
-          const mod = await import("./pages/News");
-          return { Component: mod.default, loader: mod.loader };
-        },
+        loader: newsLoader,
+        lazy: async () => ({ Component: (await import("./pages/News")).default }),
         entry: "src/pages/News.tsx",
       },
       { path: "ai-tools", lazy: async () => ({ Component: (await import("./pages/AIToolsPage")).default }), entry: "src/pages/AIToolsPage.tsx" },
@@ -145,10 +153,8 @@ export const routes: RouteRecord[] = [
       { path: "dat-lich-hen", lazy: async () => ({ Component: (await import("./pages/Schedule")).default }), entry: "src/pages/Schedule.tsx" },
       {
         path: "tin-tuc/:slug",
-        lazy: async () => {
-          const mod = await import("./pages/news/[slug]");
-          return { Component: mod.default, loader: mod.loader };
-        },
+        loader: newsDetailLoader,
+        lazy: async () => ({ Component: (await import("./pages/news/[slug]")).default }),
         entry: "src/pages/news/[slug].tsx",
         getStaticPaths: import.meta.env.SSR
           ? async () => (await import("./lib/posts")).getPostStaticPaths()

@@ -48,6 +48,7 @@ export const Footer = () => {
                     alt="Kiến Hưng Investment Logo"
                     width={1078}
                     height={1280}
+                    crossOrigin="anonymous"
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover object-top scale-125"
