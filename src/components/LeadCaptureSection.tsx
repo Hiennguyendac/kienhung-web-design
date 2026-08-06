@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Target, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackCtaClick } from "../lib/analytics";
 
 const steps = [
   {
@@ -65,7 +66,7 @@ export const LeadCaptureSection = () => {
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
-              <Link to="/dat-lich-hen" className="w-full sm:w-auto">
+              <Link to="/dat-lich-hen" onClick={() => trackCtaClick("Đặt lịch hẹn")} className="w-full sm:w-auto">
                 <Button size="lg" variant="outline" className="w-full">
                   Đặt lịch hẹn
                 </Button>

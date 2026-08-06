@@ -6,6 +6,7 @@ import { ArrowRight, Bot, Code2, Cpu, Shield, Server, Workflow } from "lucide-re
 import heroImage from "@/assets/kien-hung-hero.jpg";
 import heroImageWebp from "@/assets/kien-hung-hero.webp";
 import { Seo } from "@/components/SEO";
+import { trackCtaClick } from "../../lib/analytics";
 
 const offerings = [
   "Tư vấn chuyển đổi số, đánh giá hiện trạng hệ thống, lộ trình và ngân sách.",
@@ -135,7 +136,7 @@ const ITPage = () => {
             </div>
             <div className="flex gap-3">
               <Button variant="default" size="lg" asChild>
-                <Link to="/yeu-cau-bao-gia">Nhận tư vấn</Link>
+                <Link to="/yeu-cau-bao-gia" onClick={() => trackCtaClick("Nhận tư vấn")}>Nhận tư vấn</Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/yeu-cau-bao-gia">Xem case study</Link>

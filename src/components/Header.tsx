@@ -5,6 +5,7 @@ import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 import kienHungLogoWebp from "@/assets/kien-hung-logo.webp";
+import { trackCtaClick } from "@/lib/analytics";
 
 const navItems = [
   { label: "Trang chủ", to: "/" },
@@ -94,12 +95,12 @@ export const Header = () => {
 
             {/* CTA Button */}
             <div className="hidden lg:flex items-center gap-4">
-              <Link to="/dat-lich-hen">
+              <Link to="/dat-lich-hen" onClick={() => trackCtaClick("Đặt lịch hẹn")}>
                 <Button variant="outline" size="sm">
                   Đặt lịch hẹn
                 </Button>
               </Link>
-              <Link to="/lien-he">
+              <Link to="/lien-he" onClick={() => trackCtaClick("Liên hệ tư vấn")}>
                 <Button variant="default" size="sm">
                   Liên hệ tư vấn
                 </Button>
@@ -138,12 +139,12 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
-                  <Link to="/dat-lich-hen" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/dat-lich-hen" onClick={() => { setIsMenuOpen(false); trackCtaClick("Đặt lịch hẹn"); }}>
                     <Button variant="outline" className="w-full">
                       Đặt lịch hẹn
                     </Button>
                   </Link>
-                  <Link to="/lien-he" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/lien-he" onClick={() => { setIsMenuOpen(false); trackCtaClick("Liên hệ tư vấn"); }}>
                     <Button variant="default" className="w-full">
                       Liên hệ tư vấn
                     </Button>

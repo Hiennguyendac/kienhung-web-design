@@ -6,6 +6,7 @@ import { Building2, Box, Globe2, Handshake, ShieldCheck } from "lucide-react";
 import heroBuilding from "@/assets/hero-building.jpg";
 import heroBuildingWebp from "@/assets/hero-building.webp";
 import { Seo } from "@/components/SEO";
+import { trackCtaClick } from "../../lib/analytics";
 
 const offerings = [
   "Phân phối hàng hóa B2B, xây dựng kênh đại lý và đối tác chiến lược.",
@@ -47,7 +48,7 @@ const CommercePage = () => {
                 Thương mại & Phân phối
               </h1>
               <Button variant="heroSolid" size="lg" asChild>
-                <Link to="/yeu-cau-bao-gia">Liên hệ hợp tác</Link>
+                <Link to="/yeu-cau-bao-gia" onClick={() => trackCtaClick("Liên hệ hợp tác")}>Liên hệ hợp tác</Link>
               </Button>
             </div>
             <p className="font-body text-lg text-primary-foreground/80 max-w-3xl mt-4 leading-relaxed">
@@ -130,7 +131,7 @@ const CommercePage = () => {
             </div>
             <div className="flex gap-3">
               <Button variant="default" size="lg" asChild>
-                <Link to="/yeu-cau-bao-gia">Nhận tư vấn</Link>
+                <Link to="/yeu-cau-bao-gia" onClick={() => trackCtaClick("Nhận tư vấn")}>Nhận tư vấn</Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/yeu-cau-bao-gia">Tải profile dịch vụ</Link>

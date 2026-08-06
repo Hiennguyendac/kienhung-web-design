@@ -6,6 +6,7 @@ import { MapPin, PhoneCall, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 import { SectionReveal } from "@/components/effects";
+import { trackCtaClick } from "@/lib/analytics";
 
 const quickContacts = [
   {
@@ -55,10 +56,10 @@ const ContactPage = () => {
                 </p>
                 <div className="mt-6 flex gap-4">
                   <Button asChild variant="default" size="lg">
-                    <a href="tel:0903103198">Gọi ngay</a>
+                    <a href="tel:0903103198" onClick={() => trackCtaClick("Gọi ngay")}>Gọi ngay</a>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <Link to="/yeu-cau-bao-gia">Đặt lịch hẹn</Link>
+                    <Link to="/yeu-cau-bao-gia" onClick={() => trackCtaClick("Đặt lịch hẹn")}>Đặt lịch hẹn</Link>
                   </Button>
                 </div>
               </SectionReveal>
