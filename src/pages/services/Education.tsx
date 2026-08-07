@@ -483,6 +483,14 @@ const EducationPage = () => {
             </div>
           </div>
         </section>
+
+        <section className="py-8">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Link className="font-body text-sm font-semibold text-navy hover:text-gold transition-colors" to="/hoi-dap#giao-duc-dao-tao">
+              Xem câu hỏi thường gặp về Giáo dục &amp; Đào tạo →
+            </Link>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
