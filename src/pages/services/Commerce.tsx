@@ -139,6 +139,14 @@ const CommercePage = () => {
             </div>
           </div>
         </section>
+
+        <section className="py-8">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Link className="font-body text-sm font-semibold text-navy hover:text-gold transition-colors" to="/hoi-dap#thuong-mai-phan-phoi">
+              Xem câu hỏi thường gặp về Thương mại &amp; Phân phối →
+            </Link>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>

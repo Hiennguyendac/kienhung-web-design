@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { BookOpen, ChevronDown, HelpCircle, Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import kienHungLogo from "@/assets/kien-hung-logo.jpg";
 import kienHungLogoWebp from "@/assets/kien-hung-logo.webp";
 import { trackCtaClick } from "@/lib/analytics";
@@ -13,15 +19,26 @@ const navItems = [
   { label: "Lĩnh vực hoạt động", to: "/linh-vuc-hoat-dong" },
   { label: "Case study", to: "/case-studies" },
   { label: "Tin tức", to: "/tin-tuc" },
-  { label: "Beacon", to: "/san-pham/beacon" },
   { label: "Liên hệ", to: "/lien-he" },
+];
+
+const resourceItems = [
+  { label: "Beacon", description: "Công cụ AI hỗ trợ doanh nghiệp", to: "/san-pham/beacon", icon: BookOpen },
+  { label: "Hỏi đáp", description: "Giải đáp thắc mắc thường gặp", to: "/hoi-dap", icon: HelpCircle },
 ];
 
 const normalizePath = (path: string) => path.replace(/\/$/, "") || "/";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const location = useLocation();
+  const isResourceActive = resourceItems.some((item) => normalizePath(location.pathname) === normalizePath(item.to));
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    setIsResourcesOpen(false);
+  };
 
   return (
     <>
@@ -75,12 +92,68 @@ export const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
-              {navItems.map((item) => (
+            <nav className="hidden lg:flex items-center gap-3 xl:gap-4 whitespace-nowrap">
+              {navItems.slice(0, 5).map((item) => (
                 <Link
                   key={item.label}
                   to={item.to}
-                  className={`relative px-3 py-2 rounded-full text-foreground transition-all font-body text-sm font-medium hover:bg-navy/5 hover:text-navy ${
+                  className={`relative px-2 py-2 rounded-full text-foreground transition-all font-body text-sm font-medium hover:bg-navy/5 hover:text-navy ${
+                    normalizePath(location.pathname) === normalizePath(item.to) ? "text-navy bg-navy/5 shadow-inner" : ""
+                  }`}
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  {normalizePath(location.pathname) === normalizePath(item.to) && (
+                    <span
+                      className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-gold shadow-[0_0_0_4px_rgba(255,193,7,0.2)]"
+                      aria-hidden
+                    />
+                  )}
+                </Link>
+              ))}
+
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  className={`relative inline-flex items-center gap-1 rounded-full px-2 py-2 font-body text-sm font-medium text-foreground outline-none transition-all hover:bg-navy/5 hover:text-navy data-[state=open]:bg-navy/5 ${
+                    isResourceActive ? "bg-navy/5 text-navy shadow-inner" : ""
+                  }`}
+                >
+                  Tài nguyên
+                  <ChevronDown className="h-4 w-4 transition-transform duration-200 data-[state=open]:rotate-180" />
+                  {isResourceActive && (
+                    <span
+                      className="absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-gold shadow-[0_0_0_4px_rgba(255,193,7,0.2)]"
+                      aria-hidden
+                    />
+                  )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-72 p-2">
+                  {resourceItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <DropdownMenuItem key={item.to} asChild className="p-0 focus:bg-transparent">
+                        <Link
+                          to={item.to}
+                          className="flex items-start gap-3 rounded-md p-3 hover:bg-navy/5"
+                        >
+                          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-navy" aria-hidden="true" />
+                          <span className="min-w-0">
+                            <span className="block font-heading text-sm font-semibold text-foreground">{item.label}</span>
+                            <span className="mt-0.5 block whitespace-normal font-body text-xs leading-relaxed text-muted-foreground">
+                              {item.description}
+                            </span>
+                          </span>
+                        </Link>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {navItems.slice(5).map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className={`relative px-2 py-2 rounded-full text-foreground transition-all font-body text-sm font-medium hover:bg-navy/5 hover:text-navy ${
                     normalizePath(location.pathname) === normalizePath(item.to) ? "text-navy bg-navy/5 shadow-inner" : ""
                   }`}
                 >
@@ -129,24 +202,75 @@ export const Header = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-background border-t border-border"
             >
-              <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
-                {navItems.map((item) => (
+              <nav className="container mx-auto flex flex-col gap-4 px-6 py-6">
+                {navItems.slice(0, 5).map((item) => (
                   <Link
                     key={item.label}
                     to={item.to}
                     className="py-3 text-foreground font-body border-b border-border last:border-0"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={closeMobileMenu}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="border-b border-border">
+                  <button
+                    type="button"
+                    className={`flex w-full items-center justify-between py-3 text-left font-body text-foreground ${isResourceActive ? "text-navy" : ""}`}
+                    aria-expanded={isResourcesOpen}
+                    onClick={() => setIsResourcesOpen((open) => !open)}
+                  >
+                    <span>Tài nguyên</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform ${isResourcesOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isResourcesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-2 pb-3 pl-3">
+                          {resourceItems.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link
+                                key={item.to}
+                                to={item.to}
+                                className="flex items-start gap-3 rounded-md px-2 py-2 hover:bg-navy/5"
+                                onClick={closeMobileMenu}
+                              >
+                                <Icon className="mt-0.5 h-4 w-4 shrink-0 text-navy" aria-hidden="true" />
+                                <span>
+                                  <span className="block font-heading text-sm font-semibold text-foreground">{item.label}</span>
+                                  <span className="block font-body text-xs text-muted-foreground">{item.description}</span>
+                                </span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                {navItems.slice(5).map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    className="py-3 text-foreground font-body border-b border-border"
+                    onClick={closeMobileMenu}
                   >
                     {item.label}
                   </Link>
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
-                  <Link to="/dat-lich-hen" onClick={() => { setIsMenuOpen(false); trackCtaClick("Đặt lịch hẹn"); }}>
+                  <Link to="/dat-lich-hen" onClick={() => { closeMobileMenu(); trackCtaClick("Đặt lịch hẹn"); }}>
                     <Button variant="outline" className="w-full">
                       Đặt lịch hẹn
                     </Button>
                   </Link>
-                  <Link to="/lien-he" onClick={() => { setIsMenuOpen(false); trackCtaClick("Liên hệ tư vấn"); }}>
+                  <Link to="/lien-he" onClick={() => { closeMobileMenu(); trackCtaClick("Liên hệ tư vấn"); }}>
                     <Button variant="default" className="w-full">
                       Liên hệ tư vấn
                     </Button>

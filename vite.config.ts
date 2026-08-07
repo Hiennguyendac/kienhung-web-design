@@ -13,6 +13,7 @@ const staticPrerenderRoutes = [
   "/case-studies",
   "/tin-tuc",
   "/lien-he",
+  "/hoi-dap",
 ];
 
 function parseFrontmatter(raw: string): { meta: Record<string, string> } {

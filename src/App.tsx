@@ -127,6 +127,11 @@ const newsDetailLoader = async ({ params }: { params: { slug?: string } }) => {
   return loader({ params });
 };
 
+const faqLoader = async () => {
+  const { loader } = await import("./pages/FAQ");
+  return loader();
+};
+
 export const routes: RouteRecord[] = [
   {
     path: "/",
@@ -154,6 +159,12 @@ export const routes: RouteRecord[] = [
         loader: newsLoader,
         lazy: async () => ({ Component: (await import("./pages/News")).default }),
         entry: "src/pages/News.tsx",
+      },
+      {
+        path: "hoi-dap",
+        loader: faqLoader,
+        lazy: async () => ({ Component: (await import("./pages/FAQ")).default }),
+        entry: "src/pages/FAQ.tsx",
       },
       { path: "ai-tools", lazy: async () => ({ Component: (await import("./pages/AIToolsPage")).default }), entry: "src/pages/AIToolsPage.tsx" },
       { path: "ai-tools/pro", lazy: async () => ({ Component: (await import("./pages/ProUpgrade")).default }), entry: "src/pages/ProUpgrade.tsx" },
