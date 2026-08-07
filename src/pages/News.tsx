@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLoaderData, useRevalidator, useSearchParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
@@ -34,14 +34,28 @@ export async function loader(): Promise<NewsLoaderData> {
 
 export default function News() {
   const pageSize = 4;
-  const loaderData = useLoaderData() as NewsLoaderData;
+  const loaderData = useLoaderData() as NewsLoaderData | null | undefined;
+  const revalidator = useRevalidator();
+  const revalidationAttempted = useRef(false);
+  const hasPosts = Array.isArray(loaderData?.posts);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = Number(searchParams.get("page") || "1");
   const initialCategory = (searchParams.get("category") || "").trim();
   const [page, setPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
   const [category, setCategory] = useState(initialCategory);
   const [viewsBySlug, setViewsBySlug] = useState<Record<string, number>>({});
-  const posts = useMemo(() => sortPostsByDateDesc(loaderData.posts), [loaderData.posts]);
+  useEffect(() => {
+    if (hasPosts) {
+      revalidationAttempted.current = false;
+      return;
+    }
+    if (revalidator.state === "idle" && !revalidationAttempted.current) {
+      revalidationAttempted.current = true;
+      revalidator.revalidate();
+    }
+  }, [hasPosts, revalidator]);
+
+  const posts = useMemo(() => sortPostsByDateDesc(loaderData?.posts ?? []), [loaderData?.posts]);
   const categories = useMemo(() => {
     const set = new Set<string>();
     posts.forEach((post) => {
@@ -135,6 +149,23 @@ export default function News() {
     if (typeof value !== "number") return "—";
     return new Intl.NumberFormat("vi-VN").format(value);
   };
+
+  if (!hasPosts) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
+          <div className="news-wrap">
+            <div className="news-empty">
+              <h1>Đang tải tin tức</h1>
+              <p>Vui lòng chờ trong giây lát.</p>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

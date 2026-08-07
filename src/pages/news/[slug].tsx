@@ -1,5 +1,5 @@
-import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useLoaderData, useLocation, useNavigate, useRevalidator } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Header } from "../../components/Header";
@@ -26,8 +26,23 @@ export async function loader({ params }: { params: { slug?: string } }): Promise
 export default function NewsDetail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { post } = useLoaderData() as NewsDetailLoaderData;
+  const loaderData = useLoaderData() as NewsDetailLoaderData | null | undefined;
+  const revalidator = useRevalidator();
+  const revalidationAttempted = useRef(false);
+  const isLoaderPending = loaderData == null;
+  const post = loaderData?.post;
   const [views, setViews] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!isLoaderPending) {
+      revalidationAttempted.current = false;
+      return;
+    }
+    if (revalidator.state === "idle" && !revalidationAttempted.current) {
+      revalidationAttempted.current = true;
+      revalidator.revalidate();
+    }
+  }, [isLoaderPending, revalidator]);
 
   const formatDate = (value?: string) => {
     if (!value) return "";
@@ -68,6 +83,23 @@ export default function NewsDetail() {
       if (unsubscribe) unsubscribe();
     };
   }, [post?.slug]);
+
+  if (isLoaderPending) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-6 lg:px-12 py-10 lg:py-14">
+          <div className="news-wrap">
+            <div className="news-empty">
+              <h1>Đang tải bài viết</h1>
+              <p>Vui lòng chờ trong giây lát.</p>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!post) {
     return (
