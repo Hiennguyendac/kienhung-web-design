@@ -7,6 +7,7 @@ const contentDir = path.join(rootDir, "content", "blog");
 const publicDir = path.join(rootDir, "public");
 const outputPath = path.join(publicDir, "sitemap.xml");
 const appRoutesPath = path.join(rootDir, "src", "App.tsx");
+const duplicateRedirectMapPath = path.join(rootDir, "scripts", "duplicate-redirect-map.json");
 const fallbackStaticRoutes = [
   "/",
   "/gioi-thieu",
@@ -65,6 +66,7 @@ async function loadPostRoutes() {
     return [];
   }
 
+  const redirectedFullSlugs = await loadRedirectedFullSlugs();
   const posts = [];
   for (const file of files) {
     if (!file.endsWith(".md")) continue;
@@ -75,10 +77,26 @@ async function loadPostRoutes() {
     const slug = slugifyVietnamese(meta.slug || fileSlug);
     const lastmod = meta.date || deriveDateFromFilename(file) || undefined;
     if (!slug) continue;
+    if (redirectedFullSlugs.has(fileSlug)) continue;
     posts.push({ loc: `/tin-tuc/${encodeURIComponent(slug)}`, lastmod });
   }
 
-  return posts;
+  return [...new Map(posts.map((post) => [post.loc, post])).values()];
+}
+
+async function loadRedirectedFullSlugs() {
+  try {
+    const raw = await fs.readFile(duplicateRedirectMapPath, "utf8");
+    const map = JSON.parse(raw);
+    return new Set(
+      map.duplicateGroups
+        .flatMap((group) => group.posts)
+        .filter((post) => !post.isCanonical)
+        .map((post) => post.fullSlug),
+    );
+  } catch {
+    return new Set();
+  }
 }
 
 async function loadStaticRoutesFromApp() {

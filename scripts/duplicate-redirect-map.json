@@ -1,0 +1,91 @@
+{
+  "generatedFrom": "content/blog/*.md",
+  "rule": "Bài có ngày publish sớm nhất là canonical; các bài còn lại redirect 301 về canonical.",
+  "duplicateGroups": [
+    {
+      "canonicalSlug": "day-nhanh-hinh-thanh-quy-dau-tu-mao-hiem-quoc-gia",
+      "posts": [
+        { "fullSlug": "day-nhanh-hinh-thanh-quy-dau-tu-mao-hiem-quoc-gia-f08d45ad5a", "date": "2026-06-18", "isCanonical": true, "title": "Đẩy nhanh hình thành Quỹ đầu tư mạo hiểm quốc gia: Chìa khóa mở khóa vốn mạo hiểm cho startup Việt" },
+        { "fullSlug": "day-nhanh-hinh-thanh-quy-dau-tu-mao-hiem-quoc-gia-09b7ee73b2", "date": "2026-06-19", "isCanonical": false, "title": "Đẩy nhanh hình thành Quỹ đầu tư mạo hiểm quốc gia: Cú hích vốn cho startup và hệ sinh thái đổi mới sáng tạo" },
+        { "fullSlug": "day-nhanh-hinh-thanh-quy-dau-tu-mao-hiem-quoc-gia-f7dbbf1e98", "date": "2026-06-20", "isCanonical": false, "title": "Đẩy nhanh hình thành quỹ đầu tư mạo hiểm quốc gia: Thiết kế vốn mồi để kéo dòng tiền VC vào startup" }
+      ]
+    },
+    {
+      "canonicalSlug": "mau-html-cau-truc-trang-web-the-h1-h2-css-container-javascript-console-log",
+      "posts": [
+        { "fullSlug": "mau-html-cau-truc-trang-web-the-h1-h2-css-container-javascript-console-log-416f51aedd", "date": "2026-06-11", "isCanonical": true, "title": "Mẫu HTML và cấu trúc trang web: Từ thẻ H1, H2 đến CSS container & JavaScript console.log (góc nhìn economy cho sản phẩm nội dung)" },
+        { "fullSlug": "mau-html-cau-truc-trang-web-the-h1-h2-css-container-javascript-console-log-54a427cab4", "date": "2026-07-28", "isCanonical": false, "title": "Mẫu HTML và cấu trúc trang web: Học nhanh front-end cơ bản với thẻ H1 H2, CSS container và JavaScript console.log" }
+      ]
+    },
+    {
+      "canonicalSlug": "microsoft-phat-hien-backdoor-nhe-danh-cap-tien-ma-hoa",
+      "posts": [
+        { "fullSlug": "microsoft-phat-hien-backdoor-nhe-danh-cap-tien-ma-hoa-05242558ca", "date": "2026-06-19", "isCanonical": true, "title": "Microsoft phát hiện backdoor nhẹ đánh cắp tiền mã hóa: Vì sao “payload nhỏ gọn” đang trở thành xu hướng nguy hiểm?" },
+        { "fullSlug": "microsoft-phat-hien-backdoor-nhe-danh-cap-tien-ma-hoa-4b9b3f8d8d", "date": "2026-06-21", "isCanonical": false, "title": "Microsoft phát hiện backdoor nhẹ đánh cắp tiền mã hóa: Xu hướng malware tối ưu ẩn mình và cách bảo vệ ví crypto" },
+        { "fullSlug": "microsoft-phat-hien-backdoor-nhe-danh-cap-tien-ma-hoa-ecb587575b", "date": "2026-06-21", "isCanonical": false, "title": "Microsoft phát hiện backdoor nhẹ đánh cắp tiền mã hóa: xu hướng “mã độc tối giản” và cách phòng thủ" }
+      ]
+    },
+    {
+      "canonicalSlug": "nvidia-nemotron-3-nano-omni-ai-da-phuong-thuc-long-context-agents",
+      "posts": [
+        { "fullSlug": "nvidia-nemotron-3-nano-omni-ai-da-phuong-thuc-long-context-agents-d13a263317", "date": "2026-06-20", "isCanonical": true, "title": "NVIDIA Nemotron 3 Nano Omni: Bước tiến AI đa phương thức và long-context cho tác nhân AI tài liệu, âm thanh, video" },
+        { "fullSlug": "nvidia-nemotron-3-nano-omni-ai-da-phuong-thuc-long-context-agents-b0fd32e82b", "date": "2026-07-20", "isCanonical": false, "title": "NVIDIA Nemotron 3 Nano Omni và xu hướng AI đa phương thức long context cho agents tài liệu, âm thanh, video" }
+      ]
+    },
+    {
+      "canonicalSlug": "sair-tri-tue-cau-truc-ai-duoc-pham-tang-toc-rd-duoc",
+      "posts": [
+        { "fullSlug": "sair-tri-tue-cau-truc-ai-duoc-pham-tang-toc-rd-duoc-f0457f1ee0", "date": "2026-03-27", "isCanonical": true, "title": "SAIR và trí tuệ cấu trúc: AI dược phẩm tăng tốc R&D dược từ dữ liệu cấu trúc protein đến thiết kế thuốc bằng AI" },
+        { "fullSlug": "sair-tri-tue-cau-truc-ai-duoc-pham-tang-toc-rd-duoc-5634261235", "date": "2026-03-30", "isCanonical": false, "title": "SAIR và trí tuệ cấu trúc: Cách AI dược phẩm tăng tốc R&D dược từ target đến tối ưu hóa ứng viên thuốc" }
+      ]
+    },
+    {
+      "canonicalSlug": "thien-lech-trong-hoc-may-machine-learning-bias",
+      "posts": [
+        { "fullSlug": "thien-lech-trong-hoc-may-machine-learning-bias-9345c96878", "date": "2026-06-09", "isCanonical": true, "title": "Thiên lệch trong học máy (Machine Learning Bias): Rủi ro, đo lường và cách giảm thiểu để AI đáng tin cậy" },
+        { "fullSlug": "thien-lech-trong-hoc-may-machine-learning-bias-1d1b176ecf", "date": "2026-06-17", "isCanonical": false, "title": "Thiên lệch trong học máy (Machine Learning Bias): Nhận diện, giảm thiểu và quản trị đạo đức AI" }
+      ]
+    },
+    {
+      "canonicalSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe",
+      "posts": [
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-da3290fec1", "date": "2026-03-17", "isCanonical": true, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Cơ hội vốn R&D và bài toán cơ chế" },
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-13c93ca082", "date": "2026-03-18", "isCanonical": false, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Thiết kế kênh vốn, ưu đãi và tác động tới hệ sinh thái đổi mới sáng tạo" },
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-b11b02cce6", "date": "2026-03-18", "isCanonical": false, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Bài toán vốn dài hạn cho kinh tế tri thức" },
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-5b8047ad30", "date": "2026-03-19", "isCanonical": false, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Nguồn vốn mới cho đổi mới sáng tạo và kinh tế tri thức" },
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-a1009e7490", "date": "2026-03-20", "isCanonical": false, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Biến dòng tiền diaspora thành vốn tăng trưởng" },
+        { "fullSlug": "tp-hcm-huy-dong-1000-ty-dong-kieu-hoi-cho-khoa-hoc-cong-nghe-9a2ebc26b0", "date": "2026-03-21", "isCanonical": false, "title": "TP HCM huy động 1.000 tỷ đồng kiều hối cho khoa học công nghệ: Từ “dòng tiền” đến động cơ đổi mới sáng tạo" }
+      ]
+    },
+    {
+      "canonicalSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-cho-khoa-hoc-cong-nghe",
+      "posts": [
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-cho-khoa-hoc-cong-nghe-34d6d5fd48", "date": "2026-03-17", "isCanonical": true, "title": "TP HCM huy động kiều hối 1.000 tỷ đồng cho khoa học công nghệ: Cơ chế nào để dòng tiền “đúng chỗ” và tạo đổi mới sáng tạo?" },
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-cho-khoa-hoc-cong-nghe-207d523235", "date": "2026-03-19", "isCanonical": false, "title": "TP HCM huy động kiều hối 1.000 tỷ đồng cho khoa học công nghệ: Từ dòng tiền tiêu dùng sang vốn cho R&D" },
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-cho-khoa-hoc-cong-nghe-628a0bc8d8", "date": "2026-03-21", "isCanonical": false, "title": "TP HCM huy động kiều hối 1.000 tỷ đồng cho khoa học công nghệ: Cơ hội vốn mới hay bài toán thiết kế cơ chế?" }
+      ]
+    },
+    {
+      "canonicalSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-dong-cho-khoa-hoc-cong-nghe",
+      "posts": [
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-dong-cho-khoa-hoc-cong-nghe-9c99173dfe", "date": "2026-03-17", "isCanonical": true, "title": "TP HCM huy động kiều hối cho khoa học công nghệ: Công cụ nào hiệu quả và quản trị ra sao?" },
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-dong-cho-khoa-hoc-cong-nghe-e93347189e", "date": "2026-03-20", "isCanonical": false, "title": "TP HCM huy động kiều hối cho khoa học công nghệ: Biến kiều hối thành vốn R&D dài hạn" },
+        { "fullSlug": "tp-hcm-huy-dong-kieu-hoi-1000-ty-dong-cho-khoa-hoc-cong-nghe-f31a79d7de", "date": "2026-03-21", "isCanonical": false, "title": "TP HCM huy động kiều hối cho khoa học công nghệ: Cơ hội tạo vốn mồi cho đổi mới sáng tạo" }
+      ]
+    },
+    {
+      "canonicalSlug": "viet-nam-lam-chu-cong-nghe-lo-phan-ung-hat-nhan-module-nho-smr",
+      "posts": [
+        { "fullSlug": "viet-nam-lam-chu-cong-nghe-lo-phan-ung-hat-nhan-module-nho-smr-bdf8682bf1", "date": "2026-03-23", "isCanonical": true, "title": "Việt Nam muốn làm chủ công nghệ lò phản ứng hạt nhân module nhỏ (SMR): Cần gì để đi từ tham vọng đến triển khai?" },
+        { "fullSlug": "viet-nam-lam-chu-cong-nghe-lo-phan-ung-hat-nhan-module-nho-smr-243048d66f", "date": "2026-03-24", "isCanonical": false, "title": "Việt Nam muốn làm chủ công nghệ lò phản ứng hạt nhân module nhỏ (SMR): Xu hướng, thách thức và “stack” công nghệ cần có" }
+      ]
+    },
+    {
+      "canonicalSlug": "xuat-khau-cong-nghe-so-viet-nam-muc-tieu-55-ty-usd",
+      "posts": [
+        { "fullSlug": "xuat-khau-cong-nghe-so-viet-nam-muc-tieu-55-ty-usd-42e86ad65d", "date": "2026-06-07", "isCanonical": true, "title": "Xuất khẩu công nghệ số Việt Nam hướng mục tiêu 55 tỷ USD/năm: Cơ hội, điểm nghẽn và chiến lược thắng lớn" },
+        { "fullSlug": "xuat-khau-cong-nghe-so-viet-nam-muc-tieu-55-ty-usd-6e76902d58", "date": "2026-06-09", "isCanonical": false, "title": "Xuất khẩu công nghệ số: Việt Nam nhắm mục tiêu 55 tỷ USD/năm và 4 đòn bẩy để bứt tốc" }
+      ]
+    }
+  ]
+}
